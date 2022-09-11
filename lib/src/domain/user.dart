@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Usuario {
+
+  late String usuario;
+  late String correo;
+
   Usuario({@required usuario, @required correo}) {
     this.usuario = usuario;
     this.correo = correo;
   }
-
-  late String usuario;
-  late String correo;
 
   factory Usuario.fromJson(Map<String, dynamic> json) => Usuario(
         usuario: json["usuario"],

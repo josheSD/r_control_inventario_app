@@ -8,4 +8,8 @@ class Envinronment{
   static Color colorBackground = Color(0xFFF0F0F0);
   static Color colorWhite = Color(0xFFFFFFFF);
   static Color colorBlack = Color(0xFF000000);
-}
+
+  static TextInputType controlText = TextInputType.text;
+  static TextInputType controlNumber = TextInputType.number;
+  static TextInputType controlCorreo = TextInputType.emailAddress;
+} 

@@ -20,7 +20,7 @@ class AuthProvider with ChangeNotifier {
       return;
     }
     // Auth auth = Auth.fromJson(form.value);
-    // Response<Usuario> response = await _authService.Login(auth);
+    // Response<Usuario> response = await _authService.login(auth);
     // if (response.status) {
     //   this.form.reset(removeFocus: true);
 

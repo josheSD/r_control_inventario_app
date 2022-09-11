@@ -9,7 +9,7 @@ import 'dart:convert';
 class AuthService {
   UserPreference _userPreference = new UserPreference();
 
-  Future<Response<Usuario>> Login(Auth auth) async {
+  Future<Response<Usuario>> login(Auth auth) async {
     try {
       String url = '${Envinronment.urlPersonal}/login';
 

@@ -1,5 +1,6 @@
-import 'package:controlinventario/src/UI/feature/dashboard/dashboard_provider.dart';
+import 'package:controlinventario/src/UI/feature/inventario-crear/inventario_crear_provider.dart';
 import 'package:controlinventario/src/UI/feature/inventario/inventario_provider.dart';
+import 'package:controlinventario/src/UI/feature/tablero/tablero_provider.dart';
 import 'package:controlinventario/src/UI/layout/admin/admin_provider.dart';
 import 'package:controlinventario/src/UI/layout/auth/auth_provider.dart';
 import 'package:controlinventario/src/core/shared-preferences/user.preference.dart';
@@ -24,8 +25,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => AdminProvider()),
-        ChangeNotifierProvider(create: (context) => DashboardProvider()),
+        ChangeNotifierProvider(create: (context) => TableroProvider()),
         ChangeNotifierProvider(create: (context) => InventarioProvider()),
+        ChangeNotifierProvider(create: (context) => InventarioCrearProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

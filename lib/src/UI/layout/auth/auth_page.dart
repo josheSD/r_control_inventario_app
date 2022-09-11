@@ -1,4 +1,5 @@
 import 'package:controlinventario/src/UI/layout/auth/auth_provider.dart';
+import 'package:controlinventario/src/core/components/input.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,11 +30,9 @@ class _AuthPageState extends State<AuthPage> {
                         SizedBox(height: 25.0),
                         _logoTipo(),
                         SizedBox(height: 30.0),
-                        _inputForm(
-                            'usuario', 'Usuario', 'Ingresa usuario', false),
+                        Input.control('usuario', 'Usuario', 'Ingresa usuario', false, Envinronment.controlCorreo),
                         SizedBox(height: 18.0),
-                        _inputForm('contrasenia', 'Contraseña',
-                            'Ingresa contraseña', true),
+                        Input.control('contrasenia', 'Contraseña','Ingresa contraseña', true, Envinronment.controlText),
                         SizedBox(height: 15.0),
                         _buttonSubmit(authProvider, context)
                       ],
@@ -43,38 +42,6 @@ class _AuthPageState extends State<AuthPage> {
               ),
             )),
       ),
-    );
-  }
-
-  Widget _inputForm(String formControlName, String labelText, String errorText,
-      bool isContrasenia) {
-    return ReactiveTextField(
-      formControlName: formControlName,
-      textInputAction: TextInputAction.next,
-      validationMessages: {ValidationMessage.required: (error) => errorText},
-      obscureText: isContrasenia,
-      cursorColor: Envinronment.colorPrimary,
-      style: TextStyle(
-          color: Envinronment.colorPrimary,
-          decorationColor: Envinronment.colorPrimary),
-      decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: new TextStyle(color: Envinronment.colorPrimary),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorDanger),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorPrimary),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorDanger),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorPrimary),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorPrimary),
-          )),
     );
   }
 
