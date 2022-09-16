@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class Input {
-  static Widget control(String formControlName, String labelText,
-      String errorText, bool isContrasenia, TextInputType type) {
+  static Widget control(
+      {required String formControlName,
+      required String labelText,
+      required String errorText,
+      required bool isContrasenia,
+      required TextInputType type}) {
     return ReactiveTextField(
       formControlName: formControlName,
       textInputAction: TextInputAction.next,
@@ -37,11 +41,14 @@ class Input {
     );
   }
 
-  static Widget select(String formControlName, String labelText,
-      String errorText, List<TipoInventario> tipoInventario) {
-
+  static Widget select(
+      {required String formControlName,
+      required String labelText,
+      required String errorText,
+      required List<TipoInventario> tipoInventario}) {
     return ReactiveDropdownField(
-      items: tipoInventario.map<DropdownMenuItem<String>>((TipoInventario value) {
+      items:
+          tipoInventario.map<DropdownMenuItem<String>>((TipoInventario value) {
         return DropdownMenuItem<String>(
           value: value.id.toString(),
           child: Text(value.nombre),

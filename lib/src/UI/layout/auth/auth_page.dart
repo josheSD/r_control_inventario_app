@@ -30,9 +30,19 @@ class _AuthPageState extends State<AuthPage> {
                         SizedBox(height: 25.0),
                         _logoTipo(),
                         SizedBox(height: 30.0),
-                        Input.control('usuario', 'Usuario', 'Ingresa usuario', false, Envinronment.controlCorreo),
+                        Input.control(
+                            formControlName: 'usuario',
+                            labelText: 'Usuario',
+                            errorText: 'Ingresa usuario',
+                            isContrasenia: false,
+                            type: Envinronment.controlCorreo),
                         SizedBox(height: 18.0),
-                        Input.control('contrasenia', 'Contraseña','Ingresa contraseña', true, Envinronment.controlText),
+                        Input.control(
+                            formControlName: 'contrasenia',
+                            labelText: 'Contraseña',
+                            errorText: 'Ingresa contraseña',
+                            isContrasenia: true,
+                            type: Envinronment.controlText),
                         SizedBox(height: 15.0),
                         _buttonSubmit(authProvider, context)
                       ],
@@ -48,8 +58,9 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buttonSubmit(AuthProvider authProvider, BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          minimumSize: Size.fromHeight(40),
-          primary: Envinronment.colorSecond,),
+        minimumSize: Size.fromHeight(40),
+        primary: Envinronment.colorSecond,
+      ),
       child: Text('Iniciar Sesión'),
       onPressed: () => {_onPressed(authProvider, context)},
     );
