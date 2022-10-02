@@ -9,8 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class UsuarioPage extends StatefulWidget {
-  const UsuarioPage({super.key});
-
   @override
   State<UsuarioPage> createState() => _UsuarioPageState();
 }
@@ -20,11 +18,12 @@ class _UsuarioPageState extends State<UsuarioPage> {
   Widget build(BuildContext context) {
     final usuarioProvider =
         Provider.of<UsuarioProvider>(context, listen: false);
-        
+
     return Scaffold(
         backgroundColor: Envinronment.colorBackground,
         appBar: AppBar(
-          title: Text('Usuario',style: TextStyle(fontWeight: FontWeight.normal,fontSize: 18)),
+          title: Text('Usuario',
+              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18)),
           centerTitle: true,
           backgroundColor: Envinronment.colorBackground,
           titleTextStyle: TextStyle(color: Envinronment.colorBlack),
@@ -54,11 +53,12 @@ class _UsuarioPageState extends State<UsuarioPage> {
           backgroundColor: Envinronment.colorButton,
           child: Icon(FontAwesomeIcons.plus,
               color: Envinronment.colorBlack, size: 24),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.USUARIO_CREAR);
+          },
         ));
   }
 
-  
   _buildReporte(BuildContext context, UsuarioProvider usuarioProvider) {
     return Container(
       margin: EdgeInsets.only(left: 18, right: 18, bottom: 5),
@@ -73,12 +73,14 @@ class _UsuarioPageState extends State<UsuarioPage> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(FontAwesomeIcons.solidFilePdf,color: Envinronment.colorBlack),
+              Icon(FontAwesomeIcons.solidFilePdf,
+                  color: Envinronment.colorBlack),
               Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text('Reporte',
                     style: TextStyle(
-                        color: Envinronment.colorBlack, fontWeight: FontWeight.normal)),
+                        color: Envinronment.colorBlack,
+                        fontWeight: FontWeight.normal)),
               ),
             ],
           ),
@@ -175,12 +177,11 @@ class _UsuarioPageState extends State<UsuarioPage> {
                 ),
               ],
             ),
-            onTap: () => Navigator.pushNamed(context, Routes.USUARIO,
+            onTap: () => Navigator.pushNamed(context, Routes.USUARIO_CREAR,
                 arguments: usuario),
           ),
         ),
       ),
     );
   }
-  
 }

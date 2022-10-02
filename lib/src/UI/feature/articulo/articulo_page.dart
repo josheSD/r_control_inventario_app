@@ -8,7 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ArticuloPage extends StatefulWidget {
-  const ArticuloPage({super.key});
 
   @override
   State<ArticuloPage> createState() => _ArticuloPageState();
@@ -64,7 +63,9 @@ class _ArticuloPageState extends State<ArticuloPage> {
           backgroundColor: Envinronment.colorButton,
           child: Icon(FontAwesomeIcons.plus,
               color: Envinronment.colorBlack, size: 24),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.ARTICULO_CREAR);
+          },
         ));
   }
 
@@ -92,7 +93,9 @@ class _ArticuloPageState extends State<ArticuloPage> {
             ],
           ),
         ),
-        onPressed: () => {},
+        onPressed: (){
+          Navigator.pushNamed(context, Routes.ARTICULO_CREAR);
+        },
       ),
     );
   }
@@ -191,7 +194,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
                 ),
               ],
             ),
-            onTap: () => Navigator.pushNamed(context, Routes.ARTICULO,
+            onTap: () => Navigator.pushNamed(context, Routes.ARTICULO_CREAR,
                 arguments: articulo),
           ),
         ),

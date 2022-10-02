@@ -8,8 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AlmacenPage extends StatefulWidget {
-  const AlmacenPage({super.key});
-
   @override
   State<AlmacenPage> createState() => _AlmacenPageState();
 }
@@ -53,7 +51,9 @@ class _AlmacenPageState extends State<AlmacenPage> {
           backgroundColor: Envinronment.colorButton,
           child: Icon(FontAwesomeIcons.plus,
               color: Envinronment.colorBlack, size: 24),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.ALMACEN_CREAR);
+          },
         ));
   }
   
@@ -173,7 +173,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
                 ),
               ],
             ),
-            onTap: () => Navigator.pushNamed(context, Routes.ALMACEN,
+            onTap: () => Navigator.pushNamed(context, Routes.ALMACEN_CREAR,
                 arguments: almacen),
           ),
         ),

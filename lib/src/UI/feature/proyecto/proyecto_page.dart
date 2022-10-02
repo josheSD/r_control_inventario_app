@@ -8,7 +8,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ProyectoPage extends StatefulWidget {
-  const ProyectoPage({super.key});
 
   @override
   State<ProyectoPage> createState() => _ProyectoPageState();
@@ -54,7 +53,9 @@ class _ProyectoPageState extends State<ProyectoPage> {
           backgroundColor: Envinronment.colorButton,
           child: Icon(FontAwesomeIcons.plus,
               color: Envinronment.colorBlack, size: 24),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.PROYECTO_CREAR);
+          },
         ));
   }
 
@@ -178,7 +179,8 @@ class _ProyectoPageState extends State<ProyectoPage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                           color: proyecto.estado == EProyecto.VIGENTE.index
                               ? Envinronment.colorVigente
@@ -199,7 +201,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
                 ),
               ],
             ),
-            onTap: () => Navigator.pushNamed(context, Routes.PROYECTO,
+            onTap: () => Navigator.pushNamed(context, Routes.PROYECTO_CREAR,
                 arguments: proyecto),
           ),
         ),
