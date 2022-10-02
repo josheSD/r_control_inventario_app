@@ -59,11 +59,11 @@ class _InventarioPageState extends State<InventarioPage> {
                               fontSize: 16.0, fontWeight: FontWeight.bold)),
                       duration: Duration(seconds: 2),
                       backgroundColor: Colors.red);
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Scaffold.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(snackBar);
-                  });
+                  // WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //   Scaffold.of(context)
+                  //     ..hideCurrentSnackBar()
+                  //     ..showSnackBar(snackBar);
+                  // });
 
                   return Container();
                 }
@@ -103,7 +103,7 @@ class _InventarioPageState extends State<InventarioPage> {
           title: Text(
             '${inventario.nombre} - S/. ${inventario.costo}',
           ),
-          onTap: () => Navigator.pushNamed(context, Routes.INVENTARIO_CREAR,
+          onTap: () => Navigator.pushNamed(context, Routes.ARTICULO,
               arguments: inventario),
         ),
       ),

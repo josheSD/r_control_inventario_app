@@ -10,34 +10,45 @@ class Input {
       required String errorText,
       required bool isContrasenia,
       required TextInputType type}) {
-    return ReactiveTextField(
-      formControlName: formControlName,
-      textInputAction: TextInputAction.next,
-      validationMessages: {ValidationMessage.required: (error) => errorText},
-      obscureText: isContrasenia,
-      cursorColor: Envinronment.colorPrimary,
-      keyboardType: type,
-      style: TextStyle(
-          color: Envinronment.colorPrimary,
-          decorationColor: Envinronment.colorPrimary),
-      decoration: InputDecoration(
-          labelText: labelText,
-          labelStyle: new TextStyle(color: Envinronment.colorPrimary),
-          errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorDanger),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(margin: EdgeInsets.only(bottom: 6), child: Text(labelText)),
+        ReactiveTextField(
+          formControlName: formControlName,
+          textInputAction: TextInputAction.next,
+          validationMessages: {
+            ValidationMessage.required: (error) => errorText
+          },
+          obscureText: isContrasenia,
+          cursorColor: Envinronment.colorPrimary,
+          keyboardType: type,
+          style: TextStyle(
+            color: Envinronment.colorPrimary,
+            decorationColor: Envinronment.colorPrimary,
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorPrimary),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorDanger),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorPrimary),
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Envinronment.colorPrimary),
-          )),
+          decoration: InputDecoration(
+              isDense: true,
+              contentPadding: EdgeInsets.all(9),
+              filled: true,
+              fillColor: Envinronment.colorWhite,
+              errorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Envinronment.colorDanger),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Envinronment.colorPrimary),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Envinronment.colorDanger),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Envinronment.colorPrimary),
+              ),
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Envinronment.colorPrimary),
+              )),
+        ),
+      ],
     );
   }
 

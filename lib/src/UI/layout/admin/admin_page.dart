@@ -1,10 +1,9 @@
-import 'package:controlinventario/src/UI/feature/inventario/inventario_page.dart';
 import 'package:controlinventario/src/UI/feature/tablero/tablero_page.dart';
 import 'package:controlinventario/src/UI/layout/admin/admin_provider.dart';
-import 'package:controlinventario/src/UI/layout/auth/auth_provider.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:controlinventario/src/core/util/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AdminPage extends StatefulWidget {
@@ -18,48 +17,87 @@ class _AdminPageState extends State<AdminPage> {
     final adminProvider = Provider.of<AdminProvider>(context, listen: false);
 
     return Scaffold(
+      backgroundColor: Envinronment.colorBackground,
+      body: TableroPage(),
+      appBar: AppBar(
         backgroundColor: Envinronment.colorBackground,
-        body: _pageCurrent(adminProvider),
-        floatingActionButton: _floatinButton(adminProvider),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: adminProvider.paginaActual,
-          onTap: (index) {
-            setState(() {
-              adminProvider.setPaginaActual = index;
-            });
-          },
-          backgroundColor: Envinronment.colorWhite,
-          fixedColor: Envinronment.colorSecond,
-          items: [
-            BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard), label: 'Dashboard'),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.inbox), label: 'Inventario'),
-          ],
-        ));
-  }
-
-  _pageCurrent(AdminProvider adminProvider) {
-    if (adminProvider.paginaActual == 0) {
-      return TableroPage();
-    }
-    if (adminProvider.paginaActual == 1) {
-      return InventarioPage();
-    }
-    return TableroPage();
-  }
-
-  _floatinButton(AdminProvider adminProvider) {
-    if (adminProvider.paginaActual == 0) {
-      return null;
-    } else {
-      return FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, Routes.INVENTARIO_CREAR);
-        },
-        backgroundColor: Envinronment.colorSecond,
-        child: const Icon(Icons.add),
-      );
-    }
+        titleTextStyle: TextStyle(color: Envinronment.colorBlack),
+        elevation: 0,
+        leading: Builder(builder: (BuildContext context) {
+          return IconButton(
+            icon: const Icon(Icons.menu),
+            color: Envinronment.colorPrimary,
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          );
+        }),
+      ),
+      drawer: Drawer(
+          child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            padding: EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(FontAwesomeIcons.circleUser,size: 60),
+                SizedBox(height: 15,),
+                Text('Ronald Chutas Ramos',
+                    style: TextStyle(fontWeight: FontWeight.normal)),
+                SizedBox(height: 10,),
+                Text('Administrador',
+                    style: TextStyle(fontWeight: FontWeight.normal)),
+              ],
+            ),
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.wrench),
+            title: const Text('Artículo',
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.ARTICULO);
+            },
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.tent),
+            title: const Text('Almacén',
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.ALMACEN);
+            },
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.solidBuilding),
+            title: const Text('Proyecto',
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.PROYECTO);
+            },
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.userLarge),
+            title: const Text('Usuario',
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.USUARIO);
+            },
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.circleChevronLeft),
+            title: const Text('Salir',
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.AUTH);
+            },
+          ),
+        ],
+      )),
+    );
   }
 }

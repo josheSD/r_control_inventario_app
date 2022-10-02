@@ -36,14 +36,14 @@ class _AuthPageState extends State<AuthPage> {
                             errorText: 'Ingresa usuario',
                             isContrasenia: false,
                             type: Envinronment.controlCorreo),
-                        SizedBox(height: 18.0),
+                        SizedBox(height: 15.0),
                         Input.control(
                             formControlName: 'contrasenia',
                             labelText: 'Contraseña',
                             errorText: 'Ingresa contraseña',
                             isContrasenia: true,
                             type: Envinronment.controlText),
-                        SizedBox(height: 15.0),
+                        SizedBox(height: 30.0),
                         _buttonSubmit(authProvider, context)
                       ],
                     ),
@@ -59,9 +59,13 @@ class _AuthPageState extends State<AuthPage> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size.fromHeight(40),
-        primary: Envinronment.colorSecond,
+        backgroundColor: Envinronment.colorButton,
+        shape: StadiumBorder(),
+        elevation: 0,
       ),
-      child: Text('Iniciar Sesión'),
+      child: Text('Iniciar Sesión',
+          style: TextStyle(
+              color: Envinronment.colorBlack, fontWeight: FontWeight.normal)),
       onPressed: () => {_onPressed(authProvider, context)},
     );
   }

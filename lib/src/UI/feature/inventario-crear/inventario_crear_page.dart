@@ -78,11 +78,11 @@ class _InventarioCrearPageState extends State<InventarioCrearPage> {
                                       fontWeight: FontWeight.bold)),
                               duration: Duration(seconds: 2),
                               backgroundColor: Colors.red);
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            Scaffold.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(snackBar);
-                          });
+                          // WidgetsBinding.instance.addPostFrameCallback((_) {
+                          //   Scaffold.of(context)
+                          //     ..hideCurrentSnackBar()
+                          //     ..showSnackBar(snackBar);
+                          // });
 
                           return Container();
                         }

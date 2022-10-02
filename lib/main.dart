@@ -1,6 +1,10 @@
+import 'package:controlinventario/src/UI/feature/almacen/almacen_provider.dart';
+import 'package:controlinventario/src/UI/feature/articulo/articulo_provider.dart';
 import 'package:controlinventario/src/UI/feature/inventario-crear/inventario_crear_provider.dart';
 import 'package:controlinventario/src/UI/feature/inventario/inventario_provider.dart';
+import 'package:controlinventario/src/UI/feature/proyecto/proyecto_provider.dart';
 import 'package:controlinventario/src/UI/feature/tablero/tablero_provider.dart';
+import 'package:controlinventario/src/UI/feature/usuario/usuario_provider.dart';
 import 'package:controlinventario/src/UI/layout/admin/admin_provider.dart';
 import 'package:controlinventario/src/UI/layout/auth/auth_provider.dart';
 import 'package:controlinventario/src/core/shared-preferences/user.preference.dart';
@@ -23,11 +27,16 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
+        // ChangeNotifierProvider(create: (context) => InventarioProvider()),
+        // ChangeNotifierProvider(create: (context) => InventarioCrearProvider()),
+
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => AdminProvider()),
         ChangeNotifierProvider(create: (context) => TableroProvider()),
-        ChangeNotifierProvider(create: (context) => InventarioProvider()),
-        ChangeNotifierProvider(create: (context) => InventarioCrearProvider()),
+        ChangeNotifierProvider(create: (context) => ArticuloProvider()),
+        ChangeNotifierProvider(create: (context) => AlmacenProvider()),
+        ChangeNotifierProvider(create: (context) => ProyectoProvider()),
+        ChangeNotifierProvider(create: (context) => UsuarioProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

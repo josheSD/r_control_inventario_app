@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Tablero {
+class Categoria {
   late int id;
   late String nombre;
 
-  Tablero({@required id, @required nombre}) {
+  Categoria({@required id, @required nombre}) {
     this.id = id;
     this.nombre = nombre;
   }
 
-  factory Tablero.fromJson(Map<String, dynamic> json) => Tablero(
+  factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
         id: json["id"],
         nombre: json["nombre"],
       );

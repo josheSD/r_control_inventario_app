@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Tablero {
+class Rol {
   late int id;
   late String nombre;
 
-  Tablero({@required id, @required nombre}) {
+  Rol({@required id, @required nombre}) {
     this.id = id;
     this.nombre = nombre;
   }
 
-  factory Tablero.fromJson(Map<String, dynamic> json) => Tablero(
+  factory Rol.fromJson(Map<String, dynamic> json) => Rol(
         id: json["id"],
         nombre: json["nombre"],
       );
@@ -18,4 +18,9 @@ class Tablero {
         "id": id,
         "nombre": nombre,
       };
+}
+
+enum ERol {
+  ADMINISTRADOR,
+  ALMACENERO,
 }
