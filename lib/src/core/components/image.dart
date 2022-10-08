@@ -116,15 +116,20 @@ class ImageWidget extends StatelessWidget {
         return AlertDialog(
           content: Image.file(image),
           actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Cerrar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(width: 1.0, color: Envinronment.colorButton),
+                  backgroundColor: Envinronment.colorWhite,
+                  shape: StadiumBorder(),
+                  elevation: 0,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Cerrar',
+                    style: TextStyle(
+                        color: Envinronment.colorBlack,
+                        fontWeight: FontWeight.normal)))
           ],
         );
       },

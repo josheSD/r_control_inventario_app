@@ -39,7 +39,12 @@ class AuthProvider with ChangeNotifier {
     // }
 
 
-    this.form.reset(removeFocus: true);
+    // form.reset(removeFocus: true);
     Navigator.pushNamed(context, 'portal');
   }
+
+  cleanForm(){
+    form.reset(removeFocus: true);
+  }
+
 }

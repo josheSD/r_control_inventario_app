@@ -49,7 +49,6 @@ class _UsuarioPageState extends State<UsuarioPage> {
         ))),
         floatingActionButton: FloatingActionButton(
           elevation: 2,
-          mini: true,
           backgroundColor: Envinronment.colorButton,
           child: Icon(FontAwesomeIcons.plus,
               color: Envinronment.colorBlack, size: 24),

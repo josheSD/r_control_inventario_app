@@ -11,9 +11,22 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  late AuthProvider authProvider;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    authProvider.cleanForm();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    authProvider = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Envinronment.colorBackground,

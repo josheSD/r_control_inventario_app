@@ -49,7 +49,6 @@ class _ProyectoPageState extends State<ProyectoPage> {
         ))),
         floatingActionButton: FloatingActionButton(
           elevation: 2,
-          mini: true,
           backgroundColor: Envinronment.colorButton,
           child: Icon(FontAwesomeIcons.plus,
               color: Envinronment.colorBlack, size: 24),

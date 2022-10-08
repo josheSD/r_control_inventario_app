@@ -117,11 +117,11 @@ class _InventarioCrearPageState extends State<InventarioCrearPage> {
                   SizedBox(
                     height: 25.0,
                   ),
-                  Input.select(
-                      formControlName: 'tipo',
-                      labelText: 'Tipo',
-                      errorText: 'Ingrese Tipo',
-                      tipoInventario: tipoInventario),
+                  // Input.select(
+                  //     formControlName: 'tipo',
+                  //     labelText: 'Tipo',
+                  //     errorText: 'Ingrese Tipo',
+                  //     tipoInventario: tipoInventario),
                   SizedBox(height: 18.0),
                   Input.control(
                       formControlName: 'nombre',
