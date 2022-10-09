@@ -1,22 +1,39 @@
+import 'package:controlinventario/src/domain/rol.dart';
 import 'package:flutter/material.dart';
 
 class Login {
+  late String nombre;
+  late String direccion;
+  late String usuario;
+  late Rol rol;
+  late String token;
 
-  late String usario;
-  late String correo;
-
-  Login({@required usario, @required correo}) {
-    this.usario = usario;
-    this.correo = correo;
+  Login(
+      {@required nombre,
+      @required direccion,
+      @required usuario,
+      @required rol,
+      @required token}) {
+    this.nombre = nombre;
+    this.direccion = direccion;
+    this.usuario = usuario;
+    this.rol = rol;
+    this.token = token;
   }
 
   factory Login.fromJson(Map<String, dynamic> json) => Login(
-        usario: json["usario"],
-        correo: json["correo"],
+        nombre: json["nombre"],
+        direccion: json["direccion"],
+        usuario: json["usuario"],
+        rol: Rol.fromJson(json["rol"]),
+        token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "usario": usario,
-        "correo": correo,
+        "nombre": nombre,
+        "direccion": direccion,
+        "usuario": usuario,
+        "rol": rol,
+        "token": token,
       };
 }

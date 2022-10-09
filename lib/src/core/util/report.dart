@@ -28,4 +28,30 @@ class ReportPDF {
 
     return pdf;
   }
+  static pw.Document proyecto() {
+    final pdf = pw.Document();
+
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Text("Reporte de proyecto"),
+          ); // Center
+        })); // Page
+
+    return pdf;
+  }
+  static pw.Document usuario() {
+    final pdf = pw.Document();
+
+    pdf.addPage(pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (pw.Context context) {
+          return pw.Center(
+            child: pw.Text("Reporte de usuario"),
+          ); // Center
+        })); // Page
+
+    return pdf;
+  }
 }

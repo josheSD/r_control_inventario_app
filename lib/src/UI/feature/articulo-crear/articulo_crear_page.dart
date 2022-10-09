@@ -28,7 +28,8 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   double? imageWidth;
   double? imageHeight;
 
-  bool _procesandoLoding = false;
+  bool _procesandoLoading = false;
+  bool _isCreate = true;
   late ArticuloProvider articuloProvider;
 
   @override
@@ -68,6 +69,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
       articuloProvider.initializeForm(argument as Articulo);
+      _isCreate = false;
     }
 
     return Scaffold(
@@ -179,12 +181,12 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
           Icon(FontAwesomeIcons.floppyDisk, color: Envinronment.colorBlack),
           Container(
             padding: EdgeInsets.only(left: 5),
-            child: Text('Grabar',
+            child: Text(_isCreate ? 'Grabar' : 'Actualizar',
                 style: TextStyle(
                     color: Envinronment.colorBlack,
                     fontWeight: FontWeight.normal)),
           ),
-          _procesandoLoding
+          _procesandoLoading
               ? Container(
                   margin: EdgeInsets.only(left: 12),
                   child: SizedBox(
@@ -197,7 +199,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding
+      onPressed: _procesandoLoading
           ? null
           : () => {_onPressed(context)},
     );

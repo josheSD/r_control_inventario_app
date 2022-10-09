@@ -27,9 +27,6 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        // ChangeNotifierProvider(create: (context) => InventarioProvider()),
-        // ChangeNotifierProvider(create: (context) => InventarioCrearProvider()),
-
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => AdminProvider()),
         ChangeNotifierProvider(create: (context) => TableroProvider()),

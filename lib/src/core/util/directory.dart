@@ -26,12 +26,12 @@ class DirectoryCustom {
 
   static Future<String> getNameProyecto() async {
     String pathDirectory = await DirectoryCustom.urlRoot();
-    return "$pathDirectory$pathAlmacen/reporte-proyecto-${DateTime.now()}.pdf";
+    return "$pathDirectory$pathProyecto/reporte-proyecto-${DateTime.now()}.pdf";
   }
 
   static Future<String> getNameUsuario() async {
     String pathDirectory = await DirectoryCustom.urlRoot();
-    return "$pathDirectory$pathAlmacen/reporte-usuario-${DateTime.now()}.pdf";
+    return "$pathDirectory$pathUsuario/reporte-usuario-${DateTime.now()}.pdf";
   }
 
   static create(String externalDirectoryPath) async {

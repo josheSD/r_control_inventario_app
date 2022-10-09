@@ -20,11 +20,9 @@ class AlmacenCrearPage extends StatefulWidget {
 }
 
 class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
-  File? image;
-  double? imageWidth;
-  double? imageHeight;
 
   bool _procesandoLoding = false;
+  bool _isCreate = true;
   late AlmacenProvider almacenProvider;
   late ArticuloProvider articuloProvider;
 
@@ -47,6 +45,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
       almacenProvider.initializeForm(argument as Almacen);
+      _isCreate = false;
     }
 
     return Scaffold(
@@ -222,7 +221,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
           ),
           Container(
             padding: EdgeInsets.only(left: 8),
-            child: Text('Guardar',
+            child: Text( _isCreate ? 'Guardar' : 'Actualizar',
                 style: TextStyle(
                     color: Envinronment.colorBlack,
                     fontWeight: FontWeight.normal)),

@@ -13,6 +13,7 @@ class Envinronment{
   static Color colorBackground = Color(0xFFF6F5EF);
   static Color colorVigente = Color(0xFFCFE2FF);
   static Color colorConcluido = Color(0xFFD1E7DD);
+  static Color colorDisabled = Color(0xFFF0F0F0);
 
   static TextInputType controlText = TextInputType.text;
   static TextInputType controlNumber = TextInputType.number;

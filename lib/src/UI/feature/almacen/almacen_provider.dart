@@ -85,8 +85,7 @@ class AlmacenProvider with ChangeNotifier {
   void initializeForm(Almacen almacen) {
     final value = {
       'nombre': almacen.nombre,
-      'direccion': almacen.direccion,
-      'articulos': almacen.articulo
+      'direccion': almacen.direccion
     };
     form.patchValue(value);
 
@@ -128,7 +127,7 @@ class AlmacenProvider with ChangeNotifier {
     return response;
   }
 
-  // Form Articulo
+  // ###############    Form Articulo   #########################
   FormGroup formArticulo = new FormGroup({
     'idArticulo':
         FormControl<String>(value: '', validators: [Validators.required]),

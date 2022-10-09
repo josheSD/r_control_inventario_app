@@ -12,6 +12,7 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   late AuthProvider authProvider;
+  bool _procesandoLoading = false;
 
   @override
   void initState() {
@@ -76,15 +77,41 @@ class _AuthPageState extends State<AuthPage> {
         shape: StadiumBorder(),
         elevation: 0,
       ),
-      child: Text('Iniciar Sesión',
-          style: TextStyle(
-              color: Envinronment.colorBlack, fontWeight: FontWeight.normal)),
-      onPressed: () => {_onPressed(context)},
+      // child: Text('Iniciar Sesión',
+      //     style: TextStyle(
+      //         color: Envinronment.colorBlack, fontWeight: FontWeight.normal)),
+      child: Container(
+          child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            padding: EdgeInsets.only(left: 5),
+            child: Text('Iniciar Sesión',
+                style: TextStyle(
+                    color: Envinronment.colorBlack,
+                    fontWeight: FontWeight.normal)),
+          ),
+          _procesandoLoading
+              ? Container(
+                  margin: EdgeInsets.only(left: 12),
+                  child: SizedBox(
+                    child: CircularProgressIndicator(
+                        color: Envinronment.colorWhite),
+                    height: 16.0,
+                    width: 16.0,
+                  ),
+                )
+              : Container()
+        ],
+      )),
+      onPressed: _procesandoLoading ? null : () => {_onPressed(context)},
     );
   }
 
   _onPressed(BuildContext context) async {
+    _procesandoLoading = true;
     await authProvider.handlerSubmit(context);
+    _procesandoLoading = false;
   }
 
   _logoTipo() {

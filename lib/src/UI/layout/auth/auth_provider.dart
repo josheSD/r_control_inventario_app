@@ -1,6 +1,9 @@
+import 'package:controlinventario/src/domain/auth.dart';
 import 'package:controlinventario/src/infraestructure/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+
+import '../../../core/shared-preferences/user.preference.dart';
 
 class AuthProvider with ChangeNotifier {
   AuthService _authService = new AuthService();
@@ -16,6 +19,16 @@ class AuthProvider with ChangeNotifier {
       form.markAllAsTouched();
       return;
     }
+    
+    final auth = Auth.fromJson(form.value);
+    final response = await _authService.login(auth);
+
+    final userPreference = new UserPreference();
+    userPreference.setUsername = response.data.nombre;
+    userPreference.setToken = response.data.token;
+
+    Navigator.pushNamed(context, 'portal');
+
     // Auth auth = Auth.fromJson(form.value);
     // Response<Usuario> response = await _authService.login(auth);
     // if (response.status) {
@@ -39,8 +52,6 @@ class AuthProvider with ChangeNotifier {
     // }
 
 
-    // form.reset(removeFocus: true);
-    Navigator.pushNamed(context, 'portal');
   }
 
   cleanForm(){

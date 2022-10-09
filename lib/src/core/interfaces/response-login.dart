@@ -8,7 +8,7 @@ class ResponseLogin{
 
   ResponseLogin.fromJsonMap(Map<String, dynamic> json) {
     status = json['status'];
-    data = json['data'];
+    data = Login.fromJson(json["data"]);
     message = json['message'];
   }
 
