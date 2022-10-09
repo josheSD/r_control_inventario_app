@@ -183,4 +183,51 @@ class ProyectoProvider with ChangeNotifier {
   void cleanFormArticulo() {
     formArticulo.reset(removeFocus: true);
   }
+
+  // ##############     PROYECTO CONCLUIDO   ###############
+  FormGroup formConcluido = new FormGroup({
+    'articulos': FormArray([], validators: [Validators.required])
+  });
+
+  addFormArrayConcluido() async {
+    articuloConcluidos.add(FormGroup({
+      'idArticulo': FormControl<String>(
+          value: 'Sierra Circular', validators: [Validators.required]),
+      'buena':
+          FormControl<String>(value: '', validators: [Validators.required]),
+      'daniado':
+          FormControl<String>(value: '', validators: [Validators.required]),
+    }));
+  }
+
+  FormArray get articuloConcluidos => form.control('articulos') as FormArray;
+
+  Future<void> handleSubmitConcluido(BuildContext context) async {
+    bool isValidArticulos = true;
+
+    if (articuloConcluidos.controls.length == 0) {
+      SnackBar snackBar = SnackBar(
+          content: Text('Ingrese almenos un artículo',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          duration: Duration(seconds: 1),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+
+      isValidArticulos = false;
+    }
+
+    if (isValidArticulos) {
+      Navigator.pushNamed(context, Routes.PROYECTO);
+    }
+  }
+
+  void cleanFormConcluido() {
+    articuloConcluidos.clear();
+    articuloConcluidos.reset(removeFocus: true);
+  }
 }

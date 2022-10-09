@@ -246,7 +246,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
               ),
               Container(
                 padding: EdgeInsets.only(left: 8),
-                child: Text('Concluido',
+                child: Text('Concluir',
                     style: TextStyle(
                         color: Envinronment.colorBlack,
                         fontWeight: FontWeight.normal)),
