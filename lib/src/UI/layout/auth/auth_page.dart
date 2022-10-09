@@ -21,7 +21,6 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   void dispose() {
-    authProvider.cleanForm();
     super.dispose();
   }
 
@@ -77,9 +76,6 @@ class _AuthPageState extends State<AuthPage> {
         shape: StadiumBorder(),
         elevation: 0,
       ),
-      // child: Text('Iniciar Sesión',
-      //     style: TextStyle(
-      //         color: Envinronment.colorBlack, fontWeight: FontWeight.normal)),
       child: Container(
           child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -109,9 +105,11 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   _onPressed(BuildContext context) async {
-    _procesandoLoading = true;
+    setState(() => _procesandoLoading = true);
     await authProvider.handlerSubmit(context);
-    _procesandoLoading = false;
+    authProvider.cleanForm();
+    Navigator.pushNamed(context, 'portal');
+    setState(() => _procesandoLoading = false);
   }
 
   _logoTipo() {

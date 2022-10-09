@@ -4,6 +4,7 @@ import 'package:controlinventario/src/domain/articulo.dart';
 import 'package:controlinventario/src/domain/categoria.dart';
 import 'package:controlinventario/src/domain/rol.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class Input {
@@ -203,11 +204,29 @@ class Input {
       {required String formControlName,
       required String labelText,
       required String errorText,
-      required List<Rol> roles}) {
+      required List<Rol> roles,
+      required ValueChanged<bool> onClicked}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(margin: EdgeInsets.only(bottom: 6), child: Text(labelText)),
+        Container(
+            margin: EdgeInsets.only(bottom: 6),
+            child: Row(
+              children: [
+                Text(labelText),
+                GestureDetector(
+                    onTap: () =>{
+                      onClicked(true)
+                    },
+                    child: InkWell(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 2),
+                        child: Icon(FontAwesomeIcons.circleQuestion,
+                            size: 12, color: Envinronment.colorDanger),
+                      ),
+                    ))
+              ],
+            )),
         ReactiveDropdownField(
           items: roles.map<DropdownMenuItem<String>>((Rol value) {
             return DropdownMenuItem<String>(

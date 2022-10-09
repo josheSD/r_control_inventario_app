@@ -2,6 +2,7 @@ import 'package:controlinventario/src/UI/feature/almacen-crear/almacen_crear_pag
 import 'package:controlinventario/src/UI/feature/almacen/almacen_page.dart';
 import 'package:controlinventario/src/UI/feature/articulo-crear/articulo_crear_page.dart';
 import 'package:controlinventario/src/UI/feature/articulo/articulo_page.dart';
+import 'package:controlinventario/src/UI/feature/proyecto-crear/proyecto_concluido_page.dart';
 import 'package:controlinventario/src/UI/feature/proyecto-crear/proyecto_crear_page.dart';
 import 'package:controlinventario/src/UI/feature/proyecto/proyecto_page.dart';
 import 'package:controlinventario/src/UI/feature/usuario-crear/usuario_crear_page.dart';
@@ -22,6 +23,7 @@ class Routes {
 
   static String PROYECTO = 'proyecto';
   static String PROYECTO_CREAR = 'proyecto-crear';
+  static String PROYECTO_CONCLUIDO = 'proyecto-concluido';
 
   static String USUARIO = 'usuario';
   static String USUARIO_CREAR = 'usuario-crear';
@@ -38,6 +40,7 @@ class Routes {
       Routes.PROYECTO_CREAR: (context) => ProyectoCrearPage(),
       Routes.USUARIO: (context) => UsuarioPage(),
       Routes.USUARIO_CREAR: (context) => UsuarioCrearPage(),
+      Routes.PROYECTO_CONCLUIDO: (context) => ProyectoConcludioPage()
     };
   }
 }

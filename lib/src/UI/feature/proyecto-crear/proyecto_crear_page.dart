@@ -3,6 +3,7 @@ import 'package:controlinventario/src/UI/feature/proyecto/proyecto_provider.dart
 import 'package:controlinventario/src/core/interfaces/response-almacen.dart';
 import 'package:controlinventario/src/core/interfaces/response-articulo.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
+import 'package:controlinventario/src/core/util/routes.dart';
 import 'package:controlinventario/src/domain/almacen.dart';
 import 'package:controlinventario/src/domain/articulo.dart';
 import 'package:controlinventario/src/domain/proyecto.dart';
@@ -263,7 +264,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                   : Container()
             ],
           )),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.PROYECTO_CONCLUIDO);
+          },
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(

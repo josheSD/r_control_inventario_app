@@ -126,7 +126,10 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
                       formControlName: 'idRol',
                       labelText: 'Rol',
                       errorText: 'Seleccione el Rol',
-                      roles: roles),
+                      roles: roles,
+                      onClicked: (value) {
+                        _handleModalRol();
+                      }),
                   SizedBox(height: 22.0),
                   _buttonSubmit(context)
                 ],
@@ -175,5 +178,49 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
 
   _onPressed(BuildContext context) async {
     await usuarioProvider.handleSubmit(context);
+  }
+
+  _handleModalRol() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => Dialog(
+        insetPadding: EdgeInsets.all(30),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Módulos',style: TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Text('Administrador',style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 15,),
+                Container(margin:EdgeInsets.only(left: 15),child: Text('• Artículo')),
+                SizedBox(height: 5,),
+                Container(margin:EdgeInsets.only(left: 15),child: Text('• Almacén')),
+                SizedBox(height: 5,),
+                Container(margin:EdgeInsets.only(left: 15),child: Text('• Proyecto')),
+                SizedBox(height: 5,),
+                Container(margin:EdgeInsets.only(left: 15),child: Text('• Usuario')),
+                SizedBox(height: 15,),
+                Text('Almacenero',style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(height: 15,),
+                Container(margin:EdgeInsets.only(left: 15),child: Text('• Artículo')),
+                SizedBox(height: 5,),
+                Container(margin:EdgeInsets.only(left: 15),child: Text('• Almacén')),
+                SizedBox(height: 5,),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

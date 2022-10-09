@@ -27,8 +27,6 @@ class AuthProvider with ChangeNotifier {
     userPreference.setUsername = response.data.nombre;
     userPreference.setToken = response.data.token;
 
-    Navigator.pushNamed(context, 'portal');
-
     // Auth auth = Auth.fromJson(form.value);
     // Response<Usuario> response = await _authService.login(auth);
     // if (response.status) {
