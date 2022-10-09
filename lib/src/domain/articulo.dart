@@ -8,14 +8,16 @@ class Articulo {
   late Categoria categoria;
   late double precio;
   late dynamic almacen; // Almacen or null
+  late dynamic cantidad;
 
-  Articulo({@required id, @required url,@required nombre, @required categoria, @required precio,@required almacen}) {
+  Articulo({@required id, @required url,@required nombre, @required categoria, @required precio,@required almacen, @required cantidad}) {
     this.id = id;
     this.url = url;
     this.nombre = nombre;
     this.categoria = categoria;
     this.precio = precio;
     this.almacen = almacen;
+    this.cantidad = cantidad;
   }
 
   factory Articulo.fromJson(Map<String, dynamic> json) => Articulo(
@@ -25,6 +27,7 @@ class Articulo {
         categoria: Categoria.fromJson(json["categoria"]),
         precio: json["precio"],
         almacen: json["almacen"],
+        cantidad: json["cantidad"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,5 +37,6 @@ class Articulo {
         "categoria": categoria,
         "precio": precio,
         "almacen": almacen,
+        "cantidad": cantidad,
       };
 }

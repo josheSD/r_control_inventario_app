@@ -25,6 +25,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
   bool _refreshRollback = false;
   bool _reporteLoading = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late ArticuloProvider articuloProvider;
 
   @override
   void initState() {
@@ -38,7 +39,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
 
   @override
   Widget build(BuildContext context) {
-    final articuloProvider =
+    articuloProvider =
         Provider.of<ArticuloProvider>(context, listen: false);
 
     return Scaffold(
@@ -66,8 +67,8 @@ class _ArticuloPageState extends State<ArticuloPage> {
                 child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildReporte(context, articuloProvider),
-            _buildBody(context, articuloProvider)
+            _buildReporte(context),
+            _buildBody(context)
           ],
         ))),
         floatingActionButton: FloatingActionButton(
@@ -81,7 +82,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
         ));
   }
 
-  _buildReporte(BuildContext context, ArticuloProvider articuloProvider) {
+  _buildReporte(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 18, right: 18, bottom: 5),
       child: ElevatedButton(
@@ -121,13 +122,13 @@ class _ArticuloPageState extends State<ArticuloPage> {
         onPressed: _reporteLoading
             ? null
             : () {
-                _buildReportPDF(articuloProvider);
+                _buildReportPDF();
               },
       ),
     );
   }
 
-  _buildReportPDF(ArticuloProvider articuloProvider) async {
+  _buildReportPDF() async {
     setState(() => _reporteLoading = true);
     
     String urlRoot = await DirectoryCustom.urlRoot();
@@ -208,7 +209,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
     await DirectoryCustom.create(externalDirectoryPath);
   }
 
-  _buildBody(BuildContext context, ArticuloProvider articuloProvider) {
+  _buildBody(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     return Container(
         height: queryData.size.height * 0.8,
@@ -226,7 +227,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
                           List<Articulo> articulos = snapshot.data!.data;
-                          return _buildLista(articulos, articuloProvider);
+                          return _buildLista(articulos);
                         } else {
                           ResponseArticulo response = snapshot.data!;
                           return _buildListaError(response);
@@ -241,12 +242,12 @@ class _ArticuloPageState extends State<ArticuloPage> {
   }
 
   Widget _buildLista(
-      List<Articulo> articulos, ArticuloProvider articuloProvider) {
+      List<Articulo> articulos) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: articulos.length,
       itemBuilder: (context, i) =>
-          _item(context, articulos[i], articuloProvider),
+          _item(context, articulos[i]),
     );
   }
 
@@ -301,14 +302,14 @@ class _ArticuloPageState extends State<ArticuloPage> {
   }
 
   Widget _item(BuildContext context, Articulo articulo,
-      ArticuloProvider articuloProvider) {
+      ) {
     return Container(
       margin: EdgeInsets.only(bottom: 5, top: 5, left: 18, right: 18),
       child: Dismissible(
         key: UniqueKey(),
         background: Container(color: Envinronment.colorDanger),
         onDismissed: (direccion) {
-          handleDelete(articulo, articuloProvider);
+          handleDelete(articulo);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -359,7 +360,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
     );
   }
 
-  handleDelete(Articulo articulo, ArticuloProvider articuloProvider) {
+  handleDelete(Articulo articulo) {
     showDialog(
       context: context,
       barrierDismissible: false,

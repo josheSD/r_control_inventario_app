@@ -27,13 +27,25 @@ class AlmacenService {
                 "nombre": "Herramienta",
               },
               "precio": 120.00,
-            }
+              "cantidad": 4
+            },
+            {
+              "id": 1,
+              "url": "https",
+              "nombre": "Sierra circular",
+              "categoria": {
+                "id": 1,
+                "nombre": "Herramienta",
+              },
+              "precio": 120.00,
+              "cantidad": 4
+            },
           ],
           "precio": 120.00,
         },
         {
-          "id": 1,
-          "nombre": "Almacen 1",
+          "id": 2,
+          "nombre": "Almacen 2",
           "direccion": "Asoc. Horacio Zevallos",
           "articulo": [
             {
@@ -45,13 +57,36 @@ class AlmacenService {
                 "nombre": "Herramienta",
               },
               "precio": 120.00,
-            }
+              "cantidad": 3
+            },
+            {
+              "id": 2,
+              "url": "https",
+              "nombre": "Sierra circular",
+              "categoria": {
+                "id": 1,
+                "nombre": "Herramienta",
+              },
+              "precio": 140.00,
+              "cantidad": 2
+            },
+            {
+              "id": 2,
+              "url": "https",
+              "nombre": "Sierra circular",
+              "categoria": {
+                "id": 1,
+                "nombre": "Herramienta",
+              },
+              "precio": 140.00,
+              "cantidad": 2
+            },
           ],
           "precio": 120.00,
         },
         {
-          "id": 1,
-          "nombre": "Almacen 1",
+          "id": 3,
+          "nombre": "Almacen 3",
           "direccion": "Asoc. Horacio Zevallos",
           "articulo": [
             {
@@ -62,8 +97,9 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 120.00,
-            }
+              "precio": 166.00,
+              "cantidad": 1
+            },
           ],
           "precio": 120.00,
         },

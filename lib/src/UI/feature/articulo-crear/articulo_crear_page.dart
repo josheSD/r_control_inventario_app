@@ -101,7 +101,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
                           List<Categoria> categorias = snapshot.data!.data;
 
                           return _buildBody(
-                              articuloProvider, categorias, context);
+                              categorias, context);
                         } else {
                           return Container();
                         }
@@ -113,7 +113,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
                     }))));
   }
 
-  Widget _buildBody(ArticuloProvider articuloProvider,
+  Widget _buildBody(
       List<Categoria> categorias, BuildContext context) {
     return SingleChildScrollView(
       child: Column(
@@ -155,7 +155,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
                       isContrasenia: false,
                       type: Envinronment.controlNumber),
                   SizedBox(height: 22.0),
-                  _buttonSubmit(articuloProvider, context)
+                  _buttonSubmit(context)
                 ],
               ))
         ],
@@ -164,7 +164,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   }
 
   Widget _buttonSubmit(
-      ArticuloProvider articuloProvider, BuildContext context) {
+      BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(double.infinity, 35),
@@ -199,11 +199,11 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
       )),
       onPressed: _procesandoLoding
           ? null
-          : () => {_onPressed(articuloProvider, context)},
+          : () => {_onPressed(context)},
     );
   }
 
-  _onPressed(ArticuloProvider articuloProvider, BuildContext context) async {
+  _onPressed(BuildContext context) async {
     await articuloProvider.handleSubmit(context, this.image);
   }
 

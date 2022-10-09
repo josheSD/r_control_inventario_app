@@ -35,6 +35,18 @@ class AlmacenProvider with ChangeNotifier {
       'cantidad': articuloForm.cantidad
     };
     articulosList.controls[index].patchValue(value);
+
+    final newLista = articulosList.controls.map((e) => FormGroup({
+          'idArticulo': FormControl<String>(
+              value: ArticuloForm.fromJson(e.value).idArticulo,
+              validators: [Validators.required]),
+          'cantidad': FormControl<String>(
+              value: ArticuloForm.fromJson(e.value).cantidad,
+              validators: [Validators.required]),
+        }));
+
+    articulosList.clear();
+    articulosList.addAll(newLista.toList());
   }
 
   removeFormArray(int index) {
@@ -77,16 +89,23 @@ class AlmacenProvider with ChangeNotifier {
       'articulos': almacen.articulo
     };
     form.patchValue(value);
+
+    final newLista = almacen.articulo.map((e) => FormGroup({
+          'idArticulo': FormControl<String>(
+              value: e.categoria.id.toString(),
+              validators: [Validators.required]),
+          'cantidad': FormControl<String>(
+              value: e.cantidad.toString(),
+              validators: [Validators.required]),
+        }));
+
+    articulosList.addAll(newLista.toList());
+
   }
 
   void cleanForm() {
-    form = new FormGroup({
-      'nombre':
-          FormControl<String>(value: '', validators: [Validators.required]),
-      'direccion':
-          FormControl<String>(value: '', validators: [Validators.required]),
-      'articulos': FormArray([], validators: [Validators.required])
-    });
+    articulosList.clear();
+    form.reset(removeFocus: true);
   }
 
   Future<ResponseAlmacen> getAlmacenes() async {
@@ -125,13 +144,11 @@ class AlmacenProvider with ChangeNotifier {
       isValid = false;
     }
     if (isCreate) {
-      print('ENTRE CREATE');
       final articuloForm = ArticuloForm.fromJson(formArticulo.value);
       addFormArray(articuloForm);
     } else {
-      print('ENTRE UPDATE');
       final articuloForm = ArticuloForm.fromJson(formArticulo.value);
-      updateFormArray(articuloForm,index);
+      updateFormArray(articuloForm, index);
     }
     return isValid;
   }

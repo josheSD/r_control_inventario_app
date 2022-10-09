@@ -22,6 +22,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
   bool _refreshRollback = false;
   bool _reporteLoading = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
+  late AlmacenProvider almacenProvider;
 
   @override
   void initState() {
@@ -35,7 +36,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
 
   @override
   Widget build(BuildContext context) {
-    final almacenProvider =
+    almacenProvider =
         Provider.of<AlmacenProvider>(context, listen: false);
 
     return Scaffold(
@@ -63,8 +64,8 @@ class _AlmacenPageState extends State<AlmacenPage> {
                 child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildReporte(context, almacenProvider),
-            _buildBody(context, almacenProvider)
+            _buildReporte(context),
+            _buildBody(context)
           ],
         ))),
         floatingActionButton: FloatingActionButton(
@@ -78,7 +79,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
         ));
   }
 
-  _buildReporte(BuildContext context, AlmacenProvider almacenProvider) {
+  _buildReporte(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(left: 18, right: 18, bottom: 5),
       child: ElevatedButton(
@@ -118,13 +119,13 @@ class _AlmacenPageState extends State<AlmacenPage> {
         onPressed: _reporteLoading
             ? null
             : () {
-                _buildReportPDF(almacenProvider);
+                _buildReportPDF();
               },
       ),
     );
   }
 
-  _buildReportPDF(AlmacenProvider almacenProvider) async {
+  _buildReportPDF() async {
     setState(() => _reporteLoading = true);
 
     String urlRoot = await DirectoryCustom.urlRoot();
@@ -206,7 +207,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
     await DirectoryCustom.create(externalDirectoryPath);
   }
 
-  _buildBody(BuildContext context, AlmacenProvider almacenProvider) {
+  _buildBody(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     return Container(
         height: queryData.size.height * 0.8,
@@ -225,7 +226,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
                         if (snapshot.data!.status) {
                           List<Almacen> almacenes = snapshot.data!.data;
 
-                          return _buildLista(almacenes, almacenProvider);
+                          return _buildLista(almacenes);
                         } else {
                           ResponseAlmacen response = snapshot.data!;
                           return _buildListaError(response);
@@ -237,11 +238,11 @@ class _AlmacenPageState extends State<AlmacenPage> {
               ));
   }
 
-  Widget _buildLista(List<Almacen> almacenes, AlmacenProvider almacenProvider) {
+  Widget _buildLista(List<Almacen> almacenes) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: almacenes.length,
-      itemBuilder: (context, i) => _item(context, almacenes[i], almacenProvider),
+      itemBuilder: (context, i) => _item(context, almacenes[i]),
     );
   }
 
@@ -295,14 +296,14 @@ class _AlmacenPageState extends State<AlmacenPage> {
     );
   }
 
-  Widget _item(BuildContext context, Almacen almacen, AlmacenProvider almacenProvider) {
+  Widget _item(BuildContext context, Almacen almacen) {
     return Container(
       margin: EdgeInsets.only(bottom: 5, top: 5, left: 18, right: 18),
       child: Dismissible(
         key: UniqueKey(),
         background: Container(color: Envinronment.colorDanger),
         onDismissed: (direccion) {
-          handleDelete(almacen, almacenProvider);
+          handleDelete(almacen);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -346,7 +347,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
     );
   }
 
-  handleDelete(Almacen almacen, AlmacenProvider almacenProvider) {
+  handleDelete(Almacen almacen) {
     showDialog(
       context: context,
       barrierDismissible: false,

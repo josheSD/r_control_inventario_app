@@ -79,8 +79,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                         if (snapshot.data!.status) {
                           List<Articulo> articulos = snapshot.data!.data;
 
-                          return _buildBody(
-                              almacenProvider, articulos, context);
+                          return _buildBody(articulos, context);
                         } else {
                           return Container();
                         }
@@ -92,8 +91,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                     }))));
   }
 
-  Widget _buildBody(AlmacenProvider almacenProvider, List<Articulo> articulos,
-      BuildContext context) {
+  Widget _buildBody(List<Articulo> articulos, BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -117,10 +115,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                   SizedBox(height: 18.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Artículo'),
-                      _buildAgregar(articulos, almacenProvider)
-                    ],
+                    children: [Text('Artículo'), _buildAgregar(articulos)],
                   ),
                   SizedBox(height: 18.0),
                   ReactiveFormArray(
@@ -190,10 +185,8 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                                               almacenProvider.articulosList
                                                   .controls[index],
                                               index,
-                                              almacenProvider,
                                               articulos),
-                                          _buildEliminar(
-                                              index, almacenProvider),
+                                          _buildEliminar(index),
                                         ],
                                       )),
                                 ]),
@@ -202,7 +195,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                         );
                       }),
                   SizedBox(height: 22.0),
-                  _buttonSubmit(almacenProvider, context)
+                  _buttonSubmit(context)
                 ],
               ))
         ],
@@ -210,7 +203,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
     );
   }
 
-  Widget _buttonSubmit(AlmacenProvider almacenProvider, BuildContext context) {
+  Widget _buttonSubmit(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(double.infinity, 35),
@@ -247,18 +240,16 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding
-          ? null
-          : () => {_onPressed(almacenProvider, context)},
+      onPressed: _procesandoLoding ? null : () => {_onPressed(context)},
     );
   }
 
-  _onPressed(AlmacenProvider almacenProvider, BuildContext context) async {
+  _onPressed(BuildContext context) async {
     await almacenProvider.handleSubmit(context);
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,
-      AlmacenProvider almacenProvider, List<Articulo> articulos) {
+      List<Articulo> articulos) {
     return SizedBox(
       width: 45,
       height: 30,
@@ -283,12 +274,12 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
             final articuloForm = ArticuloForm.fromJson(currentform.value);
             almacenProvider.initializeFormArticulo(
                 articuloForm.idArticulo, articuloForm.cantidad);
-            handleModalAgregar(articulos, almacenProvider);
+            handleModalAgregar(articulos, false, index);
           }),
     );
   }
 
-  _buildEliminar(int index, AlmacenProvider almacenProvider) {
+  _buildEliminar(int index) {
     return SizedBox(
       width: 45,
       height: 30,
@@ -310,12 +301,12 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
             ),
           ),
           onPressed: () {
-            handleDelete(index, almacenProvider);
+            handleDelete(index);
           }),
     );
   }
 
-  handleDelete(int index, AlmacenProvider almacenProvider) {
+  handleDelete(int index) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -365,7 +356,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
     );
   }
 
-  _buildAgregar(List<Articulo> articulos, AlmacenProvider almacenProvider) {
+  _buildAgregar(List<Articulo> articulos) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Envinronment.colorButton,
@@ -394,12 +385,11 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
         ),
         onPressed: () {
           almacenProvider.cleanFormArticulo();
-          handleModalAgregar(articulos, almacenProvider);
+          handleModalAgregar(articulos, true, 0);
         });
   }
 
-  handleModalAgregar(
-      List<Articulo> articulos, AlmacenProvider almacenProvider) {
+  handleModalAgregar(List<Articulo> articulos, bool isCreate, int index) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -415,7 +405,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                   padding: EdgeInsets.symmetric(horizontal: 24, vertical: 30),
                   child: Column(
                     children: <Widget>[
-                      Text('Agregar',
+                      Text(isCreate ? 'Agregar' : 'Actualizar',
                           style: TextStyle(
                               color: Envinronment.colorBlack, fontSize: 14),
                           textAlign: TextAlign.center),
@@ -461,8 +451,9 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                                 elevation: 0,
                               ),
                               onPressed: () async {
-                                bool isValid = await almacenProvider
-                                    .handleSubmitArticulo(context, true, 0);
+                                bool isValid =
+                                    await almacenProvider.handleSubmitArticulo(
+                                        context, isCreate, index);
                                 if (isValid) {
                                   Navigator.pop(context);
                                 }
@@ -474,7 +465,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                                       child: Icon(FontAwesomeIcons.floppyDisk,
                                           color: Envinronment.colorBlack,
                                           size: 16)),
-                                  Text('Insertar',
+                                  Text(isCreate ? 'Insertar' : 'Actualizar',
                                       style: TextStyle(
                                           color: Envinronment.colorBlack,
                                           fontWeight: FontWeight.normal)),

@@ -57,7 +57,7 @@ class _AuthPageState extends State<AuthPage> {
                             isContrasenia: true,
                             type: Envinronment.controlText),
                         SizedBox(height: 30.0),
-                        _buttonSubmit(authProvider, context)
+                        _buttonSubmit(context)
                       ],
                     ),
                   ),
@@ -68,7 +68,7 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
-  Widget _buttonSubmit(AuthProvider authProvider, BuildContext context) {
+  Widget _buttonSubmit(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size.fromHeight(40),
@@ -79,11 +79,11 @@ class _AuthPageState extends State<AuthPage> {
       child: Text('Iniciar Sesión',
           style: TextStyle(
               color: Envinronment.colorBlack, fontWeight: FontWeight.normal)),
-      onPressed: () => {_onPressed(authProvider, context)},
+      onPressed: () => {_onPressed(context)},
     );
   }
 
-  _onPressed(AuthProvider authProvider, BuildContext context) async {
+  _onPressed(BuildContext context) async {
     await authProvider.handlerSubmit(context);
   }
 
