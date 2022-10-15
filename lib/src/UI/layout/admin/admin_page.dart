@@ -12,9 +12,12 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
+
+  late AdminProvider adminProvider;
+
   @override
   Widget build(BuildContext context) {
-    final adminProvider = Provider.of<AdminProvider>(context, listen: false);
+    adminProvider = Provider.of<AdminProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Envinronment.colorBackground,
@@ -93,6 +96,7 @@ class _AdminPageState extends State<AdminPage> {
             title: const Text('Salir',
                 style: TextStyle(fontWeight: FontWeight.normal)),
             onTap: () {
+              adminProvider.signOut();
               Navigator.pushNamed(context, Routes.AUTH);
             },
           ),
