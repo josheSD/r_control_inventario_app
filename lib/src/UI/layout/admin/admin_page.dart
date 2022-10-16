@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/shared-preferences/user.preference.dart';
+
 class AdminPage extends StatefulWidget {
   @override
   State<AdminPage> createState() => _AdminPageState();
@@ -18,6 +20,7 @@ class _AdminPageState extends State<AdminPage> {
   @override
   Widget build(BuildContext context) {
     adminProvider = Provider.of<AdminProvider>(context, listen: false);
+    final userPreference = new UserPreference();
 
     return Scaffold(
       backgroundColor: Envinronment.colorBackground,
@@ -51,10 +54,10 @@ class _AdminPageState extends State<AdminPage> {
               children: [
                 Icon(FontAwesomeIcons.circleUser,size: 60),
                 SizedBox(height: 15,),
-                Text('Ronald Chutas Ramos',
+                Text(userPreference.nombre,
                     style: TextStyle(fontWeight: FontWeight.normal)),
                 SizedBox(height: 10,),
-                Text('Administrador',
+                Text(userPreference.rol,
                     style: TextStyle(fontWeight: FontWeight.normal)),
               ],
             ),

@@ -22,8 +22,13 @@ class ResponseProyecto {
     message = json['message'];
   }
 
-  ResponseProyecto.fromJsonMapError(String message) {
+  ResponseProyecto.fromJsonMapSuccess(String mensaje) {
+    status = true;
+    message = mensaje;
+  }
+
+  ResponseProyecto.fromJsonMapError(String mensaje) {
     status = false;
-    message = message;
+    message = mensaje;
   }
 }

@@ -79,9 +79,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                         AsyncSnapshot<List<dynamic>> snapshot) {
                       if (snapshot.hasData) {
                         List<Almacen> almacenes =
-                            (snapshot.data![0] as ResponseAlmacen).data;
+                            (snapshot.data![0] as ResponseAlmacen).data!;
                         List<Articulo> articulos =
-                            (snapshot.data![1] as ResponseArticulo).data;
+                            (snapshot.data![1] as ResponseArticulo).data!;
                         return _buildBody(almacenes, articulos, context);
                       } else {
                         return Center(
@@ -182,7 +182,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                                                           .articulosList
                                                           .controls[index]
                                                           .value)
-                                                  .idArticulo)
+                                                  .id)
                                           .nombre)),
                                   Container(
                                       padding: EdgeInsets.symmetric(
@@ -379,7 +379,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
           onPressed: () {
             final articuloForm = ArticuloForm.fromJson(currentform.value);
             proyectoProvider.initializeFormArticulo(articuloForm.idAlmacen,
-                articuloForm.idArticulo, articuloForm.cantidad);
+                articuloForm.id, articuloForm.cantidad);
             handleModalAgregar(almacenes, articulos, false, index);
           }),
     );
@@ -528,7 +528,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                         height: 15,
                       ),
                       Input.selectArticulo(
-                          formControlName: 'idArticulo',
+                          formControlName: 'id',
                           labelText: 'Artículo',
                           errorText: 'Seleccione el artículo',
                           articulos: articulos),

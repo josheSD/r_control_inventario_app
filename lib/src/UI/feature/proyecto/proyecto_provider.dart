@@ -14,6 +14,7 @@ class ProyectoProvider with ChangeNotifier {
   ProyectoService _proyectoService = new ProyectoService();
 
   FormGroup form = new FormGroup({
+    'id': FormControl<String>(value: ''),
     'nombre': FormControl<String>(value: '', validators: [Validators.required]),
     'cliente':
         FormControl<String>(value: '', validators: [Validators.required]),
@@ -30,8 +31,8 @@ class ProyectoProvider with ChangeNotifier {
     articulosList.add(FormGroup({
       'idAlmacen': FormControl<String>(
           value: articuloForm.idAlmacen, validators: [Validators.required]),
-      'idArticulo': FormControl<String>(
-          value: articuloForm.idArticulo, validators: [Validators.required]),
+      'id': FormControl<String>(
+          value: articuloForm.id, validators: [Validators.required]),
       'cantidad': FormControl<String>(
           value: articuloForm.cantidad, validators: [Validators.required]),
     }));
@@ -40,7 +41,7 @@ class ProyectoProvider with ChangeNotifier {
   updateFormArray(ArticuloForm articuloForm, index) async {
     final value = {
       'idAlmacen': articuloForm.idAlmacen,
-      'idArticulo': articuloForm.idArticulo,
+      'id': articuloForm.id,
       'cantidad': articuloForm.cantidad
     };
     articulosList.controls[index].patchValue(value);
@@ -49,8 +50,8 @@ class ProyectoProvider with ChangeNotifier {
           'idAlmacen': FormControl<String>(
               value: ArticuloForm.fromJson(e.value).idAlmacen,
               validators: [Validators.required]),
-          'idArticulo': FormControl<String>(
-              value: ArticuloForm.fromJson(e.value).idArticulo,
+          'id': FormControl<String>(
+              value: ArticuloForm.fromJson(e.value).id,
               validators: [Validators.required]),
           'cantidad': FormControl<String>(
               value: ArticuloForm.fromJson(e.value).cantidad,
@@ -89,13 +90,55 @@ class ProyectoProvider with ChangeNotifier {
       return;
     }
 
-    if (isValidArticulos) {
+    if (!isValidArticulos) {
+      return;
+    }
+
+    late ResponseProyecto response;
+    if (form.value["id"].toString().length > 0 &&
+        form.value["id"].toString() != 'null') {
+      response = await _proyectoService.putProyecto(form.value);
+    } else {
+      response = await _proyectoService.postProyecto(form.value);
+    }
+
+    if (response.status) {
+      this.form.reset(removeFocus: true);
+
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorSecond);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+
       Navigator.pushNamed(context, Routes.PROYECTO);
+    } else {
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Envinronment.colorWhite)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
     }
   }
 
   void initializeForm(Proyecto proyecto) {
     final value = {
+      'id': proyecto.id.toString(),
       'nombre': proyecto.nombre,
       'cliente': proyecto.cliente,
       'fechaInicio': proyecto.fechaInicio,
@@ -107,9 +150,8 @@ class ProyectoProvider with ChangeNotifier {
           'idAlmacen': FormControl<String>(
               value: AlmacenForm.fromJson(e.almacen).id.toString(),
               validators: [Validators.required]),
-          'idArticulo': FormControl<String>(
-              value: e.categoria.id.toString(),
-              validators: [Validators.required]),
+          'id': FormControl<String>(
+              value: e.id.toString(), validators: [Validators.required]),
           'cantidad': FormControl<String>(
               value: e.cantidad.toString(), validators: [Validators.required]),
         }));
@@ -127,16 +169,6 @@ class ProyectoProvider with ChangeNotifier {
     return response;
   }
 
-  Future<ResponseProyecto> postProyecto(Proyecto proyecto) async {
-    ResponseProyecto response = await _proyectoService.postProyecto(proyecto);
-    return response;
-  }
-
-  Future<ResponseProyecto> putProyecto(Proyecto proyecto) async {
-    ResponseProyecto response = await _proyectoService.putProyecto(proyecto);
-    return response;
-  }
-
   Future<ResponseProyecto> deleteProyecto(int idProyecto) async {
     ResponseProyecto response =
         await _proyectoService.deleteProyecto(idProyecto);
@@ -147,8 +179,7 @@ class ProyectoProvider with ChangeNotifier {
   FormGroup formArticulo = new FormGroup({
     'idAlmacen':
         FormControl<String>(value: '', validators: [Validators.required]),
-    'idArticulo':
-        FormControl<String>(value: '', validators: [Validators.required]),
+    'id': FormControl<String>(value: '', validators: [Validators.required]),
     'cantidad':
         FormControl<String>(value: '', validators: [Validators.required]),
   });
@@ -174,7 +205,7 @@ class ProyectoProvider with ChangeNotifier {
       String idAlmacen, String idArticulo, String cantidad) {
     final value = {
       'idAlmacen': idAlmacen.toString(),
-      'idArticulo': idArticulo.toString(),
+      'id': idArticulo.toString(),
       'cantidad': cantidad.toString(),
     };
     formArticulo.patchValue(value);
@@ -191,7 +222,7 @@ class ProyectoProvider with ChangeNotifier {
 
   addFormArrayConcluido() async {
     articuloConcluidos.add(FormGroup({
-      'idArticulo': FormControl<String>(
+      'id': FormControl<String>(
           value: 'Sierra Circular', validators: [Validators.required]),
       'buena':
           FormControl<String>(value: '', validators: [Validators.required]),

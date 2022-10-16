@@ -226,7 +226,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
                         AsyncSnapshot<ResponseArticulo> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
-                          List<Articulo> articulos = snapshot.data!.data;
+                          List<Articulo> articulos = snapshot.data!.data!;
                           return _buildLista(articulos);
                         } else {
                           ResponseArticulo response = snapshot.data!;

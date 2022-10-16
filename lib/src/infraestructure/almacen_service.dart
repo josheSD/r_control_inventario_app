@@ -1,157 +1,94 @@
 import 'package:controlinventario/src/core/interfaces/response-almacen.dart';
 import 'package:controlinventario/src/domain/almacen.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../core/util/constantes.dart';
 
 class AlmacenService {
   Future<ResponseAlmacen> getAlmacenes() async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    try {
+      final url = "${Envinronment.API_INVENTARIO}/almacen/listar";
+      final response = await http.get(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
+      final decodedResp = json.decode(response.body);
 
-    final decodedResp = {
-      "status": true,
-      "message": "éxito",
-      "data": [
-        {
-          "id": 1,
-          "nombre": "Almacen 1",
-          "direccion": "Asoc. Horacio Zevallos",
-          "articulo": [
-            {
-              "id": 1,
-              "url": "https",
-              "nombre": "Sierra circular",
-              "categoria": {
-                "id": 1,
-                "nombre": "Herramienta",
-              },
-              "precio": "120.00",
-              "cantidad": 4
-            },
-            {
-              "id": 1,
-              "url": "https",
-              "nombre": "Sierra circular",
-              "categoria": {
-                "id": 1,
-                "nombre": "Herramienta",
-              },
-              "precio": "120.00",
-              "cantidad": 4
-            },
-          ],
-        },
-        {
-          "id": 2,
-          "nombre": "Almacen 2",
-          "direccion": "Asoc. Horacio Zevallos",
-          "articulo": [
-            {
-              "id": 1,
-              "url": "https",
-              "nombre": "Sierra circular",
-              "categoria": {
-                "id": 1,
-                "nombre": "Herramienta",
-              },
-              "precio": "120.00",
-              "cantidad": 3
-            },
-            {
-              "id": 2,
-              "url": "https",
-              "nombre": "Sierra circular",
-              "categoria": {
-                "id": 1,
-                "nombre": "Herramienta",
-              },
-              "precio": "140.00",
-              "cantidad": 2
-            },
-            {
-              "id": 2,
-              "url": "https",
-              "nombre": "Sierra circular",
-              "categoria": {
-                "id": 1,
-                "nombre": "Herramienta",
-              },
-              "precio": "140.00",
-              "cantidad": 2
-            },
-          ],
-        },
-        {
-          "id": 3,
-          "nombre": "Almacen 3",
-          "direccion": "Asoc. Horacio Zevallos",
-          "articulo": [
-            {
-              "id": 1,
-              "url": "https",
-              "nombre": "Sierra circular",
-              "categoria": {
-                "id": 1,
-                "nombre": "Herramienta",
-              },
-              "precio": "166.00",
-              "cantidad": 1
-            },
-          ],
-        },
-      ]
-    };
-
-    if (response.statusCode == 200) {
-      return new ResponseAlmacen.fromJsonMap(decodedResp);
-    } else {
+      if (response.statusCode == 200) {
+        return new ResponseAlmacen.fromJsonMap(decodedResp);
+      } else {
+        return new ResponseAlmacen.fromJsonMapError("Error al buscar");
+      }
+    } catch (e) {
       return new ResponseAlmacen.fromJsonMapError("Error al buscar");
     }
   }
 
-  
-  Future<ResponseAlmacen> postAlmacen(Almacen almacen) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseAlmacen> postAlmacen(Map<String, dynamic> almacen) async {
+    try {
 
-    await Future.delayed(Duration(seconds: 1));
+      final url = "${Envinronment.API_INVENTARIO}/almacen/guardar";
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
+      final request = {
+        "nombre": almacen["nombre"],
+        "direccion": almacen["direccion"],
+        "articulo": almacen["articulos"],
+      };
 
-    if (response.statusCode == 200) {
-      return new ResponseAlmacen.fromJsonMap(decodedResp);
-    } else {
+      final response =
+          await http.post(Uri.parse(url), body: jsonEncode(request));
+
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseAlmacen.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseAlmacen.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseAlmacen.fromJsonMapError("Error");
     }
   }
 
-  Future<ResponseAlmacen> putAlmacen(Almacen almacen) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseAlmacen> putAlmacen(Map<String, dynamic> almacen) async {
+    try {
 
-    await Future.delayed(Duration(seconds: 1));
+      final url = "${Envinronment.API_INVENTARIO}/almacen/editar";
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
+      final request = {
+        "id": almacen["id"],
+        "nombre": almacen["nombre"],
+        "direccion": almacen["direccion"],
+        "articulo": almacen["articulos"],
+      };
 
-    if (response.statusCode == 200) {
-      return new ResponseAlmacen.fromJsonMap(decodedResp);
-    } else {
+      final response =
+          await http.put(Uri.parse(url), body: jsonEncode(request));
+
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseAlmacen.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseAlmacen.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseAlmacen.fromJsonMapError("Error");
     }
   }
 
   Future<ResponseAlmacen> deleteAlmacen(int idAlmacen) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    try {
+      final url =
+          "${Envinronment.API_INVENTARIO}/almacen/eliminar?IdAlmacen=$idAlmacen";
+      final response = await http.delete(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
+      final decodedResp = json.decode(response.body);
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
-
-    if (response.statusCode == 200) {
-      return new ResponseAlmacen.fromJsonMap(decodedResp);
-    } else {
+      if (response.statusCode < 400) {
+        return new ResponseAlmacen.fromJsonMap(decodedResp);
+      } else {
+        return new ResponseAlmacen.fromJsonMapError("Error");
+      }
+    } catch (e) {
       return new ResponseAlmacen.fromJsonMapError("Error");
     }
   }

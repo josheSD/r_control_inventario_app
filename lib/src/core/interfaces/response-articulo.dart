@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ResponseArticulo {
   late bool status;
   late String message;
-  late List<Articulo> data;
+  List<Articulo>? data;
 
   ResponseArticulo({
     @required status,
@@ -24,8 +24,13 @@ class ResponseArticulo {
     message = json['message'];
   }
 
-  ResponseArticulo.fromJsonMapError(String message) {
+  ResponseArticulo.fromJsonMapSuccess(String mensaje) {
+    status = true;
+    message = mensaje;
+  }
+
+  ResponseArticulo.fromJsonMapError(String mensaje) {
     status = false;
-    message = message;
+    message = mensaje;
   }
 }

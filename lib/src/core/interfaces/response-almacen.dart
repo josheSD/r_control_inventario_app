@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ResponseAlmacen {
   late bool status;
   late String message;
-  late List<Almacen> data;
+  List<Almacen>? data;
 
   ResponseAlmacen({
     @required status,
@@ -23,9 +23,13 @@ class ResponseAlmacen {
         List<Almacen>.from(json["data"].map((x) => Almacen.fromJson(x)));
     message = json['message'];
   }
+  ResponseAlmacen.fromJsonMapSuccess(String mensaje) {
+    status = true;
+    message = mensaje;
+  }
 
-  ResponseAlmacen.fromJsonMapError(String message) {
+  ResponseAlmacen.fromJsonMapError(String mensaje) {
     status = false;
-    message = message;
+    message = mensaje;
   }
 }

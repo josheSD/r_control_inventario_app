@@ -23,12 +23,36 @@ class UserPreference {
     _usuarioPreferencias.setString('token', value);
   }
 
-  get username {
-    return _usuarioPreferencias.getString('username') ?? '';
+  get nombre {
+    return _usuarioPreferencias.getString('nombre') ?? '';
   }
 
-  set setUsername(String value) {
-    _usuarioPreferencias.setString('username', value);
+  set setNombre(String value) {
+    _usuarioPreferencias.setString('nombre', value);
+  }
+
+  get usuario {
+    return _usuarioPreferencias.getString('usuario') ?? '';
+  }
+
+  set setUsuario(String value) {
+    _usuarioPreferencias.setString('usuario', value);
+  }
+
+  get rol {
+    return _usuarioPreferencias.getString('rol') ?? '';
+  }
+
+  set setRol(String value) {
+    _usuarioPreferencias.setString('rol', value);
+  }
+
+  get direccion {
+    return _usuarioPreferencias.getString('direccion') ?? '';
+  }
+
+  set setDireccion(String value) {
+    _usuarioPreferencias.setString('direccion', value);
   }
 
   void clearSharedPreferences() {

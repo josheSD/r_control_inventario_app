@@ -1,76 +1,15 @@
 import 'package:controlinventario/src/core/interfaces/response-proyecto.dart';
 import 'package:controlinventario/src/domain/proyecto.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../core/util/constantes.dart';
 
 class ProyectoService {
   Future<ResponseProyecto> getProyectos() async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    final url = "${Envinronment.API_INVENTARIO}/proyecto/listar";
+    final response = await http.get(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
-
-    final decodedResp = {
-      "status": true,
-      "message": "éxito",
-      "data": [
-        {
-          "id": 1,
-          "nombre": "Las lomas",
-          "cliente": "Municipalidad de Lima",
-          "fechaInicio": "2022-10-11T00:00:00.000",
-          "fechaFin": "2022-10-11T00:00:00.000",
-          "contrato": "contrato",
-          "estado": 0,
-          "articulo": [
-            {
-              "id": 1,
-              "url": "url",
-              "nombre": "nombre",
-              "precio": "100.00",
-              "cantidad": 4,
-              "categoria": {
-                "id": 1,
-                "nombre": "categoria",
-              },
-              "almacen": {
-                "id": 1,
-                "nombre": "Almacen",
-                "direccion": "direccion",
-                "articulo": [],
-              }
-            }
-          ],
-        },
-        {
-          "id": 1,
-          "nombre": "Las lomas",
-          "cliente": "Municipalidad de Lima",
-          "fechaInicio": "2022-10-11T00:00:00.000",
-          "fechaFin": "2022-10-11T00:00:00.000",
-          "contrato": "contrato",
-          "articulo": [
-            {
-              "id": 1,
-              "url": "url",
-              "nombre": "nombre",
-              "categoria": {
-                "id": 1,
-                "nombre": "categoria",
-              },
-              "precio": "100.00",
-              "cantidad": 5,
-              "almacen": {
-                "id": 1,
-                "nombre": "Almacen",
-                "direccion": "direccion",
-                "articulo": [],
-              }
-            }
-          ],
-          "estado": 1
-        },
-      ]
-    };
+    final decodedResp = json.decode(response.body);
 
     if (response.statusCode == 200) {
       return new ResponseProyecto.fromJsonMap(decodedResp);
@@ -79,51 +18,76 @@ class ProyectoService {
     }
   }
 
-  
-  
-  Future<ResponseProyecto> postProyecto(Proyecto proyecto) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseProyecto> postProyecto(Map<String, dynamic> proyecto) async {
+    try {
+      final url = "${Envinronment.API_INVENTARIO}/proyecto/guardar";
 
-    await Future.delayed(Duration(seconds: 1));
+      final request = {
+        "nombre": proyecto["nombre"],
+        "cliente": proyecto["cliente"],
+        "fechaInicio": proyecto["fechaInicio"],
+        "fechaFin": proyecto["fechaFin"],
+        "articulo": proyecto["articulos"],
+      };
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
+      final response =
+          await http.post(Uri.parse(url), body: jsonEncode(request));
 
-    if (response.statusCode == 200) {
-      return new ResponseProyecto.fromJsonMap(decodedResp);
-    } else {
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseProyecto.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseProyecto.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseProyecto.fromJsonMapError("Error");
     }
   }
 
-  Future<ResponseProyecto> putProyecto(Proyecto proyecto) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseProyecto> putProyecto(Map<String, dynamic> proyecto) async {
+    try {
+      final url = "${Envinronment.API_INVENTARIO}/proyecto/editar";
 
-    await Future.delayed(Duration(seconds: 1));
+      final request = {
+        "id": proyecto["id"],
+        "nombre": proyecto["nombre"],
+        "cliente": proyecto["cliente"],
+        "fechaInicio": proyecto["fechaInicio"],
+        "fechaFin": proyecto["fechaFin"],
+        "articulo": proyecto["articulos"],
+      };
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
+      final response =
+          await http.put(Uri.parse(url), body: jsonEncode(request));
 
-    if (response.statusCode == 200) {
-      return new ResponseProyecto.fromJsonMap(decodedResp);
-    } else {
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseProyecto.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseProyecto.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseProyecto.fromJsonMapError("Error");
     }
   }
 
-  Future<ResponseProyecto> deleteProyecto(int idAlmacen) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseProyecto> deleteProyecto(int idProyecto) async {
+    try {
+      final url =
+          "${Envinronment.API_INVENTARIO}/proyecto/eliminar?IdProyecto=$idProyecto";
+      final response = await http.delete(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
+      final decodedResp = json.decode(response.body);
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
-
-    if (response.statusCode == 200) {
-      return new ResponseProyecto.fromJsonMap(decodedResp);
-    } else {
+      if (response.statusCode < 400) {
+        return new ResponseProyecto.fromJsonMap(decodedResp);
+      } else {
+        return new ResponseProyecto.fromJsonMapError("Error");
+      }
+    } catch (e) {
       return new ResponseProyecto.fromJsonMapError("Error");
     }
   }
-
 }

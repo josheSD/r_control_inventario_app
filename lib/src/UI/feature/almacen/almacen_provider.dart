@@ -12,6 +12,7 @@ class AlmacenProvider with ChangeNotifier {
   AlmacenService _almacenService = new AlmacenService();
 
   FormGroup form = new FormGroup({
+    'id': FormControl<String>(value: ''),
     'nombre': FormControl<String>(value: '', validators: [Validators.required]),
     'direccion':
         FormControl<String>(value: '', validators: [Validators.required]),
@@ -22,23 +23,20 @@ class AlmacenProvider with ChangeNotifier {
 
   addFormArray(ArticuloForm articuloForm) async {
     articulosList.add(FormGroup({
-      'idArticulo': FormControl<String>(
-          value: articuloForm.idArticulo, validators: [Validators.required]),
+      'id': FormControl<String>(
+          value: articuloForm.id, validators: [Validators.required]),
       'cantidad': FormControl<String>(
           value: articuloForm.cantidad, validators: [Validators.required]),
     }));
   }
 
   updateFormArray(ArticuloForm articuloForm, index) async {
-    final value = {
-      'idArticulo': articuloForm.idArticulo,
-      'cantidad': articuloForm.cantidad
-    };
+    final value = {'id': articuloForm.id, 'cantidad': articuloForm.cantidad};
     articulosList.controls[index].patchValue(value);
 
     final newLista = articulosList.controls.map((e) => FormGroup({
-          'idArticulo': FormControl<String>(
-              value: ArticuloForm.fromJson(e.value).idArticulo,
+          'id': FormControl<String>(
+              value: ArticuloForm.fromJson(e.value).id,
               validators: [Validators.required]),
           'cantidad': FormControl<String>(
               value: ArticuloForm.fromJson(e.value).cantidad,
@@ -77,29 +75,67 @@ class AlmacenProvider with ChangeNotifier {
       return;
     }
 
-    if (isValidArticulos) {
+    if (!isValidArticulos) {
+      return;
+    }
+
+    late ResponseAlmacen response;
+    if (form.value["id"].toString().length > 0) {
+      response = await _almacenService.putAlmacen(form.value);
+    } else {
+      response = await _almacenService.postAlmacen(form.value);
+    }
+
+    if (response.status) {
+      this.form.reset(removeFocus: true);
+
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorSecond);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+
       Navigator.pushNamed(context, Routes.ALMACEN);
+    } else {
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Envinronment.colorWhite)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
     }
   }
 
   void initializeForm(Almacen almacen) {
     final value = {
+      'id': almacen.id.toString(),
       'nombre': almacen.nombre,
       'direccion': almacen.direccion
     };
     form.patchValue(value);
 
     final newLista = almacen.articulo.map((e) => FormGroup({
-          'idArticulo': FormControl<String>(
-              value: e.categoria.id.toString(),
-              validators: [Validators.required]),
+          'id': FormControl<String>(
+              value: e.id.toString(), validators: [Validators.required]),
           'cantidad': FormControl<String>(
-              value: e.cantidad.toString(),
-              validators: [Validators.required]),
+              value: e.cantidad.toString(), validators: [Validators.required]),
         }));
 
     articulosList.addAll(newLista.toList());
-
   }
 
   void cleanForm() {
@@ -112,16 +148,6 @@ class AlmacenProvider with ChangeNotifier {
     return response;
   }
 
-  Future<ResponseAlmacen> postAlmacen(Almacen almacen) async {
-    ResponseAlmacen response = await _almacenService.postAlmacen(almacen);
-    return response;
-  }
-
-  Future<ResponseAlmacen> putAlmacen(Almacen almacen) async {
-    ResponseAlmacen response = await _almacenService.putAlmacen(almacen);
-    return response;
-  }
-
   Future<ResponseAlmacen> deleteAlmacen(int idAlmacen) async {
     ResponseAlmacen response = await _almacenService.deleteAlmacen(idAlmacen);
     return response;
@@ -129,8 +155,7 @@ class AlmacenProvider with ChangeNotifier {
 
   // ###############    Form Articulo   #########################
   FormGroup formArticulo = new FormGroup({
-    'idArticulo':
-        FormControl<String>(value: '', validators: [Validators.required]),
+    'id': FormControl<String>(value: '', validators: [Validators.required]),
     'cantidad':
         FormControl<String>(value: '', validators: [Validators.required]),
   });
@@ -152,9 +177,9 @@ class AlmacenProvider with ChangeNotifier {
     return isValid;
   }
 
-  void initializeFormArticulo(String idArticulo, String cantidad) {
+  void initializeFormArticulo(String id, String cantidad) {
     final value = {
-      'idArticulo': idArticulo.toString(),
+      'id': id.toString(),
       'cantidad': cantidad.toString(),
     };
     formArticulo.patchValue(value);

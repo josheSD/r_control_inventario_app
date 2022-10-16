@@ -224,7 +224,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
                         AsyncSnapshot<ResponseAlmacen> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
-                          List<Almacen> almacenes = snapshot.data!.data;
+                          List<Almacen> almacenes = snapshot.data!.data!;
 
                           return _buildLista(almacenes);
                         } else {

@@ -14,6 +14,7 @@ class ArticuloProvider with ChangeNotifier {
   ArticuloService _articuloService = new ArticuloService();
 
   FormGroup form = new FormGroup({
+    'id': FormControl<String>(value: ''),
     'nombre': FormControl<String>(value: '', validators: [Validators.required]),
     'idCategoria':
         FormControl<String>(value: '', validators: [Validators.required]),
@@ -43,11 +44,50 @@ class ArticuloProvider with ChangeNotifier {
       return;
     }
 
-    Navigator.pushNamed(context, Routes.ARTICULO);
+    late ResponseArticulo response;
+    if (form.value["id"].toString().length > 0) {
+      response = await _articuloService.putArticulo(form.value);
+    } else {
+      response = await _articuloService.postArticulo(form.value);
+    }
+
+    if (response.status) {
+      this.form.reset(removeFocus: true);
+
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorSecond);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+
+      Navigator.pushNamed(context, Routes.ARTICULO);
+    } else {
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Envinronment.colorWhite)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+    }
   }
 
   void initializeForm(Articulo articulo) {
     final value = {
+      'id': articulo.id.toString(),
       'nombre': articulo.nombre,
       'idCategoria': articulo.categoria.id.toString(),
       'precio': articulo.precio.toString()
@@ -66,16 +106,6 @@ class ArticuloProvider with ChangeNotifier {
 
   Future<ResponseArticulo> getArticulos() async {
     ResponseArticulo response = await _articuloService.getArticulos();
-    return response;
-  }
-
-  Future<ResponseArticulo> postArticulo(Articulo articulo) async {
-    ResponseArticulo response = await _articuloService.postArticulo(articulo);
-    return response;
-  }
-
-  Future<ResponseArticulo> putArticulo(Articulo articulo) async {
-    ResponseArticulo response = await _articuloService.putArticulo(articulo);
     return response;
   }
 

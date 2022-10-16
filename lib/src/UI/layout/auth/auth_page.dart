@@ -107,8 +107,6 @@ class _AuthPageState extends State<AuthPage> {
   _onPressed(BuildContext context) async {
     setState(() => _procesandoLoading = true);
     await authProvider.handlerSubmit(context);
-    authProvider.cleanForm();
-    Navigator.pushNamed(context, 'portal');
     setState(() => _procesandoLoading = false);
   }
 

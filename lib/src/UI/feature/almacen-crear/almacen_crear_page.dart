@@ -20,7 +20,6 @@ class AlmacenCrearPage extends StatefulWidget {
 }
 
 class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
-
   bool _procesandoLoding = false;
   bool _isCreate = true;
   late AlmacenProvider almacenProvider;
@@ -76,7 +75,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                         AsyncSnapshot<ResponseArticulo> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
-                          List<Articulo> articulos = snapshot.data!.data;
+                          List<Articulo> articulos = snapshot.data!.data!;
 
                           return _buildBody(articulos, context);
                         } else {
@@ -164,7 +163,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                                                           .articulosList
                                                           .controls[index]
                                                           .value)
-                                                  .idArticulo)
+                                                  .id)
                                           .nombre)),
                                   Container(
                                       padding: EdgeInsets.symmetric(
@@ -221,7 +220,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
           ),
           Container(
             padding: EdgeInsets.only(left: 8),
-            child: Text( _isCreate ? 'Guardar' : 'Actualizar',
+            child: Text(_isCreate ? 'Guardar' : 'Actualizar',
                 style: TextStyle(
                     color: Envinronment.colorBlack,
                     fontWeight: FontWeight.normal)),
@@ -272,7 +271,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
           onPressed: () {
             final articuloForm = ArticuloForm.fromJson(currentform.value);
             almacenProvider.initializeFormArticulo(
-                articuloForm.idArticulo, articuloForm.cantidad);
+                articuloForm.id, articuloForm.cantidad);
             handleModalAgregar(articulos, false, index);
           }),
     );
@@ -412,7 +411,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                         height: 15,
                       ),
                       Input.selectArticulo(
-                          formControlName: 'idArticulo',
+                          formControlName: 'id',
                           labelText: 'Artículo',
                           errorText: 'Seleccione el artículo',
                           articulos: articulos),
