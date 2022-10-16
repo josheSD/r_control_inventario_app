@@ -1,5 +1,4 @@
 import 'package:controlinventario/src/domain/proyecto.dart';
-import 'package:controlinventario/src/domain/tipo.dart';
 import 'package:flutter/material.dart';
 
 class ResponseProyecto {

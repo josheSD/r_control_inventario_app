@@ -20,17 +20,18 @@ class ProyectoService {
           "fechaInicio": "2022-10-11T00:00:00.000",
           "fechaFin": "2022-10-11T00:00:00.000",
           "contrato": "contrato",
+          "estado": 0,
           "articulo": [
             {
               "id": 1,
               "url": "url",
               "nombre": "nombre",
+              "precio": "100.00",
+              "cantidad": 4,
               "categoria": {
                 "id": 1,
                 "nombre": "categoria",
               },
-              "precio": 100.00,
-              "cantidad": 4,
               "almacen": {
                 "id": 1,
                 "nombre": "Almacen",
@@ -39,7 +40,6 @@ class ProyectoService {
               }
             }
           ],
-          "estado": 0
         },
         {
           "id": 1,
@@ -57,7 +57,7 @@ class ProyectoService {
                 "id": 1,
                 "nombre": "categoria",
               },
-              "precio": 100.00,
+              "precio": "100.00",
               "cantidad": 5,
               "almacen": {
                 "id": 1,

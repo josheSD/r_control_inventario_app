@@ -6,7 +6,7 @@ class Articulo {
   late String url;
   late String nombre;
   late Categoria categoria;
-  late double precio;
+  late String precio;
   late dynamic almacen; // Almacen or null
   late dynamic cantidad;
 

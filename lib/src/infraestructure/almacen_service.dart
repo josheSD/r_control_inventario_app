@@ -26,7 +26,7 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 120.00,
+              "precio": "120.00",
               "cantidad": 4
             },
             {
@@ -37,11 +37,10 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 120.00,
+              "precio": "120.00",
               "cantidad": 4
             },
           ],
-          "precio": 120.00,
         },
         {
           "id": 2,
@@ -56,7 +55,7 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 120.00,
+              "precio": "120.00",
               "cantidad": 3
             },
             {
@@ -67,7 +66,7 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 140.00,
+              "precio": "140.00",
               "cantidad": 2
             },
             {
@@ -78,11 +77,10 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 140.00,
+              "precio": "140.00",
               "cantidad": 2
             },
           ],
-          "precio": 120.00,
         },
         {
           "id": 3,
@@ -97,11 +95,10 @@ class AlmacenService {
                 "id": 1,
                 "nombre": "Herramienta",
               },
-              "precio": 166.00,
+              "precio": "166.00",
               "cantidad": 1
             },
           ],
-          "precio": 120.00,
         },
       ]
     };

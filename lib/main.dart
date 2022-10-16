@@ -1,7 +1,5 @@
 import 'package:controlinventario/src/UI/feature/almacen/almacen_provider.dart';
 import 'package:controlinventario/src/UI/feature/articulo/articulo_provider.dart';
-import 'package:controlinventario/src/UI/feature/inventario-crear/inventario_crear_provider.dart';
-import 'package:controlinventario/src/UI/feature/inventario/inventario_provider.dart';
 import 'package:controlinventario/src/UI/feature/proyecto/proyecto_provider.dart';
 import 'package:controlinventario/src/UI/feature/tablero/tablero_provider.dart';
 import 'package:controlinventario/src/UI/feature/usuario/usuario_provider.dart';
