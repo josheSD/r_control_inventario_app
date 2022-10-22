@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ResponseArticulo {
   late bool status;
   late String message;
-  List<Articulo>? data;
+  late List<Articulo> data;
 
   ResponseArticulo({
     @required status,

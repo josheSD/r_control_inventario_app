@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-
+import 'package:open_file/open_file.dart';
 import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
 
@@ -133,12 +133,13 @@ class _UsuarioPageState extends State<UsuarioPage> {
         await _handleCreateDirectory(urlRoot);
       }
 
-      await Future.delayed(Duration(seconds: 3));
-
-      final pdf = ReportPDF.usuario();
+      ResponseUsuario response = await usuarioProvider.getUsuarios();
+      final pdf = ReportPDF.usuario(response);
 
       final file = File(await DirectoryCustom.getNameUsuario());
       await file.writeAsBytes(await pdf.save());
+
+      await OpenFile.open(file.path);
 
       SnackBar snackBar = SnackBar(
           content: Text('Reporte Descargado',

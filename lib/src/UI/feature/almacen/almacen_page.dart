@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
+import 'package:open_file/open_file.dart';
 
 class AlmacenPage extends StatefulWidget {
   @override
@@ -138,12 +139,14 @@ class _AlmacenPageState extends State<AlmacenPage> {
         await _handleCreateDirectory(urlRoot);
       }
 
-      await Future.delayed(Duration(seconds: 3));
+      ResponseAlmacen response = await almacenProvider.getAlmacenes();
 
-      final pdf = ReportPDF.almacen();
+      final pdf = ReportPDF.almacen(response);
 
       final file = File(await DirectoryCustom.getNameAlmacen());
       await file.writeAsBytes(await pdf.save());
+
+      await OpenFile.open(file.path);
 
       SnackBar snackBar = SnackBar(
           content: Text('Reporte Descargado',
@@ -224,7 +227,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
                         AsyncSnapshot<ResponseAlmacen> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
-                          List<Almacen> almacenes = snapshot.data!.data!;
+                          List<Almacen> almacenes = snapshot.data!.data;
 
                           return _buildLista(almacenes);
                         } else {

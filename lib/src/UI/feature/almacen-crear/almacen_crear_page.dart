@@ -75,7 +75,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                         AsyncSnapshot<ResponseArticulo> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
-                          List<Articulo> articulos = snapshot.data!.data!;
+                          List<Articulo> articulos = snapshot.data!.data;
 
                           return _buildBody(articulos, context);
                         } else {

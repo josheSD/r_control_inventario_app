@@ -80,9 +80,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                         AsyncSnapshot<List<dynamic>> snapshot) {
                       if (snapshot.hasData) {
                         List<Almacen> almacenes =
-                            (snapshot.data![0] as ResponseAlmacen).data!;
+                            (snapshot.data![0] as ResponseAlmacen).data;
                         List<Articulo> articulos =
-                            (snapshot.data![1] as ResponseArticulo).data!;
+                            (snapshot.data![1] as ResponseArticulo).data;
                         return _buildBody(almacenes, articulos, context);
                       } else {
                         return Center(

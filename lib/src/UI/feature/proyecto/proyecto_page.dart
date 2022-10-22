@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
+import 'package:open_file/open_file.dart';
 
 class ProyectoPage extends StatefulWidget {
   @override
@@ -132,12 +133,14 @@ class _ProyectoPageState extends State<ProyectoPage> {
         await _handleCreateDirectory(urlRoot);
       }
 
-      await Future.delayed(Duration(seconds: 3));
 
-      final pdf = ReportPDF.proyecto();
+      ResponseProyecto response = await proyectoProvider.getProyectos();
+      final pdf = ReportPDF.proyecto(response);
 
       final file = File(await DirectoryCustom.getNameProyecto());
       await file.writeAsBytes(await pdf.save());
+
+      await OpenFile.open(file.path);
 
       SnackBar snackBar = SnackBar(
           content: Text('Reporte Descargado',

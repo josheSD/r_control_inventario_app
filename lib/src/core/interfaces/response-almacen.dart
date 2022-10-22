@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class ResponseAlmacen {
   late bool status;
   late String message;
-  List<Almacen>? data;
+  late List<Almacen> data;
 
   ResponseAlmacen({
     @required status,

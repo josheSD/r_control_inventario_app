@@ -15,6 +15,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:external_path/external_path.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:open_file/open_file.dart';
 
 class ArticuloPage extends StatefulWidget {
   @override
@@ -140,12 +141,14 @@ class _ArticuloPageState extends State<ArticuloPage> {
         await _handleCreateDirectory(urlRoot);
       }
 
-      await Future.delayed(Duration(seconds: 3));
+      ResponseArticulo response = await articuloProvider.getArticulos();
 
-      final pdf = ReportPDF.articulo();
+      final pdf = ReportPDF.articulo(response);
 
       final file = File(await DirectoryCustom.getNameArticulo());
       await file.writeAsBytes(await pdf.save());
+
+      await OpenFile.open(file.path);
 
       SnackBar snackBar = SnackBar(
           content: Text('Reporte Descargado',
@@ -226,7 +229,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
                         AsyncSnapshot<ResponseArticulo> snapshot) {
                       if (snapshot.hasData) {
                         if (snapshot.data!.status) {
-                          List<Articulo> articulos = snapshot.data!.data!;
+                          List<Articulo> articulos = snapshot.data!.data;
                           return _buildLista(articulos);
                         } else {
                           ResponseArticulo response = snapshot.data!;
