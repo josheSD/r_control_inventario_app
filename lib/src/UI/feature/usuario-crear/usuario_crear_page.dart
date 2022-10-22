@@ -15,7 +15,7 @@ class UsuarioCrearPage extends StatefulWidget {
 }
 
 class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
-  bool _procesandoLoding = false;
+  bool _procesandoLoading = false;
   bool _isCreate = true;
   late UsuarioProvider usuarioProvider;
 
@@ -102,25 +102,32 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
                       type: Envinronment.controlText),
                   SizedBox(height: 18.0),
                   Input.control(
+                      formControlName: 'direccion',
+                      labelText: 'Dirección',
+                      errorText: 'Ingrese Dirección',
+                      isContrasenia: false,
+                      type: Envinronment.controlText),
+                  SizedBox(height: 18.0),
+                  Input.control(
                       formControlName: 'usuario',
                       labelText: 'Usuario',
                       errorText: 'Ingrese Usuario',
                       isContrasenia: false,
-                      type: Envinronment.controlNumber),
+                      type: Envinronment.controlCorreo),
                   SizedBox(height: 18.0),
                   Input.control(
                       formControlName: 'contrasenia',
                       labelText: 'Contraseña',
                       errorText: 'Ingrese Contraseña',
-                      isContrasenia: false,
-                      type: Envinronment.controlNumber),
+                      isContrasenia: true,
+                      type: Envinronment.controlText),
                   SizedBox(height: 18.0),
                   Input.control(
                       formControlName: 'repetirContrasenia',
                       labelText: 'Repetir Contraseña',
                       errorText: 'Ingrese Repetir Contraseña',
-                      isContrasenia: false,
-                      type: Envinronment.controlNumber),
+                      isContrasenia: true,
+                      type: Envinronment.controlText),
                   SizedBox(height: 18.0),
                   Input.selectRol(
                       formControlName: 'idRol',
@@ -159,7 +166,7 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
                     color: Envinronment.colorBlack,
                     fontWeight: FontWeight.normal)),
           ),
-          _procesandoLoding
+          _procesandoLoading
               ? Container(
                   margin: EdgeInsets.only(left: 12),
                   child: SizedBox(
@@ -172,12 +179,14 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding ? null : () => {_onPressed(context)},
+      onPressed: _procesandoLoading ? null : () => {_onPressed(context)},
     );
   }
 
   _onPressed(BuildContext context) async {
+    setState(() => _procesandoLoading = true);
     await usuarioProvider.handleSubmit(context);
+    setState(() => _procesandoLoading = false);
   }
 
   _handleModalRol() {

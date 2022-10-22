@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:controlinventario/src/core/interfaces/response-usuario.dart';
+import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:controlinventario/src/domain/usuario.dart';
 import 'package:http/http.dart' as http;
 
@@ -6,115 +9,107 @@ import '../core/interfaces/response-rol.dart';
 
 class UsuarioService {
   Future<ResponseRol> getRoles() async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    try {
+      final url = "${Envinronment.API_PERSONAL}/rol/listar";
+      final response = await http.get(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
+      final decodedResp = json.decode(response.body);
 
-    final decodedResp = {
-      "status": true,
-      "message": "éxito",
-      "data": [
-        {
-          "id": 1,
-          "nombre": "Administrador",
-        },
-        {"id": 2, "nombre": "Almacenedero"},
-      ]
-    };
-
-    if (response.statusCode == 200) {
-      return new ResponseRol.fromJsonMap(decodedResp);
-    } else {
+      if (response.statusCode == 200) {
+        return new ResponseRol.fromJsonMap(decodedResp);
+      } else {
+        return new ResponseRol.fromJsonMapError("Error al buscar");
+      }
+    } catch (e) {
       return new ResponseRol.fromJsonMapError("Error al buscar");
     }
   }
 
   Future<ResponseUsuario> getUsuarios() async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    try {
+      final url = "${Envinronment.API_PERSONAL}/usuario/listar";
+      final response = await http.get(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
+      final decodedResp = json.decode(response.body);
 
-    final decodedResp = {
-      "status": true,
-      "message": "éxito",
-      "data": [
-        {
-          "id": 1,
-          "nombre": "Perez",
-          "direccion": "Asoc. Horacio Zevallos",
-          "usuario": "jchutas",
-          "contrasenia": "",
-          "rol": {"id": 1, "nombre": "Administrador"},
-        },
-        {
-          "id": 1,
-          "nombre": "Perez",
-          "direccion": "Asoc. Horacio Zevallos",
-          "usuario": "jchutas",
-          "contrasenia": "",
-          "rol": {"id": 2, "nombre": "Almacenedero"},
-        },
-        {
-          "id": 1,
-          "nombre": "Perez",
-          "direccion": "Asoc. Horacio Zevallos",
-          "usuario": "jchutas",
-          "contrasenia": "",
-          "rol": {"id": 2, "nombre": "Almacenedero"},
-        },
-      ]
-    };
-
-    if (response.statusCode == 200) {
-      return new ResponseUsuario.fromJsonMap(decodedResp);
-    } else {
+      if (response.statusCode == 200) {
+        return new ResponseUsuario.fromJsonMap(decodedResp);
+      } else {
+        return new ResponseUsuario.fromJsonMapError("Error al buscar");
+      }
+    } catch (e) {
       return new ResponseUsuario.fromJsonMapError("Error al buscar");
     }
   }
 
-  Future<ResponseUsuario> postUsuario(Usuario usuario) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseUsuario> postUsuario(Map<String, dynamic> usuario) async {
+    try {
+      final url = "${Envinronment.API_PERSONAL}/usuario/guardar";
 
-    await Future.delayed(Duration(seconds: 1));
+      final request = {
+        "nombre": usuario["nombre"],
+        "direccion": usuario["direccion"],
+        "usuario": usuario["usuario"],
+        "contrasenia": usuario["contrasenia"],
+        "idRol": usuario["idRol"],
+      };
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
+      final response =
+          await http.post(Uri.parse(url), body: jsonEncode(request));
 
-    if (response.statusCode == 200) {
-      return new ResponseUsuario.fromJsonMap(decodedResp);
-    } else {
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseUsuario.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseUsuario.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseUsuario.fromJsonMapError("Error");
     }
   }
 
-  Future<ResponseUsuario> putUsuario(Usuario usuario) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  Future<ResponseUsuario> putUsuario(Map<String, dynamic> usuario) async {
+    try {
+      final url = "${Envinronment.API_PERSONAL}/usuario/editar";
 
-    await Future.delayed(Duration(seconds: 1));
+      final request = {
+        "id": usuario["id"],
+        "nombre": usuario["nombre"],
+        "direccion": usuario["direccion"],
+        "usuario": usuario["usuario"],
+        "contrasenia": usuario["contrasenia"],
+        "idRol": usuario["idRol"],
+      };
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
+      final response =
+          await http.put(Uri.parse(url), body: jsonEncode(request));
 
-    if (response.statusCode == 200) {
-      return new ResponseUsuario.fromJsonMap(decodedResp);
-    } else {
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseUsuario.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseUsuario.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseUsuario.fromJsonMapError("Error");
     }
   }
 
   Future<ResponseUsuario> deleteUsuario(int idUsuario) async {
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+    try {
+      final url = "${Envinronment.API_PERSONAL}/usuario/eliminar?IdUsuario$idUsuario";
+      final response = await http.delete(Uri.parse(url));
 
-    await Future.delayed(Duration(seconds: 1));
+      final decodedResp = json.decode(response.body);
 
-    final decodedResp = {"status": true, "message": "éxito", "data": []};
-
-    if (response.statusCode == 200) {
-      return new ResponseUsuario.fromJsonMap(decodedResp);
-    } else {
+      if (response.statusCode < 400) {
+        return new ResponseUsuario.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseUsuario.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
       return new ResponseUsuario.fromJsonMapError("Error");
     }
   }

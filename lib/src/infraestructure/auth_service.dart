@@ -18,18 +18,6 @@ class AuthService {
       final response =
           await http.post(Uri.parse(url), body: jsonEncode(request));
 
-      // final decodedResp = {
-      //   "status": true,
-      //   "message": "éxito",
-      //   "data": {
-      //     "nombre": "rchutas",
-      //     "direccion": "rchutas",
-      //     "usuario": "rchutas@gmail.com",
-      //     "rol": {"id": 1, "nombre": "Administrador"},
-      //     "token": "eeerejri32jri3jiroj32ñoirjio23jr"
-      //   }
-      // };
-
       final decodedResp = json.decode(response.body);
 
       if (response.statusCode < 400) {

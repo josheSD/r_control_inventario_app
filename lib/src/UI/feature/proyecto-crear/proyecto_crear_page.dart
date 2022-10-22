@@ -22,7 +22,7 @@ class ProyectoCrearPage extends StatefulWidget {
 }
 
 class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
-  bool _procesandoLoding = false;
+  bool _procesandoLoading = false;
   bool _isVigente = false;
   bool _isConcluido = false;
   bool _isCreate = true;
@@ -251,7 +251,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                         color: Envinronment.colorBlack,
                         fontWeight: FontWeight.normal)),
               ),
-              _procesandoLoding
+              _procesandoLoading
                   ? Container(
                       margin: EdgeInsets.only(left: 12),
                       child: SizedBox(
@@ -290,7 +290,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                         color: Envinronment.colorBlack,
                         fontWeight: FontWeight.normal)),
               ),
-              _procesandoLoding
+              _procesandoLoading
                   ? Container(
                       margin: EdgeInsets.only(left: 12),
                       child: SizedBox(
@@ -303,7 +303,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                   : Container()
             ],
           )),
-          onPressed: _procesandoLoding ? null : () => {_onPressed(context)},
+          onPressed: _procesandoLoading ? null : () => {_onPressed(context)},
         ),
       ],
     );
@@ -333,7 +333,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                     color: Envinronment.colorBlack,
                     fontWeight: FontWeight.normal)),
           ),
-          _procesandoLoding
+          _procesandoLoading
               ? Container(
                   margin: EdgeInsets.only(left: 12),
                   child: SizedBox(
@@ -346,12 +346,14 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding ? null : () => {_onPressed(context)},
+      onPressed: _procesandoLoading ? null : () => {_onPressed(context)},
     );
   }
 
   _onPressed(BuildContext context) async {
+    setState(() => _procesandoLoading = true);
     await proyectoProvider.handleSubmit(context);
+    setState(() => _procesandoLoading = false);
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,

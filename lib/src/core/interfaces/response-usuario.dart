@@ -22,8 +22,13 @@ class ResponseUsuario {
     message = json['message'];
   }
 
-  ResponseUsuario.fromJsonMapError(String message) {
+  ResponseUsuario.fromJsonMapSuccess(String mensaje) {
+    status = true;
+    message = mensaje;
+  }
+
+  ResponseUsuario.fromJsonMapError(String mensaje) {
     status = false;
-    message = message;
+    message = mensaje;
   }
 }

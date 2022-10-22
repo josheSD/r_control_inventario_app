@@ -22,8 +22,13 @@ class ResponseRol {
     message = json['message'];
   }
 
-  ResponseRol.fromJsonMapError(String message) {
+  ResponseRol.fromJsonMapSuccess(String mensaje) {
+    status = true;
+    message = mensaje;
+  }
+
+  ResponseRol.fromJsonMapError(String mensaje) {
     status = false;
-    message = message;
+    message = mensaje;
   }
 }

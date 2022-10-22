@@ -45,7 +45,8 @@ class ArticuloProvider with ChangeNotifier {
     }
 
     late ResponseArticulo response;
-    if (form.value["id"].toString().length > 0) {
+    if (form.value["id"].toString().length > 0 &&
+        form.value["id"].toString() != 'null') {
       response = await _articuloService.putArticulo(form.value);
     } else {
       response = await _articuloService.postArticulo(form.value);

@@ -5,7 +5,7 @@ class Login {
   late String nombre;
   late String direccion;
   late String usuario;
-  late String rol;
+  late Rol rol;
   late String token;
 
   Login(
@@ -25,7 +25,7 @@ class Login {
         nombre: json["nombre"],
         direccion: json["direccion"],
         usuario: json["usuario"],
-        rol: json["rol"],
+        rol: Rol.fromJson(json["rol"]),
         token: json["token"],
       );
 

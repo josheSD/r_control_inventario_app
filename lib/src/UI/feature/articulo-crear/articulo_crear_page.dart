@@ -206,7 +206,9 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
+    setState(() => _procesandoLoading = true);
     await articuloProvider.handleSubmit(context, this.image);
+    setState(() => _procesandoLoading = false);
   }
 
   Future<File> saveImagePermanently(String imagePath) async {

@@ -233,28 +233,34 @@ class ProyectoProvider with ChangeNotifier {
 
   FormArray get articuloConcluidos => form.control('articulos') as FormArray;
 
+  void initializeFormConcluido(){
+
+    
+    
+    // final value = {
+    //   'id': proyecto.id.toString(),
+    //   'nombre': proyecto.nombre,
+    //   'cliente': proyecto.cliente,
+    //   'fechaInicio': proyecto.fechaInicio,
+    //   'fechaFin': proyecto.fechaFin,
+    // };
+    // form.patchValue(value);
+
+    // final newLista = proyecto.articulo.map((e) => FormGroup({
+    //       'idAlmacen': FormControl<String>(
+    //           value: AlmacenForm.fromJson(e.almacen).id.toString(),
+    //           validators: [Validators.required]),
+    //       'id': FormControl<String>(
+    //           value: e.id.toString(), validators: [Validators.required]),
+    //       'cantidad': FormControl<String>(
+    //           value: e.cantidad.toString(), validators: [Validators.required]),
+    //     }));
+
+    // articulosList.addAll(newLista.toList());
+  }
+
   Future<void> handleSubmitConcluido(BuildContext context) async {
-    bool isValidArticulos = true;
 
-    if (articuloConcluidos.controls.length == 0) {
-      SnackBar snackBar = SnackBar(
-          content: Text('Ingrese almenos un artículo',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-          duration: Duration(seconds: 1),
-          backgroundColor: Envinronment.colorDanger);
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          snackBar,
-        );
-      });
-
-      isValidArticulos = false;
-    }
-
-    if (isValidArticulos) {
-      Navigator.pushNamed(context, Routes.PROYECTO);
-    }
   }
 
   void cleanFormConcluido() {

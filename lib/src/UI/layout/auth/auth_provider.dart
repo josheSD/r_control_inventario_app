@@ -29,11 +29,11 @@ class AuthProvider with ChangeNotifier {
       this.form.reset(removeFocus: true);
 
       final userPreference = new UserPreference();
-      userPreference.setUsuario = response.data!.usuario;
-      userPreference.setNombre = response.data!.nombre;
-      userPreference.setDireccion = response.data!.direccion;
-      userPreference.setToken = response.data!.token;
-      userPreference.setRol = response.data!.rol;
+      userPreference.setUsuario = response.data.usuario;
+      userPreference.setNombre = response.data.nombre;
+      userPreference.setDireccion = response.data.direccion;
+      userPreference.setToken = response.data.token;
+      userPreference.setRol = response.data.rol.nombre;
 
       SnackBar snackBar = SnackBar(
           content: Text(response.message,

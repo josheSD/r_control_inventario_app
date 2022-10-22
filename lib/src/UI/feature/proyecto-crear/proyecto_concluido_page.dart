@@ -20,6 +20,7 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
   @override
   Widget build(BuildContext context) {
     proyectoProvider = Provider.of<ProyectoProvider>(context, listen: false);
+    proyectoProvider.cleanFormConcluido();
 
     return Scaffold(
         backgroundColor: Envinronment.colorBackground,
@@ -159,9 +160,9 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding ? null : () => {
-        Navigator.pushNamed(context, Routes.PROYECTO)
-      },
+      onPressed: _procesandoLoding
+          ? null
+          : () => {Navigator.pushNamed(context, Routes.PROYECTO)},
     );
   }
 }

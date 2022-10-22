@@ -20,7 +20,7 @@ class AlmacenCrearPage extends StatefulWidget {
 }
 
 class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
-  bool _procesandoLoding = false;
+  bool _procesandoLoading = false;
   bool _isCreate = true;
   late AlmacenProvider almacenProvider;
   late ArticuloProvider articuloProvider;
@@ -225,7 +225,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                     color: Envinronment.colorBlack,
                     fontWeight: FontWeight.normal)),
           ),
-          _procesandoLoding
+          _procesandoLoading
               ? Container(
                   margin: EdgeInsets.only(left: 12),
                   child: SizedBox(
@@ -238,12 +238,14 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding ? null : () => {_onPressed(context)},
+      onPressed: _procesandoLoading ? null : () => {_onPressed(context)},
     );
   }
 
   _onPressed(BuildContext context) async {
+    setState(() => _procesandoLoading = true);
     await almacenProvider.handleSubmit(context);
+    setState(() => _procesandoLoading = false);
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,

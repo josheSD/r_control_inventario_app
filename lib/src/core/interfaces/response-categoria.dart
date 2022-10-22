@@ -23,8 +23,13 @@ class ResponseCategoria {
     message = json['message'];
   }
 
-  ResponseCategoria.fromJsonMapError(String message) {
+  ResponseCategoria.fromJsonMapSucess(String mensaje) {
+    status = true;
+    message = mensaje;
+  }
+
+  ResponseCategoria.fromJsonMapError(String mensaje) {
     status = false;
-    message = message;
+    message = mensaje;
   }
 }

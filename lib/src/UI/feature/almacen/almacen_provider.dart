@@ -80,7 +80,8 @@ class AlmacenProvider with ChangeNotifier {
     }
 
     late ResponseAlmacen response;
-    if (form.value["id"].toString().length > 0) {
+    if (form.value["id"].toString().length > 0 &&
+        form.value["id"].toString() != 'null') {
       response = await _almacenService.putAlmacen(form.value);
     } else {
       response = await _almacenService.postAlmacen(form.value);

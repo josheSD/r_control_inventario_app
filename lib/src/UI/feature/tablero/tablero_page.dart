@@ -14,18 +14,6 @@ class TableroPage extends StatefulWidget {
 
 class _TableroPageState extends State<TableroPage> {
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final tableroProvider =
         Provider.of<TableroProvider>(context, listen: false);
@@ -34,9 +22,15 @@ class _TableroPageState extends State<TableroPage> {
             child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildBar(context, tableroProvider),
-        SizedBox(height: 20),
-        _buildPie(context, tableroProvider),
+        Center(
+            child: Container(
+              margin: EdgeInsets.only(top: 20,bottom: 20),
+              child: Text('Bienvenido',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28)),
+            )),
+        Center(
+            child: Text('al sistema de control de inventario',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)))
       ],
     )));
   }

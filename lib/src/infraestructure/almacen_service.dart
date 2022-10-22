@@ -84,9 +84,9 @@ class AlmacenService {
       final decodedResp = json.decode(response.body);
 
       if (response.statusCode < 400) {
-        return new ResponseAlmacen.fromJsonMap(decodedResp);
+        return new ResponseAlmacen.fromJsonMapSuccess(decodedResp["message"]);
       } else {
-        return new ResponseAlmacen.fromJsonMapError("Error");
+        return new ResponseAlmacen.fromJsonMapError(decodedResp["message"]);
       }
     } catch (e) {
       return new ResponseAlmacen.fromJsonMapError("Error");

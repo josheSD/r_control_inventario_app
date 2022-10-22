@@ -4,7 +4,7 @@ import 'package:controlinventario/src/domain/login.dart';
 class ResponseLogin{
   late bool status;
   late String message;
-  Login? data;
+  late Login data;
 
   ResponseLogin.fromJsonMap(Map<String, dynamic> json) {
     status = json['status'];
