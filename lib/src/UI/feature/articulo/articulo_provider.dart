@@ -22,27 +22,27 @@ class ArticuloProvider with ChangeNotifier {
   });
 
   Future<void> handleSubmit(BuildContext context, File? image) async {
-    bool notEmptyImage = image == null ? true : false;
+    // bool notEmptyImage = image == null ? true : false;
 
     if (form.invalid) {
       form.markAllAsTouched();
       return;
     }
 
-    if (notEmptyImage) {
-      SnackBar snackBar = SnackBar(
-          content: Text('Ingrese una imagen',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-          duration: Duration(seconds: 1),
-          backgroundColor: Envinronment.colorDanger);
+    // if (notEmptyImage) {
+    //   SnackBar snackBar = SnackBar(
+    //       content: Text('Ingrese una imagen',
+    //           style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+    //       duration: Duration(seconds: 1),
+    //       backgroundColor: Envinronment.colorDanger);
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          snackBar,
-        );
-      });
-      return;
-    }
+    //   WidgetsBinding.instance.addPostFrameCallback((_) {
+    //     ScaffoldMessenger.of(context).showSnackBar(
+    //       snackBar,
+    //     );
+    //   });
+    //   return;
+    // }
 
     late ResponseArticulo response;
     if (form.value["id"].toString().length > 0 &&
