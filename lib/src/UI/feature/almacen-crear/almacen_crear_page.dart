@@ -193,7 +193,8 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                         );
                       }),
                   SizedBox(height: 22.0),
-                  _buttonSubmit(context)
+                  _buttonSubmit(context),
+                  SizedBox(height: 10),
                 ],
               ))
         ],
@@ -243,9 +244,9 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    setState(() => _procesandoLoading = true);
+    // setState(() => _procesandoLoading = true);
     await almacenProvider.handleSubmit(context);
-    setState(() => _procesandoLoading = false);
+    // setState(() => _procesandoLoading = false);
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,

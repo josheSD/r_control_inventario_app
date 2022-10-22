@@ -36,6 +36,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
     almacenProvider = Provider.of<AlmacenProvider>(context, listen: false);
     articuloProvider = Provider.of<ArticuloProvider>(context, listen: false);
     proyectoProvider.cleanForm();
+    proyectoProvider.cleanFormConcluido();
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
@@ -215,8 +216,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                         );
                       }),
                   SizedBox(height: 22.0),
-                  _isVigente ? _buttonVigente(context) : Container(),
+                  _isVigente ? _buttonVigente(context, articulos) : Container(),
                   _isCreate ? _buttonSubmitCreate(context) : Container(),
+                  SizedBox(height: 10),
                 ],
               ))
         ],
@@ -224,7 +226,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
     );
   }
 
-  Widget _buttonVigente(BuildContext context) {
+  Widget _buttonVigente(BuildContext context, List<Articulo> articulos) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -265,7 +267,8 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
             ],
           )),
           onPressed: () {
-            Navigator.pushNamed(context, Routes.PROYECTO_CONCLUIDO);
+            Navigator.pushNamed(context, Routes.PROYECTO_CONCLUIDO,
+                arguments: articulos);
           },
         ),
         ElevatedButton(
@@ -351,9 +354,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    setState(() => _procesandoLoading = true);
+    // setState(() => _procesandoLoading = true);
     await proyectoProvider.handleSubmit(context);
-    setState(() => _procesandoLoading = false);
+    // setState(() => _procesandoLoading = false);
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,
@@ -380,8 +383,8 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
           ),
           onPressed: () {
             final articuloForm = ArticuloForm.fromJson(currentform.value);
-            proyectoProvider.initializeFormArticulo(articuloForm.idAlmacen,
-                articuloForm.id, articuloForm.cantidad);
+            proyectoProvider.initializeFormArticulo(
+                articuloForm.idAlmacen, articuloForm.id, articuloForm.cantidad);
             handleModalAgregar(almacenes, articulos, false, index);
           }),
     );

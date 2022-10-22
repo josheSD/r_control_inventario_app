@@ -9,6 +9,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../domain/almacen-form.dart';
 import '../../../domain/almacen.dart';
+import '../../../domain/articulo.dart';
 
 class ProyectoProvider with ChangeNotifier {
   ProyectoService _proyectoService = new ProyectoService();
@@ -220,51 +221,28 @@ class ProyectoProvider with ChangeNotifier {
     'articulos': FormArray([], validators: [Validators.required])
   });
 
-  addFormArrayConcluido() async {
-    articuloConcluidos.add(FormGroup({
-      'id': FormControl<String>(
-          value: 'Sierra Circular', validators: [Validators.required]),
-      'buena':
-          FormControl<String>(value: '', validators: [Validators.required]),
-      'daniado':
-          FormControl<String>(value: '', validators: [Validators.required]),
-    }));
+  FormArray get articuloConcluidos =>
+      formConcluido.control('articulos') as FormArray;
+
+  void initializeFormConcluido() {
+    final newLista = articulosList.controls.map((e) => FormGroup({
+          'id': FormControl<String>(value: ArticuloForm.fromJson(e.value).id),
+          'cantidad': FormControl<String>(
+              value: ArticuloForm.fromJson(e.value).cantidad),
+          'buena': FormControl<String>(
+              value: "", validators: [Validators.required]),
+          'daniado':
+              FormControl<String>(value: "", validators: [Validators.required]),
+        }));
+
+    articuloConcluidos.clear();
+    articuloConcluidos.addAll(newLista.toList());
   }
 
-  FormArray get articuloConcluidos => form.control('articulos') as FormArray;
-
-  void initializeFormConcluido(){
-
-    
-    
-    // final value = {
-    //   'id': proyecto.id.toString(),
-    //   'nombre': proyecto.nombre,
-    //   'cliente': proyecto.cliente,
-    //   'fechaInicio': proyecto.fechaInicio,
-    //   'fechaFin': proyecto.fechaFin,
-    // };
-    // form.patchValue(value);
-
-    // final newLista = proyecto.articulo.map((e) => FormGroup({
-    //       'idAlmacen': FormControl<String>(
-    //           value: AlmacenForm.fromJson(e.almacen).id.toString(),
-    //           validators: [Validators.required]),
-    //       'id': FormControl<String>(
-    //           value: e.id.toString(), validators: [Validators.required]),
-    //       'cantidad': FormControl<String>(
-    //           value: e.cantidad.toString(), validators: [Validators.required]),
-    //     }));
-
-    // articulosList.addAll(newLista.toList());
-  }
-
-  Future<void> handleSubmitConcluido(BuildContext context) async {
-
-  }
+  Future<void> handleSubmitConcluido(BuildContext context) async {}
 
   void cleanFormConcluido() {
     articuloConcluidos.clear();
-    articuloConcluidos.reset(removeFocus: true);
+    formConcluido.reset(removeFocus: true);
   }
 }

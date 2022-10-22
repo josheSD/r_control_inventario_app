@@ -6,6 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../domain/articulo-form.dart';
+import '../../../domain/articulo.dart';
+
 class ProyectoConcludioPage extends StatefulWidget {
   const ProyectoConcludioPage({super.key});
 
@@ -16,11 +19,18 @@ class ProyectoConcludioPage extends StatefulWidget {
 class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
   late ProyectoProvider proyectoProvider;
   bool _procesandoLoding = false;
+  late List<Articulo> articulos;
 
   @override
   Widget build(BuildContext context) {
     proyectoProvider = Provider.of<ProyectoProvider>(context, listen: false);
-    proyectoProvider.cleanFormConcluido();
+
+    final argument = (ModalRoute.of(context)!.settings.arguments);
+    if (argument != null) {
+      final articulosProyecto = argument as List<Articulo>;
+      articulos = articulosProyecto;
+      proyectoProvider.initializeFormConcluido();
+    }
 
     return Scaffold(
         backgroundColor: Envinronment.colorBackground,
@@ -47,7 +57,7 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
   _buildBody() {
     return Container(
       margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: SingleChildScrollView(
           child: Column(
         children: [
@@ -59,16 +69,15 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
                       formArrayName: 'articulos',
                       builder: (context, formArray, child) {
                         return Container(
-                          decoration:
-                              BoxDecoration(color: Envinronment.colorWhite),
                           child: Table(
                             defaultVerticalAlignment:
                                 TableCellVerticalAlignment.middle,
-                            border: TableBorder.all(
-                                color: Envinronment.colorPrimary),
+                            border: TableBorder(
+                                horizontalInside: BorderSide(
+                                    color: Envinronment.colorPrimary,
+                                    width: 1)),
                             columnWidths: {
-                              1: FixedColumnWidth(80),
-                              2: FixedColumnWidth(125),
+                              0: FixedColumnWidth(120),
                             },
                             children: [
                               TableRow(children: [
@@ -100,22 +109,149 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
                                   Container(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 8),
-                                      child: Text('Sierra Circular')),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(articulos
+                                              .firstWhere((element) =>
+                                                  element.id.toString() ==
+                                                  ArticuloForm.fromJson(
+                                                          proyectoProvider
+                                                              .articulosList
+                                                              .controls[index]
+                                                              .value)
+                                                      .id)
+                                              .nombre),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text('Cantidad: '),
+                                              Text(ArticuloForm.fromJson(
+                                                      proyectoProvider
+                                                          .articulosList
+                                                          .controls[index]
+                                                          .value)
+                                                  .cantidad),
+                                            ],
+                                          ),
+                                        ],
+                                      )),
                                   Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 8),
-                                      child: Text('')),
+                                    margin: EdgeInsets.symmetric(vertical: 10),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 8),
+                                    child: ReactiveForm(
+                                      formGroup: proyectoProvider
+                                          .articuloConcluidos
+                                          .controls[index] as FormGroup,
+                                      child: ReactiveTextField(
+                                        formControlName: 'buena',
+                                        textInputAction: TextInputAction.next,
+                                        keyboardType: TextInputType.number,
+                                        cursorColor: Envinronment.colorPrimary,
+                                        style: TextStyle(
+                                          color: Envinronment.colorPrimary,
+                                          decorationColor:
+                                              Envinronment.colorPrimary,
+                                        ),
+                                        decoration: InputDecoration(
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.all(9),
+                                            filled: true,
+                                            fillColor: Envinronment.colorWhite,
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color:
+                                                      Envinronment.colorDanger),
+                                            ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Envinronment
+                                                      .colorPrimary),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color:
+                                                      Envinronment.colorDanger),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Envinronment
+                                                      .colorPrimary),
+                                            ),
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Envinronment
+                                                      .colorPrimary),
+                                            )),
+                                      ),
+                                    ),
+                                  ),
                                   Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 8),
-                                      child: Text('')),
+                                    margin: EdgeInsets.symmetric(vertical: 10),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 8),
+                                    child: ReactiveForm(
+                                      formGroup: proyectoProvider
+                                          .articuloConcluidos
+                                          .controls[index] as FormGroup,
+                                      child: ReactiveTextField(
+                                          formControlName: 'daniado',
+                                          textInputAction: TextInputAction.next,
+                                          keyboardType: TextInputType.number,
+                                          cursorColor:
+                                              Envinronment.colorPrimary,
+                                          style: TextStyle(
+                                            color: Envinronment.colorPrimary,
+                                            decorationColor:
+                                                Envinronment.colorPrimary,
+                                          ),
+                                          decoration: InputDecoration(
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.all(9),
+                                              filled: true,
+                                              fillColor:
+                                                  Envinronment.colorWhite,
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Envinronment
+                                                        .colorDanger),
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Envinronment
+                                                        .colorPrimary),
+                                              ),
+                                              focusedErrorBorder:
+                                                  OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Envinronment
+                                                        .colorDanger),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Envinronment
+                                                        .colorPrimary),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Envinronment
+                                                        .colorPrimary),
+                                              ))),
+                                    ),
+                                  ),
                                 ]),
                             ],
                           ),
                         );
                       }),
                   SizedBox(height: 22.0),
-                  _buttonSubmit(context)
+                  _buttonSubmit(context),
+                  SizedBox(height: 10),
                 ],
               ))
         ],
