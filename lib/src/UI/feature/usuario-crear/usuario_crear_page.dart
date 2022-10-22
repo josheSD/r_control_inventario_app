@@ -184,9 +184,9 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    setState(() => _procesandoLoading = true);
+    // setState(() => _procesandoLoading = true);
     await usuarioProvider.handleSubmit(context);
-    setState(() => _procesandoLoading = false);
+    // setState(() => _procesandoLoading = false);
   }
 
   _handleModalRol() {
