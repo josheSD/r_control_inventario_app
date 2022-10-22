@@ -10,6 +10,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../domain/almacen-form.dart';
 import '../../../domain/almacen.dart';
 import '../../../domain/articulo.dart';
+import '../../../domain/producto-vigente.dart';
 
 class ProyectoProvider with ChangeNotifier {
   ProyectoService _proyectoService = new ProyectoService();
@@ -229,8 +230,10 @@ class ProyectoProvider with ChangeNotifier {
           'id': FormControl<String>(value: ArticuloForm.fromJson(e.value).id),
           'cantidad': FormControl<String>(
               value: ArticuloForm.fromJson(e.value).cantidad),
-          'buena': FormControl<String>(
-              value: "", validators: [Validators.required]),
+          'idAlmacen': FormControl<String>(
+              value: ArticuloForm.fromJson(e.value).idAlmacen),
+          'buena':
+              FormControl<String>(value: "", validators: [Validators.required]),
           'daniado':
               FormControl<String>(value: "", validators: [Validators.required]),
         }));
@@ -239,7 +242,82 @@ class ProyectoProvider with ChangeNotifier {
     articuloConcluidos.addAll(newLista.toList());
   }
 
-  Future<void> handleSubmitConcluido(BuildContext context) async {}
+  Future<void> handleSubmitConcluido(BuildContext context) async {
+    if (formConcluido.invalid) {
+      formConcluido.markAllAsTouched();
+      return;
+    }
+
+    bool esDiferente = false;
+    Map<String, dynamic> formMain = form.value;
+    String idProyecto = formMain["id"];
+
+    ProductoVigente producto = ProductoVigente.fromJson(formConcluido.value);
+
+    for (int i = 0; i < producto.articulo.length; i++) {
+      int buena = int.parse(producto.articulo[i].buena);
+      int daniado = int.parse(producto.articulo[i].daniado);
+      int total = buena + daniado;
+      int cantidad = int.parse(producto.articulo[i].cantidad);
+      if (total != cantidad) {
+        esDiferente = true;
+        break;
+      }
+    }
+
+    if (esDiferente) {
+      SnackBar snackBar = SnackBar(
+          content: Text("Por favor, valide la cantidad",
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Envinronment.colorWhite)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+      return;
+    }
+
+    ResponseProyecto response = await this._proyectoService.putVigenteProyecto(idProyecto, formConcluido.value);
+
+    if (response.status) {
+      this.formConcluido.reset(removeFocus: true);
+
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorSecond);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+
+      Navigator.pushNamed(context, Routes.PROYECTO);
+    } else {
+      SnackBar snackBar = SnackBar(
+          content: Text(response.message,
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Envinronment.colorWhite)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+    }
+  }
 
   void cleanFormConcluido() {
     articuloConcluidos.clear();

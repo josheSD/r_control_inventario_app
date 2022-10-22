@@ -150,6 +150,10 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
                                       child: ReactiveTextField(
                                         formControlName: 'buena',
                                         textInputAction: TextInputAction.next,
+                                        validationMessages: {
+                                          ValidationMessage.required: (error) =>
+                                              'Ingrese'
+                                        },
                                         keyboardType: TextInputType.number,
                                         cursorColor: Envinronment.colorPrimary,
                                         style: TextStyle(
@@ -202,6 +206,10 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
                                       child: ReactiveTextField(
                                           formControlName: 'daniado',
                                           textInputAction: TextInputAction.next,
+                                          validationMessages: {
+                                            ValidationMessage.required:
+                                                (error) => 'Ingrese'
+                                          },
                                           keyboardType: TextInputType.number,
                                           cursorColor:
                                               Envinronment.colorPrimary,
@@ -296,9 +304,11 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoding
-          ? null
-          : () => {Navigator.pushNamed(context, Routes.PROYECTO)},
+      onPressed: _procesandoLoding ? null : () => {_onPressed(context)},
     );
+  }
+
+  _onPressed(BuildContext context) async {
+    await proyectoProvider.handleSubmitConcluido(context);
   }
 }

@@ -73,6 +73,31 @@ class ProyectoService {
     }
   }
 
+  Future<ResponseProyecto> putVigenteProyecto(
+      String idProyecto, Map<String, dynamic> proyecto) async {
+    try {
+      final url = "${Envinronment.API_INVENTARIO}/proyecto/vigente";
+
+      final request = {
+        "id": idProyecto.toString(),
+        "articulo": proyecto["articulos"],
+      };
+
+      final response =
+          await http.put(Uri.parse(url), body: jsonEncode(request));
+
+      final decodedResp = json.decode(response.body);
+
+      if (response.statusCode < 400) {
+        return new ResponseProyecto.fromJsonMapSuccess(decodedResp["message"]);
+      } else {
+        return new ResponseProyecto.fromJsonMapError(decodedResp["message"]);
+      }
+    } catch (e) {
+      return new ResponseProyecto.fromJsonMapError("Error");
+    }
+  }
+
   Future<ResponseProyecto> deleteProyecto(int idProyecto) async {
     try {
       final url =
