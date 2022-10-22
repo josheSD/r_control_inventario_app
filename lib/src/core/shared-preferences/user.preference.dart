@@ -39,6 +39,14 @@ class UserPreference {
     _usuarioPreferencias.setString('usuario', value);
   }
 
+  get idRol {
+    return _usuarioPreferencias.getString('idRol') ?? '';
+  }
+
+  set setIdRol(String value) {
+    _usuarioPreferencias.setString('idRol', value);
+  }
+
   get rol {
     return _usuarioPreferencias.getString('rol') ?? '';
   }

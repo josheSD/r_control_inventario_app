@@ -11,9 +11,9 @@ class AuthProvider with ChangeNotifier {
   AuthService _authService = new AuthService();
   FormGroup form = new FormGroup({
     'usuario': FormControl<String>(
-        value: 'jchutas@gmail.com', validators: [Validators.required]),
+        value: '', validators: [Validators.required]),
     'contrasenia': FormControl<String>(
-        value: '123', validators: [Validators.required]),
+        value: '', validators: [Validators.required]),
   });
 
   Future<void> handlerSubmit(BuildContext context) async {
@@ -33,6 +33,7 @@ class AuthProvider with ChangeNotifier {
       userPreference.setNombre = response.data.nombre;
       userPreference.setDireccion = response.data.direccion;
       userPreference.setToken = response.data.token;
+      userPreference.setIdRol = response.data.rol.id.toString();
       userPreference.setRol = response.data.rol.nombre;
 
       SnackBar snackBar = SnackBar(

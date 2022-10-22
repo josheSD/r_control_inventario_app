@@ -14,7 +14,6 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-
   late AdminProvider adminProvider;
 
   @override
@@ -42,69 +41,130 @@ class _AdminPageState extends State<AdminPage> {
       ),
       drawer: Drawer(
           child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            padding: EdgeInsets.all(0),
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(FontAwesomeIcons.circleUser,size: 60),
-                SizedBox(height: 15,),
-                Text(userPreference.nombre,
-                    style: TextStyle(fontWeight: FontWeight.normal)),
-                SizedBox(height: 10,),
-                Text(userPreference.rol,
-                    style: TextStyle(fontWeight: FontWeight.normal)),
-              ],
-            ),
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.wrench),
-            title: const Text('Artículo',
-                style: TextStyle(fontWeight: FontWeight.normal)),
-            onTap: () {
-              Navigator.pushNamed(context, Routes.ARTICULO);
-            },
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.tent),
-            title: const Text('Almacén',
-                style: TextStyle(fontWeight: FontWeight.normal)),
-            onTap: () {
-              Navigator.pushNamed(context, Routes.ALMACEN);
-            },
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.solidBuilding),
-            title: const Text('Proyecto',
-                style: TextStyle(fontWeight: FontWeight.normal)),
-            onTap: () {
-              Navigator.pushNamed(context, Routes.PROYECTO);
-            },
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.userLarge),
-            title: const Text('Usuario',
-                style: TextStyle(fontWeight: FontWeight.normal)),
-            onTap: () {
-              Navigator.pushNamed(context, Routes.USUARIO);
-            },
-          ),
-          ListTile(
-            leading: Icon(FontAwesomeIcons.circleChevronLeft),
-            title: const Text('Salir',
-                style: TextStyle(fontWeight: FontWeight.normal)),
-            onTap: () {
-              adminProvider.signOut();
-              Navigator.pushNamed(context, Routes.AUTH);
-            },
-          ),
-        ],
-      )),
+              padding: EdgeInsets.zero,
+              children: userPreference.idRol == '1'
+                  ? isAdministrador(userPreference)
+                  : isAlmacenero(userPreference))),
     );
+  }
+
+  isAdministrador(UserPreference userPreference) {
+    return [
+      DrawerHeader(
+        padding: EdgeInsets.all(0),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(FontAwesomeIcons.circleUser, size: 60),
+            SizedBox(
+              height: 15,
+            ),
+            Text(userPreference.nombre,
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            SizedBox(
+              height: 10,
+            ),
+            Text(userPreference.rol,
+                style: TextStyle(fontWeight: FontWeight.normal)),
+          ],
+        ),
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.wrench),
+        title: const Text('Artículo',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.ARTICULO);
+        },
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.tent),
+        title: const Text('Almacén',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.ALMACEN);
+        },
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.solidBuilding),
+        title: const Text('Proyecto',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.PROYECTO);
+        },
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.userLarge),
+        title: const Text('Usuario',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.USUARIO);
+        },
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.circleChevronLeft),
+        title: const Text('Salir',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          adminProvider.signOut();
+          Navigator.pushNamed(context, Routes.AUTH);
+        },
+      ),
+    ];
+  }
+
+  isAlmacenero(UserPreference userPreference) {
+    return [
+      DrawerHeader(
+        padding: EdgeInsets.all(0),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(FontAwesomeIcons.circleUser, size: 60),
+            SizedBox(
+              height: 15,
+            ),
+            Text(userPreference.nombre,
+                style: TextStyle(fontWeight: FontWeight.normal)),
+            SizedBox(
+              height: 10,
+            ),
+            Text(userPreference.rol,
+                style: TextStyle(fontWeight: FontWeight.normal)),
+          ],
+        ),
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.wrench),
+        title: const Text('Artículo',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.ARTICULO);
+        },
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.tent),
+        title: const Text('Almacén',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          Navigator.pushNamed(context, Routes.ALMACEN);
+        },
+      ),
+      ListTile(
+        leading: Icon(FontAwesomeIcons.circleChevronLeft),
+        title: const Text('Salir',
+            style: TextStyle(fontWeight: FontWeight.normal)),
+        onTap: () {
+          adminProvider.signOut();
+          Navigator.pushNamed(context, Routes.AUTH);
+        },
+      ),
+    ];
   }
 }
