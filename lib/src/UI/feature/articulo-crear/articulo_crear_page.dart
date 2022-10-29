@@ -25,8 +25,6 @@ class ArticuloCrearPage extends StatefulWidget {
 
 class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   File? image;
-  double? imageWidth;
-  double? imageHeight;
 
   bool _procesandoLoading = false;
   bool _isCreate = true;
@@ -48,10 +46,6 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
       final imageTemporary = await saveImagePermanently(image.path);
-      final decodedImage =
-          await decodeImageFromList(imageTemporary.readAsBytesSync());
-      imageWidth = decodedImage.width.toDouble();
-      imageHeight = decodedImage.height.toDouble();
       setState(() => this.image = imageTemporary);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
@@ -69,6 +63,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
       articuloProvider.initializeForm(argument as Articulo);
+      image = articuloProvider.file;
       _isCreate = false;
     }
 
@@ -102,8 +97,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
                         if (snapshot.data!.status) {
                           List<Categoria> categorias = snapshot.data!.data;
 
-                          return _buildBody(
-                              categorias, context);
+                          return _buildBody(categorias, context);
                         } else {
                           return Container();
                         }
@@ -115,8 +109,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
                     }))));
   }
 
-  Widget _buildBody(
-      List<Categoria> categorias, BuildContext context) {
+  Widget _buildBody(List<Categoria> categorias, BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -127,8 +120,6 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
                   image != null
                       ? ImageWidget(
                           image: image!,
-                          imageWidth: imageWidth!,
-                          imageHeight: imageHeight!,
                           onClicked: (source) => pickImage(source),
                           onRemove: (e) => handleDelete())
                       : ImageDefault(
@@ -165,8 +156,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
     );
   }
 
-  Widget _buttonSubmit(
-      BuildContext context) {
+  Widget _buttonSubmit(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         minimumSize: Size(double.infinity, 35),
@@ -199,9 +189,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
               : Container()
         ],
       )),
-      onPressed: _procesandoLoading
-          ? null
-          : () => {_onPressed(context)},
+      onPressed: _procesandoLoading ? null : () => {_onPressed(context)},
     );
   }
 

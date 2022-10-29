@@ -7,16 +7,12 @@ import 'package:image_picker/image_picker.dart';
 
 class ImageWidget extends StatelessWidget {
   final File image;
-  final double imageWidth;
-  final double imageHeight;
   final ValueChanged<ImageSource> onClicked;
   final ValueChanged<bool> onRemove;
 
   const ImageWidget({
     Key? key,
     required this.image,
-    required this.imageWidth,
-    required this.imageHeight,
     required this.onClicked,
     required this.onRemove,
   }) : super(key: key);

@@ -40,8 +40,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
 
   @override
   Widget build(BuildContext context) {
-    articuloProvider =
-        Provider.of<ArticuloProvider>(context, listen: false);
+    articuloProvider = Provider.of<ArticuloProvider>(context, listen: false);
 
     return Scaffold(
         key: _scaffoldKey,
@@ -67,10 +66,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
             child: SingleChildScrollView(
                 child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildReporte(context),
-            _buildBody(context)
-          ],
+          children: [_buildReporte(context), _buildBody(context)],
         ))),
         floatingActionButton: FloatingActionButton(
           elevation: 2,
@@ -131,10 +127,11 @@ class _ArticuloPageState extends State<ArticuloPage> {
 
   _buildReportPDF() async {
     setState(() => _reporteLoading = true);
-    
+
     String urlRoot = await DirectoryCustom.urlRoot();
 
-    final pathValidate = new Directory(urlRoot + DirectoryCustom.pathInventario);
+    final pathValidate =
+        new Directory(urlRoot + DirectoryCustom.pathInventario);
 
     if (await this._handlePermisos(urlRoot)) {
       if (!(await pathValidate.exists())) {
@@ -244,13 +241,11 @@ class _ArticuloPageState extends State<ArticuloPage> {
               ));
   }
 
-  Widget _buildLista(
-      List<Articulo> articulos) {
+  Widget _buildLista(List<Articulo> articulos) {
     return ListView.builder(
       scrollDirection: Axis.vertical,
       itemCount: articulos.length,
-      itemBuilder: (context, i) =>
-          _item(context, articulos[i]),
+      itemBuilder: (context, i) => _item(context, articulos[i]),
     );
   }
 
@@ -304,8 +299,10 @@ class _ArticuloPageState extends State<ArticuloPage> {
     );
   }
 
-  Widget _item(BuildContext context, Articulo articulo,
-      ) {
+  Widget _item(
+    BuildContext context,
+    Articulo articulo,
+  ) {
     return Container(
       margin: EdgeInsets.only(bottom: 5, top: 5, left: 18, right: 18),
       child: Dismissible(
@@ -355,8 +352,11 @@ class _ArticuloPageState extends State<ArticuloPage> {
                 ),
               ],
             ),
-            onTap: () => Navigator.pushNamed(context, Routes.ARTICULO_CREAR,
-                arguments: articulo),
+            onTap: () async {
+              await articuloProvider.initializeImagen(articulo);
+              Navigator.pushNamed(context, Routes.ARTICULO_CREAR,
+                  arguments: articulo);
+            },
           ),
         ),
       ),
