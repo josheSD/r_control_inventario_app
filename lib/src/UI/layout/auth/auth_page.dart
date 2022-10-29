@@ -4,6 +4,7 @@ import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class AuthPage extends StatefulWidget {
   @override
@@ -13,16 +14,6 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   late AuthProvider authProvider;
   bool _procesandoLoading = false;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +96,9 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   _onPressed(BuildContext context) async {
-    setState(() => _procesandoLoading = true);
+    context.loaderOverlay.show();
     await authProvider.handlerSubmit(context);
-    setState(() => _procesandoLoading = false);
+    context.loaderOverlay.hide();
   }
 
   _logoTipo() {

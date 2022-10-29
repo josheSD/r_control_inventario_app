@@ -26,16 +26,6 @@ class _UsuarioPageState extends State<UsuarioPage> {
   late UsuarioProvider usuarioProvider;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     usuarioProvider = Provider.of<UsuarioProvider>(context, listen: false);
 
@@ -53,7 +43,7 @@ class _UsuarioPageState extends State<UsuarioPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.ADMIN);
               },
             );
           }),

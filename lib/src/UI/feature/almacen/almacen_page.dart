@@ -26,16 +26,6 @@ class _AlmacenPageState extends State<AlmacenPage> {
   late AlmacenProvider almacenProvider;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     almacenProvider =
         Provider.of<AlmacenProvider>(context, listen: false);
@@ -55,7 +45,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.ADMIN);
               },
             );
           }),

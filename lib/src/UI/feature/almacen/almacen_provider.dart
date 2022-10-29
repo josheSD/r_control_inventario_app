@@ -1,3 +1,4 @@
+import 'package:controlinventario/src/UI/feature/almacen/almacen_page.dart';
 import 'package:controlinventario/src/core/interfaces/response-almacen.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:controlinventario/src/core/util/routes.dart';
@@ -101,8 +102,7 @@ class AlmacenProvider with ChangeNotifier {
           snackBar,
         );
       });
-
-      Navigator.pushNamed(context, Routes.ALMACEN);
+      Navigator.pushReplacementNamed(context, Routes.ALMACEN);
     } else {
       SnackBar snackBar = SnackBar(
           content: Text(response.message,

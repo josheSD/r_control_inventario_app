@@ -119,7 +119,7 @@ class ProyectoProvider with ChangeNotifier {
         );
       });
 
-      Navigator.pushNamed(context, Routes.PROYECTO);
+      Navigator.pushReplacementNamed(context, Routes.PROYECTO);
     } else {
       SnackBar snackBar = SnackBar(
           content: Text(response.message,

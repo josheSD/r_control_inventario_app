@@ -16,6 +16,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:external_path/external_path.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class ArticuloPage extends StatefulWidget {
   @override
@@ -27,16 +28,6 @@ class _ArticuloPageState extends State<ArticuloPage> {
   bool _reporteLoading = false;
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   late ArticuloProvider articuloProvider;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +48,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.ADMIN);
               },
             );
           }),
@@ -126,7 +117,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
   }
 
   _buildReportPDF() async {
-    setState(() => _reporteLoading = true);
+    context.loaderOverlay.show();
 
     String urlRoot = await DirectoryCustom.urlRoot();
 
@@ -158,7 +149,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
           snackBar,
         );
       });
-      setState(() => _reporteLoading = false);
+      context.loaderOverlay.hide();
     }
   }
 
@@ -353,9 +344,11 @@ class _ArticuloPageState extends State<ArticuloPage> {
               ],
             ),
             onTap: () async {
+              context.loaderOverlay.show();
               await articuloProvider.initializeImagen(articulo);
               Navigator.pushNamed(context, Routes.ARTICULO_CREAR,
                   arguments: articulo);
+              context.loaderOverlay.hide();
             },
           ),
         ),

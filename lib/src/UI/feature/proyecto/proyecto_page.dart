@@ -26,16 +26,6 @@ class _ProyectoPageState extends State<ProyectoPage> {
   late ProyectoProvider proyectoProvider;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     proyectoProvider = Provider.of<ProyectoProvider>(context, listen: false);
 
@@ -53,7 +43,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.ADMIN);
               },
             );
           }),

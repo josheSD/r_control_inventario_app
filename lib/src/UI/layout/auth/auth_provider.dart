@@ -6,6 +6,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../core/interfaces/response-login.dart';
 import '../../../core/shared-preferences/user.preference.dart';
+import '../../../core/util/routes.dart';
 
 class AuthProvider with ChangeNotifier {
   AuthService _authService = new AuthService();
@@ -48,7 +49,7 @@ class AuthProvider with ChangeNotifier {
         );
       });
 
-      Navigator.pushNamed(context, 'portal');
+      Navigator.pushReplacementNamed(context, Routes.ADMIN);
 
     } else {
 

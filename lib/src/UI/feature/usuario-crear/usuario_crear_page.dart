@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
+import '../../../core/util/routes.dart';
 
 class UsuarioCrearPage extends StatefulWidget {
   @override
@@ -54,7 +57,7 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
             icon: const Icon(FontAwesomeIcons.chevronLeft),
             color: Envinronment.colorPrimary,
             onPressed: () {
-              Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.USUARIO);
             },
           );
         }),
@@ -184,9 +187,9 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    // setState(() => _procesandoLoading = true);
+    context.loaderOverlay.show();
     await usuarioProvider.handleSubmit(context);
-    // setState(() => _procesandoLoading = false);
+    context.loaderOverlay.hide();
   }
 
   _handleModalRol() {

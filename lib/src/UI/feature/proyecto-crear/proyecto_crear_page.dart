@@ -15,6 +15,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../../core/components/input.dart';
 import '../../../domain/articulo-form.dart';
 import '../articulo/articulo_provider.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class ProyectoCrearPage extends StatefulWidget {
   @override
@@ -63,7 +64,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.PROYECTO);
               },
             );
           }),
@@ -354,9 +355,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    // setState(() => _procesandoLoading = true);
+    context.loaderOverlay.show();
     await proyectoProvider.handleSubmit(context);
-    // setState(() => _procesandoLoading = false);
+    context.loaderOverlay.hide();
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,

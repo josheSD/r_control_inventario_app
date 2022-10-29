@@ -110,7 +110,7 @@ class _AdminPageState extends State<AdminPage> {
             style: TextStyle(fontWeight: FontWeight.normal)),
         onTap: () {
           adminProvider.signOut();
-          Navigator.pushNamed(context, Routes.AUTH);
+          Navigator.pushReplacementNamed(context, Routes.AUTH);
         },
       ),
     ];
@@ -162,7 +162,7 @@ class _AdminPageState extends State<AdminPage> {
             style: TextStyle(fontWeight: FontWeight.normal)),
         onTap: () {
           adminProvider.signOut();
-          Navigator.pushNamed(context, Routes.AUTH);
+          Navigator.pushReplacementNamed(context, Routes.AUTH);
         },
       ),
     ];

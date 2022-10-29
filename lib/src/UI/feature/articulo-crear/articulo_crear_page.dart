@@ -5,6 +5,7 @@ import 'package:controlinventario/src/core/components/image.dart';
 import 'package:controlinventario/src/core/components/input.dart';
 import 'package:controlinventario/src/core/interfaces/response-categoria.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
+import 'package:controlinventario/src/core/util/routes.dart';
 import 'package:controlinventario/src/domain/articulo.dart';
 import 'package:controlinventario/src/domain/categoria.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:path/path.dart' as path;
 import 'package:reactive_forms/reactive_forms.dart';
-
+import 'package:loader_overlay/loader_overlay.dart';
 import '../articulo/articulo_provider.dart';
 
 class ArticuloCrearPage extends StatefulWidget {
@@ -29,11 +30,6 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   bool _procesandoLoading = false;
   bool _isCreate = true;
   late ArticuloProvider articuloProvider;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -81,7 +77,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.ARTICULO);
               },
             );
           }),
@@ -194,9 +190,9 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    // setState(() => _procesandoLoading = true);
+    context.loaderOverlay.show();
     await articuloProvider.handleSubmit(context, this.image);
-    // setState(() => _procesandoLoading = false);
+    context.loaderOverlay.hide();
   }
 
   Future<File> saveImagePermanently(String imagePath) async {

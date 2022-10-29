@@ -76,7 +76,7 @@ class ArticuloProvider with ChangeNotifier {
         );
       });
 
-      Navigator.pushNamed(context, Routes.ARTICULO);
+      Navigator.pushReplacementNamed(context, Routes.ARTICULO);
     } else {
       SnackBar snackBar = SnackBar(
           content: Text(response.message,

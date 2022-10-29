@@ -12,7 +12,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
+import '../../../core/util/routes.dart';
 import '../../../domain/articulo-form.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class AlmacenCrearPage extends StatefulWidget {
   @override
@@ -24,16 +26,6 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
   bool _isCreate = true;
   late AlmacenProvider almacenProvider;
   late ArticuloProvider articuloProvider;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +53,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context,Routes.ALMACEN);
               },
             );
           }),
@@ -244,9 +236,9 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
   }
 
   _onPressed(BuildContext context) async {
-    // setState(() => _procesandoLoading = true);
+    context.loaderOverlay.show();
     await almacenProvider.handleSubmit(context);
-    // setState(() => _procesandoLoading = false);
+    context.loaderOverlay.hide();
   }
 
   _buildActualizar(AbstractControl<dynamic> currentform, int index,

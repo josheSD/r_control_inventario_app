@@ -9,6 +9,7 @@ import 'package:controlinventario/src/core/shared-preferences/user.preference.da
 import 'package:controlinventario/src/core/util/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,11 +34,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProyectoProvider()),
         ChangeNotifierProvider(create: (context) => UsuarioProvider()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Inventario App',
-        initialRoute: (userPreference.token == '') ? Routes.AUTH : Routes.ADMIN,
-        routes: Routes.getRoutes(),
+      child: GlobalLoaderOverlay(
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Inventario App',
+          initialRoute: (userPreference.token == '') ? Routes.AUTH : Routes.ADMIN,
+          routes: Routes.getRoutes(),
+        ),
       ),
     );
     
