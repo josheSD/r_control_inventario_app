@@ -64,7 +64,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.PROYECTO);
+                Navigator.pop(context,Routes.PROYECTO);
               },
             );
           }),
@@ -544,7 +544,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                           labelText: 'Cantidad',
                           errorText: 'Ingresa Cantidad',
                           isContrasenia: false,
-                          type: Envinronment.controlText),
+                          type: Envinronment.controlNumber),
                       SizedBox(height: 18.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

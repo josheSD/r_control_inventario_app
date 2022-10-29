@@ -74,7 +74,7 @@ class UsuarioProvider with ChangeNotifier {
         );
       });
 
-      Navigator.pushReplacementNamed(context, Routes.USUARIO);
+      Navigator.pop(context, Routes.USUARIO);
     } else {
       SnackBar snackBar = SnackBar(
           content: Text(response.message,

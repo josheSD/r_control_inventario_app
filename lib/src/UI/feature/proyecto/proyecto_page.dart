@@ -14,6 +14,8 @@ import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
 import 'package:open_file/open_file.dart';
 
+import '../../layout/admin/admin_page.dart';
+
 class ProyectoPage extends StatefulWidget {
   @override
   State<ProyectoPage> createState() => _ProyectoPageState();
@@ -43,7 +45,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.ADMIN);
+                Navigator.pop(context,Routes.ADMIN);
               },
             );
           }),

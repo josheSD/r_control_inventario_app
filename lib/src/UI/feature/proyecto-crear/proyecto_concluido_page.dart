@@ -46,7 +46,7 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.PROYECTO_CREAR);
+                Navigator.pop(context,Routes.PROYECTO_CREAR);
               },
             );
           }),

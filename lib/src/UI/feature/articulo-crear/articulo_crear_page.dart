@@ -77,7 +77,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.ARTICULO);
+                Navigator.pop(context,Routes.ARTICULO);
               },
             );
           }),

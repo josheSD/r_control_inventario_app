@@ -18,6 +18,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:open_file/open_file.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
+import '../../layout/admin/admin_page.dart';
+
 class ArticuloPage extends StatefulWidget {
   @override
   State<ArticuloPage> createState() => _ArticuloPageState();
@@ -48,7 +50,7 @@ class _ArticuloPageState extends State<ArticuloPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.ADMIN);
+                Navigator.pop(context,Routes.ADMIN);
               },
             );
           }),

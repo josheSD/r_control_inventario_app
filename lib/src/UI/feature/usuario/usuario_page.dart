@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:open_file/open_file.dart';
 import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
+import '../../layout/admin/admin_page.dart';
 
 class UsuarioPage extends StatefulWidget {
   @override
@@ -43,7 +44,7 @@ class _UsuarioPageState extends State<UsuarioPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.ADMIN);
+                Navigator.pop(context,Routes.ADMIN);
               },
             );
           }),

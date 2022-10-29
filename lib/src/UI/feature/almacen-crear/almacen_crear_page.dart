@@ -53,7 +53,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.ALMACEN);
+                Navigator.pop(context,Routes.ALMACEN);
               },
             );
           }),
@@ -416,7 +416,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
                           labelText: 'Cantidad',
                           errorText: 'Ingresa Cantidad',
                           isContrasenia: false,
-                          type: Envinronment.controlText),
+                          type: Envinronment.controlNumber),
                       SizedBox(height: 18.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

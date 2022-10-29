@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:controlinventario/src/UI/feature/almacen/almacen_provider.dart';
+import 'package:controlinventario/src/UI/layout/admin/admin_page.dart';
 import 'package:controlinventario/src/core/interfaces/response-almacen.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:controlinventario/src/core/util/routes.dart';
@@ -27,8 +28,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
 
   @override
   Widget build(BuildContext context) {
-    almacenProvider =
-        Provider.of<AlmacenProvider>(context, listen: false);
+    almacenProvider = Provider.of<AlmacenProvider>(context, listen: false);
 
     return Scaffold(
         key: _scaffoldKey,
@@ -45,7 +45,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.ADMIN);
+                Navigator.pop(context,Routes.ADMIN);
               },
             );
           }),
@@ -54,10 +54,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
             child: SingleChildScrollView(
                 child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildReporte(context),
-            _buildBody(context)
-          ],
+          children: [_buildReporte(context), _buildBody(context)],
         ))),
         floatingActionButton: FloatingActionButton(
           elevation: 2,

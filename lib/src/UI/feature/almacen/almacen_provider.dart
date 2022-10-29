@@ -102,7 +102,7 @@ class AlmacenProvider with ChangeNotifier {
           snackBar,
         );
       });
-      Navigator.pushReplacementNamed(context, Routes.ALMACEN);
+      Navigator.pop(context, Routes.ALMACEN);
     } else {
       SnackBar snackBar = SnackBar(
           content: Text(response.message,

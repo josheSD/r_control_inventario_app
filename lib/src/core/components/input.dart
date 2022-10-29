@@ -126,7 +126,8 @@ class Input {
           },
           style: TextStyle(
               color: Envinronment.colorPrimary,
-              decorationColor: Envinronment.colorPrimary),
+              decorationColor: Envinronment.colorPrimary,
+              fontSize: 11),
           decoration: InputDecoration(
               isDense: true,
               contentPadding: EdgeInsets.all(9),

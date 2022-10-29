@@ -57,7 +57,7 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
             icon: const Icon(FontAwesomeIcons.chevronLeft),
             color: Envinronment.colorPrimary,
             onPressed: () {
-                Navigator.pushReplacementNamed(context,Routes.USUARIO);
+              Navigator.pop(context, Routes.USUARIO);
             },
           );
         }),
@@ -208,26 +208,59 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Módulos',style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text('Módulos',
+                        style: TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
-                SizedBox(height: 20,),
-                Text('Administrador',style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 15,),
-                Container(margin:EdgeInsets.only(left: 15),child: Text('• Artículo')),
-                SizedBox(height: 5,),
-                Container(margin:EdgeInsets.only(left: 15),child: Text('• Almacén')),
-                SizedBox(height: 5,),
-                Container(margin:EdgeInsets.only(left: 15),child: Text('• Proyecto')),
-                SizedBox(height: 5,),
-                Container(margin:EdgeInsets.only(left: 15),child: Text('• Usuario')),
-                SizedBox(height: 15,),
-                Text('Almacenero',style: TextStyle(fontWeight: FontWeight.bold)),
-                SizedBox(height: 15,),
-                Container(margin:EdgeInsets.only(left: 15),child: Text('• Artículo')),
-                SizedBox(height: 5,),
-                Container(margin:EdgeInsets.only(left: 15),child: Text('• Almacén')),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 20,
+                ),
+                Text('Administrador',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 15),
+                    child: Text('• Artículo')),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 15),
+                    child: Text('• Almacén')),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 15),
+                    child: Text('• Proyecto')),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 15),
+                    child: Text('• Usuario')),
+                SizedBox(
+                  height: 15,
+                ),
+                Text('Almacenero',
+                    style: TextStyle(fontWeight: FontWeight.bold)),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 15),
+                    child: Text('• Artículo')),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                    margin: EdgeInsets.only(left: 15),
+                    child: Text('• Almacén')),
+                SizedBox(
+                  height: 5,
+                ),
               ],
             ),
           ),
