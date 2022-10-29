@@ -27,8 +27,6 @@ class ArticuloService {
       
       request.fields["fileNombre"] = "$fileNombre";
 
-      Uuid().v1().contains(fileNombre);
-
       http.StreamedResponse response = await request.send();
 
       if (response.statusCode < 400) {

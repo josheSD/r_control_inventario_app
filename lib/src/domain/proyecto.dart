@@ -10,17 +10,20 @@ class Proyecto {
   late String contrato;
   late List<Articulo> articulo;
   late int estado;
+  late dynamic fechaCreacion;
+  late dynamic fechaActualizacion;
 
-  Proyecto({
-    @required id,
-    @required nombre,
-    @required cliente,
-    @required fechaInicio,
-    @required fechaFin,
-    @required contrato,
-    @required articulo,
-    @required estado,
-  }) {
+  Proyecto(
+      {@required id,
+      @required nombre,
+      @required cliente,
+      @required fechaInicio,
+      @required fechaFin,
+      @required contrato,
+      @required articulo,
+      @required estado,
+      @required fechaCreacion,
+      @required fechaActualizacion}) {
     this.id = id;
     this.nombre = nombre;
     this.cliente = cliente;
@@ -29,6 +32,8 @@ class Proyecto {
     this.contrato = contrato;
     this.articulo = articulo;
     this.estado = estado;
+    this.fechaCreacion = fechaCreacion;
+    this.fechaActualizacion = fechaActualizacion;
   }
 
   factory Proyecto.fromJson(Map<String, dynamic> json) => Proyecto(
@@ -40,7 +45,9 @@ class Proyecto {
       contrato: json["contrato"],
       articulo: List<Articulo>.from(
           json["articulo"].map((x) => Articulo.fromJson(x))),
-      estado: json["estado"]);
+      estado: json["estado"],
+      fechaCreacion: json["fechaCreacion"],
+      fechaActualizacion: json["fechaActualizacion"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -51,6 +58,8 @@ class Proyecto {
         "contrato": contrato,
         "articulo": articulo,
         "estado": estado,
+        "fechaCreacion": fechaCreacion,
+        "fechaActualizacion": fechaActualizacion
       };
 }
 

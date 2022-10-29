@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:external_path/external_path.dart';
+import 'package:uuid/uuid.dart';
 
 class DirectoryCustom {
   static String pathInventario = '/ControlInventario';
@@ -16,22 +17,22 @@ class DirectoryCustom {
 
   static Future<String> getNameArticulo() async {
     String pathDirectory = await DirectoryCustom.urlRoot();
-    return "$pathDirectory$pathArticulo/reporte-articulo-${DateTime.now()}.pdf";
+    return "$pathDirectory$pathArticulo/reporte-articulo-${Uuid().v1()}.pdf";
   }
 
   static Future<String> getNameAlmacen() async {
     String pathDirectory = await DirectoryCustom.urlRoot();
-    return "$pathDirectory$pathAlmacen/reporte-almacen-${DateTime.now()}.pdf";
+    return "$pathDirectory$pathAlmacen/reporte-almacen-${Uuid().v1()}.pdf";
   }
 
   static Future<String> getNameProyecto() async {
     String pathDirectory = await DirectoryCustom.urlRoot();
-    return "$pathDirectory$pathProyecto/reporte-proyecto-${DateTime.now()}.pdf";
+    return "$pathDirectory$pathProyecto/reporte-proyecto-${Uuid().v1()}.pdf";
   }
 
   static Future<String> getNameUsuario() async {
     String pathDirectory = await DirectoryCustom.urlRoot();
-    return "$pathDirectory$pathUsuario/reporte-usuario-${DateTime.now()}.pdf";
+    return "$pathDirectory$pathUsuario/reporte-usuario-${Uuid().v1()}.pdf";
   }
 
   static create(String externalDirectoryPath) async {
