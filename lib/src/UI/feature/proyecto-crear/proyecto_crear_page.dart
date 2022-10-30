@@ -23,7 +23,6 @@ class ProyectoCrearPage extends StatefulWidget {
 }
 
 class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
-  bool _loadedPage = false;
   bool _procesandoLoading = false;
   bool _isVigente = false;
   bool _isConcluido = false;
@@ -43,16 +42,13 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
-      if (!_loadedPage) {
-        final proyectoArgument = argument as Proyecto;
-        _isVigente =
-            proyectoArgument.estado == EProyecto.VIGENTE.index ? true : false;
-        _isConcluido =
-            proyectoArgument.estado == EProyecto.CONCLUIDO.index ? true : false;
-        proyectoProvider.initializeForm(proyectoArgument);
-        _isCreate = false;
-        _loadedPage = true;
-      }
+      final proyectoArgument = argument as Proyecto;
+      _isVigente =
+          proyectoArgument.estado == EProyecto.VIGENTE.index ? true : false;
+      _isConcluido =
+          proyectoArgument.estado == EProyecto.CONCLUIDO.index ? true : false;
+      proyectoProvider.initializeForm(proyectoArgument);
+      _isCreate = false;
     }
 
     return Scaffold(

@@ -50,7 +50,11 @@ class _ArticuloPageState extends State<ArticuloPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context,Routes.ADMIN);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => AdminPage()),
+                  (Route<dynamic> route) => false,
+                );
               },
             );
           }),

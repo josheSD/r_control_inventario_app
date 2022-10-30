@@ -46,7 +46,11 @@ class _ProyectoPageState extends State<ProyectoPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context, Routes.ADMIN);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => AdminPage()),
+                  (Route<dynamic> route) => false,
+                );
               },
             );
           }),

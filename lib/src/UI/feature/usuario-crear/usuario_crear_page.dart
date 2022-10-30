@@ -18,7 +18,6 @@ class UsuarioCrearPage extends StatefulWidget {
 }
 
 class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
-  bool _loadedPage = false;
   bool _procesandoLoading = false;
   bool _isCreate = true;
   late UsuarioProvider usuarioProvider;
@@ -40,11 +39,8 @@ class _UsuarioCrearPageState extends State<UsuarioCrearPage> {
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
-      if (!_loadedPage) {
-        usuarioProvider.initializeForm(argument as Usuario);
-        _loadedPage = true;
-        _isCreate = false;
-      }
+      usuarioProvider.initializeForm(argument as Usuario);
+      _isCreate = false;
     }
 
     return Scaffold(

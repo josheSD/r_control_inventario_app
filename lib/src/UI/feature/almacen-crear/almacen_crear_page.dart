@@ -22,7 +22,6 @@ class AlmacenCrearPage extends StatefulWidget {
 }
 
 class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
-  bool _loadedPage = false;
   bool _procesandoLoading = false;
   bool _isCreate = true;
   late AlmacenProvider almacenProvider;
@@ -36,11 +35,8 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
-      if (!_loadedPage) {
-        almacenProvider.initializeForm(argument as Almacen);
-        _loadedPage = true;
-        _isCreate = false;
-      }
+      almacenProvider.initializeForm(argument as Almacen);
+      _isCreate = false;
     }
 
     return Scaffold(

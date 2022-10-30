@@ -45,7 +45,11 @@ class _UsuarioPageState extends State<UsuarioPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context,Routes.ADMIN);
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => AdminPage()),
+                  (Route<dynamic> route) => false,
+                );
               },
             );
           }),
@@ -144,7 +148,7 @@ class _UsuarioPageState extends State<UsuarioPage> {
           snackBar,
         );
       });
-    context.loaderOverlay.hide();
+      context.loaderOverlay.hide();
     }
   }
 
