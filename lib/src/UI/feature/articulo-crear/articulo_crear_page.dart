@@ -26,6 +26,7 @@ class ArticuloCrearPage extends StatefulWidget {
 
 class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
   File? image;
+  bool _loadedPage = false;
 
   bool _procesandoLoading = false;
   bool _isCreate = true;
@@ -58,9 +59,12 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
-      articuloProvider.initializeForm(argument as Articulo);
-      image = articuloProvider.file;
-      _isCreate = false;
+      if (!_loadedPage) {
+        articuloProvider.initializeForm(argument as Articulo);
+        image = articuloProvider.file;
+        _loadedPage = true;
+        _isCreate = false;
+      }
     }
 
     return Scaffold(
@@ -77,7 +81,7 @@ class _ArticuloCrearPageState extends State<ArticuloCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context,Routes.ARTICULO);
+                Navigator.pop(context, Routes.ARTICULO);
               },
             );
           }),

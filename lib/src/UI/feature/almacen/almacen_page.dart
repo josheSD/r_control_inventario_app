@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
 import 'package:open_file/open_file.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class AlmacenPage extends StatefulWidget {
   @override
@@ -114,7 +115,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
   }
 
   _buildReportPDF() async {
-    setState(() => _reporteLoading = true);
+    context.loaderOverlay.show();
 
     String urlRoot = await DirectoryCustom.urlRoot();
 
@@ -146,7 +147,7 @@ class _AlmacenPageState extends State<AlmacenPage> {
           snackBar,
         );
       });
-      setState(() => _reporteLoading = false);
+    context.loaderOverlay.hide();
     }
   }
 

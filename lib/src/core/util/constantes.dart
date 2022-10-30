@@ -19,10 +19,10 @@ class Envinronment{
   static TextInputType controlNumber = TextInputType.number;
   static TextInputType controlCorreo = TextInputType.emailAddress;
 
-  static String API_PERSONAL = 'http://10.0.2.2:7071/personal/api';
-  // static String API_PERSONAL = 'https://inventario-personal.azurewebsites.net/personal/api';
-  static String API_INVENTARIO = 'http://10.0.2.2:7072/inventario/api';
-  // static String API_INVENTARIO = 'https://inventario-inventario.azurewebsites.net/inventario/api';
+  // static String API_PERSONAL = 'http://10.0.2.2:7071/personal/api';
+  static String API_PERSONAL = 'https://inventario-personal.azurewebsites.net/personal/api';
+  // static String API_INVENTARIO = 'http://10.0.2.2:7072/inventario/api';
+  static String API_INVENTARIO = 'https://inventario-inventario.azurewebsites.net/inventario/api';
 
   static String URL_BLOB = 'https://controlinventario.blob.core.windows.net/articulo/';
   static String URL_SPLIT_IMAGE = '-split-image-';

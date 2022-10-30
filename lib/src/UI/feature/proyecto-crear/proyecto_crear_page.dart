@@ -23,6 +23,7 @@ class ProyectoCrearPage extends StatefulWidget {
 }
 
 class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
+  bool _loadedPage = false;
   bool _procesandoLoading = false;
   bool _isVigente = false;
   bool _isConcluido = false;
@@ -30,6 +31,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
   late ProyectoProvider proyectoProvider;
   late AlmacenProvider almacenProvider;
   late ArticuloProvider articuloProvider;
+  bool _loadedArticulos = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +43,16 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
-      final proyectoArgument = argument as Proyecto;
-      _isVigente =
-          proyectoArgument.estado == EProyecto.VIGENTE.index ? true : false;
-      _isConcluido =
-          proyectoArgument.estado == EProyecto.CONCLUIDO.index ? true : false;
-      _isCreate = false;
-      proyectoProvider.initializeForm(proyectoArgument);
+      if (!_loadedPage) {
+        final proyectoArgument = argument as Proyecto;
+        _isVigente =
+            proyectoArgument.estado == EProyecto.VIGENTE.index ? true : false;
+        _isConcluido =
+            proyectoArgument.estado == EProyecto.CONCLUIDO.index ? true : false;
+        proyectoProvider.initializeForm(proyectoArgument);
+        _isCreate = false;
+        _loadedPage = true;
+      }
     }
 
     return Scaffold(
@@ -64,7 +69,7 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context,Routes.PROYECTO);
+                Navigator.pop(context, Routes.PROYECTO);
               },
             );
           }),
@@ -382,11 +387,13 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
               ],
             ),
           ),
-          onPressed: () {
+          onPressed: () async {
             final articuloForm = ArticuloForm.fromJson(currentform.value);
-            proyectoProvider.initializeFormArticulo(
-                articuloForm.idAlmacen, articuloForm.id, articuloForm.cantidad);
             handleModalAgregar(almacenes, articulos, false, index);
+            setState(() => this._loadedArticulos = false);
+            await proyectoProvider.initializeFormArticulo(
+                articuloForm.idAlmacen, articuloForm.id, articuloForm.cantidad);
+            setState(() => this._loadedArticulos = true);
           }),
     );
   }
@@ -533,12 +540,96 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                       SizedBox(
                         height: 15,
                       ),
-                      Input.selectArticulo(
+                      ReactiveValueListenableBuilder<String>(
+                        formControlName: 'idAlmacen',
+                        builder: (context, form, child) {
+                          var idAlm = form.value.toString();
+
+                          if (idAlm != 'null') {
+                            var almacenFound = almacenes.firstWhere(
+                                (alm) => alm.id.toString() == idAlm);
+                            proyectoProvider.listaArticulos =
+                                almacenFound.articulo;
+                          }
+
+                          if (_loadedArticulos) {
+                            proyectoProvider.formArticulo.controls["id"]!
+                                .reset(value: '', emitEvent: false);
+                          }
+
+                          return Input.selectArticulo(
+                              formControlName: 'id',
+                              labelText: 'Artículo',
+                              errorText: 'Seleccione el artículo',
+                              articulos: proyectoProvider.listaArticulos);
+                        },
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      ReactiveValueListenableBuilder<String>(
                           formControlName: 'id',
-                          labelText: 'Artículo',
-                          errorText: 'Seleccione el artículo',
-                          articulos: articulos),
-                      SizedBox(height: 18.0),
+                          builder: (context, form, child) {
+                            String idCate = form.value.toString();
+                            print('###############3');
+                            print(idCate);
+                            if (idCate != 'null' &&
+                                proyectoProvider.listaArticulos.length > 0) {
+                              Articulo articuloFound;
+                              articuloFound = proyectoProvider.listaArticulos
+                                  .firstWhere(
+                                      (alm) => alm.id.toString() == idCate);
+
+                              return Column(
+                                children: [
+                                  Text('Información del artículo',
+                                      style: TextStyle(
+                                          color: Envinronment.colorPrimary,
+                                          fontWeight: FontWeight.bold)),
+                                  Container(
+                                    margin: EdgeInsets.symmetric(vertical: 5),
+                                    child: Row(
+                                      children: [
+                                        Text('${articuloFound.nombre}',
+                                            style: TextStyle(fontSize: 11)),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Precio:',
+                                          style: TextStyle(
+                                              color: Envinronment.colorPrimary,
+                                              fontSize: 12)),
+                                      SizedBox(width: 5),
+                                      Text('${articuloFound.precio}',
+                                          style: TextStyle(
+                                              color: Envinronment.colorPrimary,
+                                              fontSize: 12)),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('Disponible:',
+                                          style: TextStyle(
+                                              color: Envinronment.colorPrimary,
+                                              fontSize: 12)),
+                                      SizedBox(width: 5),
+                                      Text('${articuloFound.cantidad}',
+                                          style: TextStyle(
+                                              color: Envinronment.colorPrimary,
+                                              fontSize: 12)),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            } else {
+                              return Container();
+                            }
+                          }),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Input.control(
                           formControlName: 'cantidad',
                           labelText: 'Cantidad',

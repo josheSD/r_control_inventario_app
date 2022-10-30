@@ -22,6 +22,7 @@ class AlmacenCrearPage extends StatefulWidget {
 }
 
 class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
+  bool _loadedPage = false;
   bool _procesandoLoading = false;
   bool _isCreate = true;
   late AlmacenProvider almacenProvider;
@@ -35,8 +36,11 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
 
     final argument = (ModalRoute.of(context)!.settings.arguments);
     if (argument != null) {
-      almacenProvider.initializeForm(argument as Almacen);
-      _isCreate = false;
+      if (!_loadedPage) {
+        almacenProvider.initializeForm(argument as Almacen);
+        _loadedPage = true;
+        _isCreate = false;
+      }
     }
 
     return Scaffold(
@@ -53,7 +57,7 @@ class _AlmacenCrearPageState extends State<AlmacenCrearPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context,Routes.ALMACEN);
+                Navigator.pop(context, Routes.ALMACEN);
               },
             );
           }),

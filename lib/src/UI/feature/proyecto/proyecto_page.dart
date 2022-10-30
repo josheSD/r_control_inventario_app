@@ -15,6 +15,7 @@ import '../../../core/util/report.dart';
 import 'package:open_file/open_file.dart';
 
 import '../../layout/admin/admin_page.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class ProyectoPage extends StatefulWidget {
   @override
@@ -45,7 +46,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
               icon: const Icon(FontAwesomeIcons.chevronLeft),
               color: Envinronment.colorPrimary,
               onPressed: () {
-                Navigator.pop(context,Routes.ADMIN);
+                Navigator.pop(context, Routes.ADMIN);
               },
             );
           }),
@@ -114,7 +115,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
   }
 
   _buildReportPDF() async {
-    setState(() => _reporteLoading = true);
+    context.loaderOverlay.show();
 
     String urlRoot = await DirectoryCustom.urlRoot();
 
@@ -124,7 +125,6 @@ class _ProyectoPageState extends State<ProyectoPage> {
       if (!(await pathValidate.exists())) {
         await _handleCreateDirectory(urlRoot);
       }
-
 
       ResponseProyecto response = await proyectoProvider.getProyectos();
       final pdf = ReportPDF.proyecto(response);
@@ -145,7 +145,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
           snackBar,
         );
       });
-      setState(() => _reporteLoading = false);
+      context.loaderOverlay.hide();
     }
   }
 
@@ -206,25 +206,25 @@ class _ProyectoPageState extends State<ProyectoPage> {
                 child:
                     CircularProgressIndicator(color: Envinronment.colorSecond))
             : RefreshIndicator(
-              onRefresh: _handleRefresh,
-              child: FutureBuilder(
-                  future: proyectoProvider.getProyectos(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<ResponseProyecto> snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data!.status) {
-                        List<Proyecto> proyectos = snapshot.data!.data;
-            
-                        return _buildLista(proyectos);
+                onRefresh: _handleRefresh,
+                child: FutureBuilder(
+                    future: proyectoProvider.getProyectos(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<ResponseProyecto> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data!.status) {
+                          List<Proyecto> proyectos = snapshot.data!.data;
+
+                          return _buildLista(proyectos);
+                        } else {
+                          ResponseProyecto response = snapshot.data!;
+                          return _buildListaError(response);
+                        }
                       } else {
-                        ResponseProyecto response = snapshot.data!;
-                        return _buildListaError(response);
+                        return Center(child: CircularProgressIndicator());
                       }
-                    } else {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  }),
-            ));
+                    }),
+              ));
   }
 
   Widget _buildLista(List<Proyecto> proyectos) {

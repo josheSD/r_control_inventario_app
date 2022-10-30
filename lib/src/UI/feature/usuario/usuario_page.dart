@@ -14,6 +14,7 @@ import 'package:open_file/open_file.dart';
 import '../../../core/util/directory.dart';
 import '../../../core/util/report.dart';
 import '../../layout/admin/admin_page.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class UsuarioPage extends StatefulWidget {
   @override
@@ -113,7 +114,7 @@ class _UsuarioPageState extends State<UsuarioPage> {
   }
 
   _buildReportPDF() async {
-    setState(() => _reporteLoading = true);
+    context.loaderOverlay.show();
 
     String urlRoot = await DirectoryCustom.urlRoot();
 
@@ -143,7 +144,7 @@ class _UsuarioPageState extends State<UsuarioPage> {
           snackBar,
         );
       });
-      setState(() => _reporteLoading = false);
+    context.loaderOverlay.hide();
     }
   }
 

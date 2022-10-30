@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:controlinventario/src/core/interfaces/response-proyecto.dart';
 import 'package:controlinventario/src/core/util/constantes.dart';
 import 'package:controlinventario/src/core/util/routes.dart';
@@ -14,6 +16,8 @@ import '../../../domain/producto-vigente.dart';
 
 class ProyectoProvider with ChangeNotifier {
   ProyectoService _proyectoService = new ProyectoService();
+
+  List<Articulo> listaArticulos = [];
 
   FormGroup form = new FormGroup({
     'id': FormControl<String>(value: ''),
@@ -119,7 +123,7 @@ class ProyectoProvider with ChangeNotifier {
         );
       });
 
-      Navigator.pop(context, Routes.PROYECTO);
+      Navigator.pushReplacementNamed(context, Routes.PROYECTO);
     } else {
       SnackBar snackBar = SnackBar(
           content: Text(response.message,
@@ -192,6 +196,7 @@ class ProyectoProvider with ChangeNotifier {
     if (formArticulo.invalid) {
       formArticulo.markAllAsTouched();
       isValid = false;
+      return isValid;
     }
     if (isCreate) {
       final articuloForm = ArticuloForm.fromJson(formArticulo.value);
@@ -203,17 +208,25 @@ class ProyectoProvider with ChangeNotifier {
     return isValid;
   }
 
-  void initializeFormArticulo(
-      String idAlmacen, String idArticulo, String cantidad) {
+  Future<void> initializeFormArticulo(
+      String idAlmacen, String idArticulo, String cantidad) async{
+    listaArticulos = [];
+
     final value = {
       'idAlmacen': idAlmacen.toString(),
       'id': idArticulo.toString(),
       'cantidad': cantidad.toString(),
     };
-    formArticulo.patchValue(value);
+    formArticulo.patchValue(value, emitEvent: false);
+
+    await Future.delayed(const Duration(milliseconds: 250));
+
+    final valueTwo = {'id': idArticulo.toString()};
+    formArticulo.patchValue(valueTwo);
   }
 
   void cleanFormArticulo() {
+    listaArticulos = [];
     formArticulo.reset(removeFocus: true);
   }
 
@@ -283,7 +296,9 @@ class ProyectoProvider with ChangeNotifier {
       return;
     }
 
-    ResponseProyecto response = await this._proyectoService.putVigenteProyecto(idProyecto, formConcluido.value);
+    ResponseProyecto response = await this
+        ._proyectoService
+        .putVigenteProyecto(idProyecto, formConcluido.value);
 
     if (response.status) {
       this.formConcluido.reset(removeFocus: true);

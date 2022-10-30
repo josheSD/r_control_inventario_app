@@ -8,6 +8,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../domain/articulo-form.dart';
 import '../../../domain/articulo.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class ProyectoConcludioPage extends StatefulWidget {
   const ProyectoConcludioPage({super.key});
@@ -309,6 +310,8 @@ class _ProyectoConcludioPageState extends State<ProyectoConcludioPage> {
   }
 
   _onPressed(BuildContext context) async {
+    context.loaderOverlay.show();
     await proyectoProvider.handleSubmitConcluido(context);
+    context.loaderOverlay.hide();
   }
 }

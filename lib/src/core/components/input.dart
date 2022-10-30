@@ -216,12 +216,11 @@ class Input {
               children: [
                 Text(labelText),
                 GestureDetector(
-                    onTap: () =>{
-                      onClicked(true)
-                    },
+                    onTap: () => {onClicked(true)},
                     child: InkWell(
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 2),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                         child: Icon(FontAwesomeIcons.circleQuestion,
                             size: 12, color: Envinronment.colorDanger),
                       ),
