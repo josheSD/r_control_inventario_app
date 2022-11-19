@@ -567,8 +567,6 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                           formControlName: 'id',
                           builder: (context, form, child) {
                             String idCate = form.value.toString();
-                            print('###############3');
-                            print(idCate);
                             if (idCate != 'null' &&
                                 proyectoProvider.listaArticulos.length > 0) {
                               Articulo articuloFound;
@@ -582,6 +580,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                                       style: TextStyle(
                                           color: Envinronment.colorPrimary,
                                           fontWeight: FontWeight.bold)),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
                                   Container(
                                     margin: EdgeInsets.symmetric(vertical: 5),
                                     child: Row(

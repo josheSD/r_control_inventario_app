@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Envinronment{
-  static String urlPersonal = 'https://control-asistencia-personal-ws.azurewebsites.net/personal/api';
   static Color colorPrimary = Color(0xFF898989);
   static Color colorSecond = Color(0xFF2DAAE2);
   static Color colorThird = Color(0xFF7ED7F0);

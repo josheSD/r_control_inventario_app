@@ -198,6 +198,33 @@ class ProyectoProvider with ChangeNotifier {
       isValid = false;
       return isValid;
     }
+
+    final articuloForm = ArticuloForm.fromJson(formArticulo.value);
+    final articuloFound = listaArticulos
+        .firstWhere((alm) => alm.id.toString() == articuloForm.id);
+
+    int cantidadForm = int.tryParse(articuloForm.cantidad.toString()) ?? 0;
+    int cantidadFound = int.tryParse(articuloFound.cantidad.toString()) ?? 0;
+    if (cantidadForm > cantidadFound) {
+      SnackBar snackBar = SnackBar(
+          content: Text("Por favor, valide la cantidad ingresada",
+              style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Envinronment.colorWhite)),
+          duration: Duration(seconds: 3),
+          backgroundColor: Envinronment.colorDanger);
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          snackBar,
+        );
+      });
+
+      isValid = false;
+      return isValid;
+    }
+
     if (isCreate) {
       final articuloForm = ArticuloForm.fromJson(formArticulo.value);
       addFormArray(articuloForm);
@@ -209,7 +236,7 @@ class ProyectoProvider with ChangeNotifier {
   }
 
   Future<void> initializeFormArticulo(
-      String idAlmacen, String idArticulo, String cantidad) async{
+      String idAlmacen, String idArticulo, String cantidad) async {
     listaArticulos = [];
 
     final value = {

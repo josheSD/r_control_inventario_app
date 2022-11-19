@@ -1,5 +1,4 @@
 import 'package:controlinventario/src/core/interfaces/response-proyecto.dart';
-import 'package:controlinventario/src/domain/proyecto.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../core/util/constantes.dart';
