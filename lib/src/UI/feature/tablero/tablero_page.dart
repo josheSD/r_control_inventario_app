@@ -41,7 +41,7 @@ class _TableroPageState extends State<TableroPage> {
             child: Text('al sistema de control de inventario',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
         SizedBox(
-          height: 10,
+          height: 15,
         ),
         _buildBody(context)
       ],
@@ -99,13 +99,20 @@ class _TableroPageState extends State<TableroPage> {
     return Container(
       height: 200,
       width: 380,
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       color: Envinronment.colorWhite,
-      child: Padding(
-          padding: EdgeInsets.all(16),
-          child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: BarChartRotacion(rotacion: rotacion))),
+      child: Column(
+        children: [
+          Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text('Rotación del almacen ${rotacion.almacen}')),
+          Padding(
+              padding: EdgeInsets.all(16),
+              child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: BarChartRotacion(rotacion: rotacion))),
+        ],
+      ),
     );
   }
 
@@ -121,13 +128,20 @@ class _TableroPageState extends State<TableroPage> {
     return Container(
       height: 200,
       width: 380,
-      margin: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       color: Envinronment.colorWhite,
-      child: Padding(
-          padding: EdgeInsets.all(16),
-          child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: BarChartPrecision(precision: precision))),
+      child: Column(
+        children: [
+          Container(
+              margin: EdgeInsets.only(top: 10),
+              child: Text('Precisión del almacen ${precision.almacen}')),
+          Padding(
+              padding: EdgeInsets.all(16),
+              child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: BarChartPrecision(precision: precision))),
+        ],
+      ),
     );
   }
 
