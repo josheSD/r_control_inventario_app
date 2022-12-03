@@ -32,13 +32,7 @@ class _TableroPageState extends State<TableroPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
-            child: Container(
-          margin: EdgeInsets.only(top: 0, bottom: 6),
-          child: Text('Bienvenido',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-        )),
-        Center(
-            child: Text('al sistema de control de inventario',
+            child: Text('Tablero de indicadores',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
         SizedBox(
           height: 15,
