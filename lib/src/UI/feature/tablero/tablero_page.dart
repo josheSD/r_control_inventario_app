@@ -33,7 +33,7 @@ class _TableroPageState extends State<TableroPage> {
       children: [
         Center(
             child: Text('Tablero de indicadores',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
         SizedBox(
           height: 15,
         ),
@@ -99,7 +99,8 @@ class _TableroPageState extends State<TableroPage> {
         children: [
           Container(
               margin: EdgeInsets.only(top: 20),
-              child: Text('Rotación del almacen ${rotacion.almacen}')),
+              child: Text('Rotación del almacen ${rotacion.almacen}',
+                  style: TextStyle(fontSize: 15))),
           Padding(
               padding: EdgeInsets.all(16),
               child: SizedBox(
@@ -129,7 +130,8 @@ class _TableroPageState extends State<TableroPage> {
         children: [
           Container(
               margin: EdgeInsets.only(top: 20),
-              child: Text('Precisión del almacen ${precision.almacen}')),
+              child: Text('Precisión del almacen ${precision.almacen}',
+                  style: TextStyle(fontSize: 15))),
           Padding(
               padding: EdgeInsets.all(16),
               child: SizedBox(

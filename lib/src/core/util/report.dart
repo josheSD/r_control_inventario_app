@@ -23,55 +23,60 @@ class ReportPDF {
       build: (context) => <Widget>[
         Center(
             child: Text('Artículos',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))),
         SizedBox(height: 25),
         for (int i = 0; i < response.data.length; i++)
           Column(children: [
             Row(children: [
               Paragraph(
                   text: "Nombre:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].nombre}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             Row(children: [
               Paragraph(
                   text: "Precio:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].precio}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             Row(children: [
               Paragraph(
                   text: "Categoria:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].categoria.nombre}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             SizedBox(width: 5),
             Row(children: [
               Paragraph(
                   text: "Fecha creación:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].fechaCreacion}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             SizedBox(width: 5),
             Row(children: [
               Paragraph(
                   text: "Fecha actualización:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].fechaActualizacion}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             SizedBox(height: 20),
@@ -85,7 +90,7 @@ class ReportPDF {
           margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
           child: Text(
             text,
-            style: TextStyle(color: PdfColors.black),
+            style: TextStyle(color: PdfColors.black, fontSize: 18),
           ),
         );
       },
@@ -108,50 +113,54 @@ class ReportPDF {
       build: (context) => <Widget>[
         Center(
             child: Text('Almacén',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))),
         SizedBox(height: 25),
         for (int i = 0; i < response.data.length; i++)
           Column(children: [
             Row(children: [
               Paragraph(
                   text: "Nombre:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].nombre}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             Row(children: [
               Paragraph(
                   text: "Dirección:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].direccion}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             Row(children: [
               Paragraph(
                   text: "Fecha creación:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].fechaCreacion}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             Row(children: [
               Paragraph(
                   text: "Fecha actualización:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].fechaActualizacion}",
+                style: TextStyle(fontSize: 18),
               ),
             ]),
             Row(children: [
               Paragraph(
                 text: "Artículos",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                 margin: EdgeInsets.only(left: 210, bottom: 10),
               )
             ]),
@@ -160,12 +169,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Nombre:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].nombre}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -173,12 +183,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Precio:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].precio}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -186,12 +197,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Categoria:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].categoria.nombre}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -199,12 +211,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Fecha creación:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].fechaCreacion}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -212,12 +225,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Fecha actualización:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].fechaActualizacion}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -234,7 +248,7 @@ class ReportPDF {
           margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
           child: Text(
             text,
-            style: TextStyle(color: PdfColors.black),
+            style: TextStyle(color: PdfColors.black, fontSize: 18),
           ),
         );
       },
@@ -257,14 +271,14 @@ class ReportPDF {
       build: (context) => <Widget>[
         Center(
             child: Text('Proyecto',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))),
         SizedBox(height: 25),
         for (int i = 0; i < response.data.length; i++)
           Column(children: [
             Row(children: [
               Paragraph(
                   text: "Nombre:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].nombre}",
@@ -273,7 +287,7 @@ class ReportPDF {
             Row(children: [
               Paragraph(
                   text: "Cliente:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                 text: "${response.data[i].cliente}",
@@ -282,11 +296,12 @@ class ReportPDF {
             Row(children: [
               Paragraph(
                   text: "Estado:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].estado == EProyecto.VIGENTE.index ? 'Vigente' : 'Concluido'}",
-              ),
+                  text:
+                      "${response.data[i].estado == EProyecto.VIGENTE.index ? 'Vigente' : 'Concluido'}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
@@ -294,8 +309,8 @@ class ReportPDF {
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].fechaInicio}",
-              ),
+                  text: "${response.data[i].fechaInicio}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
@@ -303,8 +318,8 @@ class ReportPDF {
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].fechaFin}",
-              ),
+                  text: "${response.data[i].fechaFin}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
@@ -312,8 +327,8 @@ class ReportPDF {
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].fechaCreacion}",
-              ),
+                  text: "${response.data[i].fechaCreacion}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
@@ -321,26 +336,28 @@ class ReportPDF {
                   style: TextStyle(fontWeight: FontWeight.bold)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].fechaActualizacion}",
-              ),
+                  text: "${response.data[i].fechaActualizacion}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
                 text: "Artículos",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                 margin: EdgeInsets.only(left: 210, bottom: 10),
               )
-            ]),for (int j = 0; j < response.data[i].articulo.length; j++)
+            ]),
+            for (int j = 0; j < response.data[i].articulo.length; j++)
               Column(children: [
                 Row(children: [
                   Paragraph(
                     text: "Nombre:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].nombre}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -348,12 +365,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Precio:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].precio}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -361,12 +379,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Categoria:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].categoria.nombre}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -374,12 +393,14 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Almacen:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
-                    text: "${AlmacenForm.fromJson(response.data[i].articulo[j].almacen).nombre}",
+                    text:
+                        "${AlmacenForm.fromJson(response.data[i].articulo[j].almacen).nombre}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -387,12 +408,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Fecha creación:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].fechaCreacion}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -400,12 +422,13 @@ class ReportPDF {
                 Row(children: [
                   Paragraph(
                     text: "Fecha actualización:",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     margin: EdgeInsets.only(left: 50),
                   ),
                   SizedBox(width: 5),
                   Paragraph(
                     text: "${response.data[i].articulo[j].fechaActualizacion}",
+                    style: TextStyle(fontSize: 18),
                     margin: EdgeInsets.only(top: 1),
                   ),
                 ]),
@@ -422,7 +445,7 @@ class ReportPDF {
           margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
           child: Text(
             text,
-            style: TextStyle(color: PdfColors.black),
+            style: TextStyle(color: PdfColors.black, fontSize: 18),
           ),
         );
       },
@@ -446,14 +469,15 @@ class ReportPDF {
         build: (context) => <Widget>[
           Center(
               child: Text('Usuarios',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25))),
           SizedBox(height: 25),
           for (int i = 0; i < response.data.length; i++)
             Column(children: [
               Row(children: [
                 Paragraph(
                     text: "Nombre:",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 SizedBox(width: 5),
                 Paragraph(
                   text: "${response.data[i].nombre}",
@@ -462,28 +486,34 @@ class ReportPDF {
               Row(children: [
                 Paragraph(
                     text: "Direccion:",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 SizedBox(width: 5),
                 Paragraph(
                   text: "${response.data[i].direccion}",
+                  style: TextStyle(fontSize: 18),
                 ),
               ]),
               Row(children: [
                 Paragraph(
                     text: "Usuario:",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 SizedBox(width: 5),
                 Paragraph(
                   text: "${response.data[i].usuario}",
+                  style: TextStyle(fontSize: 18),
                 ),
               ]),
               Row(children: [
                 Paragraph(
                     text: "Rol:",
-                    style: TextStyle(fontWeight: FontWeight.bold)),
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                 SizedBox(width: 5),
                 Paragraph(
                   text: "${response.data[i].rol.nombre}",
+                  style: TextStyle(fontSize: 18),
                 ),
               ]),
               SizedBox(height: 20),
@@ -497,7 +527,7 @@ class ReportPDF {
             margin: EdgeInsets.only(top: 1 * PdfPageFormat.cm),
             child: Text(
               text,
-              style: TextStyle(color: PdfColors.black),
+              style: TextStyle(color: PdfColors.black, fontSize: 18),
             ),
           );
         },

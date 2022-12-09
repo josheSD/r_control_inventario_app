@@ -315,14 +315,14 @@ class _UsuarioPageState extends State<UsuarioPage> {
                 ),
                 Text(
                   '${usuario.nombre}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
                   '${usuario.direccion}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,

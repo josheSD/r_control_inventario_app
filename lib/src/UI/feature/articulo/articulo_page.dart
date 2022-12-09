@@ -328,21 +328,21 @@ class _ArticuloPageState extends State<ArticuloPage> {
                 ),
                 Text(
                   '${articulo.nombre}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
                   '${articulo.categoria.nombre}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
                   'S/. ${articulo.precio}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,

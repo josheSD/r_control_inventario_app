@@ -318,14 +318,14 @@ class _ProyectoPageState extends State<ProyectoPage> {
                 ),
                 Text(
                   '${proyecto.nombre}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
                   '${proyecto.cliente}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
@@ -346,7 +346,7 @@ class _ProyectoPageState extends State<ProyectoPage> {
                         proyecto.estado == EProyecto.VIGENTE.index
                             ? EProyecto.VIGENTE.name
                             : EProyecto.CONCLUIDO.name,
-                        style: TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 12),
                       ),
                     ),
                   ],

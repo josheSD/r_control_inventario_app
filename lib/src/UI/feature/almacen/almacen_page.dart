@@ -320,14 +320,14 @@ class _AlmacenPageState extends State<AlmacenPage> {
                 ),
                 Text(
                   '${almacen.nombre}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 Text(
                   '${almacen.direccion}',
-                  style: TextStyle(fontSize: 11),
+                  style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
