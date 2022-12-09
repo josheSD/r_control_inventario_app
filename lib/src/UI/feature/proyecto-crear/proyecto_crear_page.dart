@@ -30,7 +30,6 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
   late ProyectoProvider proyectoProvider;
   late AlmacenProvider almacenProvider;
   late ArticuloProvider articuloProvider;
-  bool _loadedArticulos = true;
 
   @override
   Widget build(BuildContext context) {
@@ -385,11 +384,9 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
           ),
           onPressed: () async {
             final articuloForm = ArticuloForm.fromJson(currentform.value);
-            handleModalAgregar(almacenes, articulos, false, index);
-            setState(() => this._loadedArticulos = false);
-            await proyectoProvider.initializeFormArticulo(
+            proyectoProvider.initializeFormArticulo(
                 articuloForm.idAlmacen, articuloForm.id, articuloForm.cantidad);
-            setState(() => this._loadedArticulos = true);
+            handleModalAgregar(almacenes, articulos, false, index);
           }),
     );
   }
@@ -546,11 +543,6 @@ class _ProyectoCrearPageState extends State<ProyectoCrearPage> {
                                 (alm) => alm.id.toString() == idAlm);
                             proyectoProvider.listaArticulos =
                                 almacenFound.articulo;
-                          }
-
-                          if (_loadedArticulos) {
-                            proyectoProvider.formArticulo.controls["id"]!
-                                .reset(value: '', emitEvent: false);
                           }
 
                           return Input.selectArticulo(

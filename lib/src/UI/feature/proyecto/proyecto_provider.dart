@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 import '../../../domain/almacen-form.dart';
-import '../../../domain/almacen.dart';
 import '../../../domain/articulo.dart';
 import '../../../domain/producto-vigente.dart';
 
@@ -205,6 +204,7 @@ class ProyectoProvider with ChangeNotifier {
 
     int cantidadForm = int.tryParse(articuloForm.cantidad.toString()) ?? 0;
     int cantidadFound = int.tryParse(articuloFound.cantidad.toString()) ?? 0;
+    
     if (cantidadForm > cantidadFound) {
       SnackBar snackBar = SnackBar(
           content: Text("Por favor, valide la cantidad ingresada",
@@ -245,11 +245,6 @@ class ProyectoProvider with ChangeNotifier {
       'cantidad': cantidad.toString(),
     };
     formArticulo.patchValue(value, emitEvent: false);
-
-    await Future.delayed(const Duration(milliseconds: 250));
-
-    final valueTwo = {'id': idArticulo.toString()};
-    formArticulo.patchValue(valueTwo);
   }
 
   void cleanFormArticulo() {

@@ -167,6 +167,7 @@ class AlmacenProvider with ChangeNotifier {
     if (formArticulo.invalid) {
       formArticulo.markAllAsTouched();
       isValid = false;
+      return isValid;
     }
     if (isCreate) {
       final articuloForm = ArticuloForm.fromJson(formArticulo.value);
