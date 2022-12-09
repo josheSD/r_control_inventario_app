@@ -31,6 +31,7 @@ class Input {
             color: Envinronment.colorPrimary,
             decorationColor: Envinronment.colorPrimary,
           ),
+          autocorrect: false,
           decoration: InputDecoration(
               isDense: true,
               contentPadding: EdgeInsets.all(9),

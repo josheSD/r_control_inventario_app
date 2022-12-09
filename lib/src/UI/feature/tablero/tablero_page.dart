@@ -47,7 +47,7 @@ class _TableroPageState extends State<TableroPage> {
     return Column(
       children: [
         Container(
-            height: queryData.size.height * 0.4,
+            height: 540,
             width: queryData.size.width,
             child: FutureBuilder(
                 future: tableroProvider.getPrecisiones(),
@@ -64,7 +64,7 @@ class _TableroPageState extends State<TableroPage> {
           height: 5,
         ),
         Container(
-            height: queryData.size.height * 0.4,
+            height: 540,
             width: queryData.size.width,
             child: FutureBuilder(
                 future: tableroProvider.getRotaciones(),
@@ -91,19 +91,20 @@ class _TableroPageState extends State<TableroPage> {
 
   Widget _itemRotacion(BuildContext context, Rotacion rotacion) {
     return Container(
-      height: 200,
+      height: 450,
       width: 380,
       margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       color: Envinronment.colorWhite,
       child: Column(
         children: [
           Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 20),
               child: Text('Rotación del almacen ${rotacion.almacen}')),
           Padding(
               padding: EdgeInsets.all(16),
-              child: AspectRatio(
-                  aspectRatio: 16 / 9,
+              child: SizedBox(
+                  width: 380,
+                  height: 450,
                   child: BarChartRotacion(rotacion: rotacion))),
         ],
       ),
@@ -120,19 +121,20 @@ class _TableroPageState extends State<TableroPage> {
 
   Widget _itemPrecision(BuildContext context, Precision precision) {
     return Container(
-      height: 200,
+      height: 450,
       width: 380,
       margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       color: Envinronment.colorWhite,
       child: Column(
         children: [
           Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 20),
               child: Text('Precisión del almacen ${precision.almacen}')),
           Padding(
               padding: EdgeInsets.all(16),
-              child: AspectRatio(
-                  aspectRatio: 16 / 9,
+              child: SizedBox(
+                  width: 380,
+                  height: 450,
                   child: BarChartPrecision(precision: precision))),
         ],
       ),
