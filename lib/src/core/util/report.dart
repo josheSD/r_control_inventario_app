@@ -281,8 +281,8 @@ class ReportPDF {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].nombre}",
-              ),
+                  text: "${response.data[i].nombre}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
@@ -290,8 +290,8 @@ class ReportPDF {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
-                text: "${response.data[i].cliente}",
-              ),
+                  text: "${response.data[i].cliente}",
+                  style: TextStyle(fontSize: 18)),
             ]),
             Row(children: [
               Paragraph(
@@ -306,7 +306,7 @@ class ReportPDF {
             Row(children: [
               Paragraph(
                   text: "Fecha Inicio:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                   text: "${response.data[i].fechaInicio}",
@@ -315,7 +315,7 @@ class ReportPDF {
             Row(children: [
               Paragraph(
                   text: "Fecha Fin:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                   text: "${response.data[i].fechaFin}",
@@ -324,7 +324,7 @@ class ReportPDF {
             Row(children: [
               Paragraph(
                   text: "Fecha creación:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                   text: "${response.data[i].fechaCreacion}",
@@ -333,7 +333,7 @@ class ReportPDF {
             Row(children: [
               Paragraph(
                   text: "Fecha actualización:",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               SizedBox(width: 5),
               Paragraph(
                   text: "${response.data[i].fechaActualizacion}",

@@ -130,7 +130,7 @@ class _TableroPageState extends State<TableroPage> {
         children: [
           Container(
               margin: EdgeInsets.only(top: 20),
-              child: Text('Precisión del almacen ${precision.almacen}',
+              child: Text('Tasa de Precisión del almacen ${precision.almacen}',
                   style: TextStyle(fontSize: 15))),
           Padding(
               padding: EdgeInsets.all(16),
